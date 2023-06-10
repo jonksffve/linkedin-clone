@@ -1,5 +1,5 @@
 const LoginComponent = () => {
-	return <h2>LoginComponent page</h2>;
+	return <h2>Login component page</h2>;
 };
 
 export default LoginComponent;

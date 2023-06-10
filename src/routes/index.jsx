@@ -1,8 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
+import LoginView from '../pages/LoginView';
 
 export const router = createBrowserRouter([
 	{
-		path: '/',
-		element: <div>Hello world!</div>,
+		path: '/login',
+		element: <LoginView />,
 	},
 ]);
