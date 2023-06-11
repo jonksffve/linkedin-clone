@@ -1,46 +1,36 @@
-import { useState } from 'react';
 import classes from './modules/auth.module.css';
-import { LoginAPI, GoogleSignInAPI } from '../api/AuthAPI';
 import GoogleIcon from '../assets/icons/google-logo-icon.png';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { RegisterAPI } from '../api/AuthAPI';
 import { toast } from 'react-toastify';
 import { toastOptions } from '../toastConfig';
-import { Link } from 'react-router-dom';
 
-const LoginComponent = () => {
+const RegisterComponent = () => {
 	const [credentials, setCredentials] = useState({});
-
-	const googleLoginHandler = async () => {
-		try {
-			const response = await GoogleSignInAPI();
-			console.log(response);
-		} catch (error) {
-			toast.error('Please check your credentials.', toastOptions);
-		}
-	};
 
 	const submitHandler = async (event) => {
 		event.preventDefault();
 		try {
-			const response = await LoginAPI(
+			const response = await RegisterAPI(
 				credentials.email,
 				credentials.password
 			);
-			toast.success('Succesfully logged-in', toastOptions);
+			toast.success('Succesfully created account', toastOptions);
 		} catch (err) {
-			toast.error('Please check your credentials.', toastOptions);
+			toast.error('Something happened.', toastOptions);
 		}
 	};
 
 	return (
 		<div className={classes.wrapper}>
 			<div className={classes.header}>
-				<h2>Sign in</h2>
-				<small>Stay updated on your professional world</small>
+				<h2>Make the most of your professional life</h2>
 			</div>
 			<form
 				className={classes.form}
-				onSubmit={submitHandler}
 				autoComplete='off'
+				onSubmit={submitHandler}
 			>
 				<div className={classes.inputWrapper}>
 					<input
@@ -61,7 +51,7 @@ const LoginComponent = () => {
 						type='password'
 						name='password'
 						id='password'
-						placeholder='Pasword'
+						placeholder='Pasword (6 or more characters)'
 						onChange={(event) => {
 							setCredentials({
 								...credentials,
@@ -70,44 +60,34 @@ const LoginComponent = () => {
 						}}
 					/>
 				</div>
-				<p>
-					Forgot your information?
-					<a
-						href='#'
-						className={classes.link}
-					>
-						Recover
-					</a>
-				</p>
 				<div className={classes.btnWrapper}>
 					<button
 						type='submit'
 						className={`${classes.btn} ${classes['btn-submit']}`}
 					>
-						Login
+						Agree & Join
 					</button>
 				</div>
-				<div className={classes.divider}>or</div>
 				<div className={classes.btnWrapper}>
 					<button
 						className={`${classes.btn} ${classes['btn-login']}`}
-						onClick={googleLoginHandler}
+						onClick={() => {}}
 					>
 						<img
 							className={classes.logo}
 							src={GoogleIcon}
 							alt=''
 						/>
-						<span>Sign in with Google</span>
+						<span>Continue with Google</span>
 					</button>
 				</div>
 				<p>
-					New to LinkedIn?
+					Already on LinkedIn?
 					<Link
-						to={'/register'}
+						to={'/'}
 						className={classes.link}
 					>
-						Join us today!
+						Sign in
 					</Link>
 				</p>
 			</form>
@@ -115,4 +95,4 @@ const LoginComponent = () => {
 	);
 };
 
-export default LoginComponent;
+export default RegisterComponent;

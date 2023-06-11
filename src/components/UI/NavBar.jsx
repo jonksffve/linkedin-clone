@@ -1,4 +1,4 @@
-import classes from './navbar.module.css';
+import classes from '../modules/navbar.module.css';
 import LogoIcon from '../../assets/icons/linkedin-logo-icon.png';
 
 const NavBar = () => {

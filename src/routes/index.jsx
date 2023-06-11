@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from './rootlayout';
 import LoginView from '../pages/LoginView';
+import RegisterView from '../pages/RegisterView';
 
 export const router = createBrowserRouter([
 	{
@@ -10,6 +11,10 @@ export const router = createBrowserRouter([
 			{
 				index: true,
 				element: <LoginView />,
+			},
+			{
+				path: '/register',
+				element: <RegisterView />,
 			},
 		],
 	},
