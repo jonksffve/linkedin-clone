@@ -3,7 +3,7 @@ import LoginView from '../pages/LoginView';
 
 export const router = createBrowserRouter([
 	{
-		path: '/login',
+		path: '/',
 		element: <LoginView />,
 	},
 ]);

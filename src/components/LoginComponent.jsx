@@ -7,7 +7,6 @@ const LoginComponent = () => {
 
 	const submitHandler = async (event) => {
 		event.preventDefault();
-
 		try {
 			const response = await LoginAPI(
 				credentials.email,
@@ -21,44 +20,53 @@ const LoginComponent = () => {
 
 	return (
 		<div className={classes.wrapper}>
-			<h2>Login component</h2>
+			<div className={classes.header}>
+				<h2>Sign in</h2>
+				<small>Stay updated on your professional world</small>
+			</div>
 			<form
 				className={classes.form}
 				onSubmit={submitHandler}
+				autoComplete='off'
 			>
-				<input
-					className={classes.input}
-					type='email'
-					name='email'
-					id='email'
-					placeholder='Enter your email'
-					onChange={(event) => {
-						setCredentials({
-							...credentials,
-							email: event.target.value,
-						});
-					}}
-				/>
-				<input
-					className={classes.input}
-					type='password'
-					name='password'
-					id='password'
-					placeholder='Pasword'
-					onChange={(event) => {
-						setCredentials({
-							...credentials,
-							password: event.target.value,
-						});
-					}}
-				/>
-				<div className={classes.btnWrapper}>
-					<button
-						type='button'
-						className={`${classes.btn} ${classes['btn-cancel']}`}
+				<div className={classes.inputWrapper}>
+					<input
+						className={classes.input}
+						type='email'
+						name='email'
+						id='email'
+						placeholder='Enter your email'
+						onChange={(event) => {
+							setCredentials({
+								...credentials,
+								email: event.target.value,
+							});
+						}}
+					/>
+					<input
+						className={classes.input}
+						type='password'
+						name='password'
+						id='password'
+						placeholder='Pasword'
+						onChange={(event) => {
+							setCredentials({
+								...credentials,
+								password: event.target.value,
+							});
+						}}
+					/>
+				</div>
+				<p>
+					Forgot your information?
+					<a
+						href='#'
+						className={classes.link}
 					>
-						Cancel
-					</button>
+						Recover
+					</a>
+				</p>
+				<div className={classes.btnWrapper}>
 					<button
 						type='submit'
 						className={`${classes.btn} ${classes['btn-submit']}`}
@@ -66,6 +74,20 @@ const LoginComponent = () => {
 						Login
 					</button>
 				</div>
+				<div className={classes.divider}>or</div>
+				<div className={classes.btnWrapper}>
+					<button className={classes.btn}>google</button>
+					<button className={classes.btn}>email</button>
+				</div>
+				<p>
+					New to LinkedIn?
+					<a
+						href='#'
+						className={classes.link}
+					>
+						Join us today!
+					</a>
+				</p>
 			</form>
 		</div>
 	);

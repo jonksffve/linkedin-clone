@@ -1,14 +1,15 @@
 .btn {
-	width: 150px;
-	height: 30px;
 	cursor: pointer;
-	border: none;
+	border: 1px solid rgb(197, 197, 197);
 	background-color: transparent;
 	border-radius: 5px;
+	height: 50px;
+	font-size: 16px;
 }
 
 .btn-cancel {
 	color: red;
+	height: 30px;
 }
 
 .btn-cancel:hover {
@@ -18,11 +19,11 @@
 
 .btn-submit {
 	color: white;
-	background-color: rgb(0, 161, 0);
+	background-color: var(--main-bg-color);
 }
 
 .btn-submit:hover {
-	background-color: rgb(0, 117, 0);
+	background-color: var(--main-bg-color-dark);
 }
 
 .wrapper {
@@ -32,6 +33,7 @@
 	align-items: center;
 	width: 100%;
 	height: 100vh;
+	background-color: white;
 }
 
 .form {
@@ -40,13 +42,68 @@
 	gap: 20px;
 }
 
+.inputWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	width: 450px;
+}
+
 .input {
 	padding: 0.5rem;
-	border-radius: 0.5rem;
+	height: 30px;
+	background-color: white;
+	border: 1px solid #212121;
+}
+
+.input:focus {
+	outline: 1px solid var(--main-bg-color);
 }
 
 .btnWrapper {
 	display: flex;
+	flex-direction: column;
+	width: 100%;
 	gap: 10px;
-	justify-content: flex-end;
+}
+
+.header {
+	width: 450px;
+	margin-bottom: 2rem;
+}
+
+.header h2 {
+	margin: 0;
+}
+
+.link {
+	text-decoration: none;
+	color: #535151;
+	text-transform: uppercase;
+	margin-left: 2px;
+}
+
+.divider {
+	display: flex;
+	align-items: center;
+	text-align: center;
+	color: rgb(197, 197, 197);
+}
+
+/* To show the lines on right 
+  and left sides of the text */
+.divider::after,
+.divider::before {
+	content: '';
+	border: 1px solid rgb(197, 197, 197);
+	flex: 1;
+}
+
+/* Space on left and right sides of text */
+.divider:not(:empty)::before {
+	margin-right: 0.25em;
+}
+
+.divider:not(:empty)::after {
+	margin-left: 0.25em;
 }
