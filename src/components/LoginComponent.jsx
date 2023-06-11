@@ -2,6 +2,8 @@ import { useState } from 'react';
 import classes from './logincomponent.module.css';
 import { LoginAPI } from '../api/AuthAPI';
 import GoogleIcon from '../assets/icons/google-logo-icon.png';
+import { toast } from 'react-toastify';
+import { toastOptions } from '../toastConfig';
 
 const LoginComponent = () => {
 	const [credentials, setCredentials] = useState({});
@@ -13,9 +15,9 @@ const LoginComponent = () => {
 				credentials.email,
 				credentials.password
 			);
-			console.log(response);
+			toast.success('Succesfully logged-in', toastOptions);
 		} catch (err) {
-			console.log(err.code);
+			toast.error('Please check your credentials.', toastOptions);
 		}
 	};
 
