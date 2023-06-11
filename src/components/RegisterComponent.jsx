@@ -18,7 +18,7 @@ const RegisterComponent = () => {
 			);
 			toast.success('Succesfully created account', toastOptions);
 		} catch (err) {
-			toast.error('Something happened.', toastOptions);
+			toast.error('Cannot create your account', toastOptions);
 		}
 	};
 
@@ -84,7 +84,7 @@ const RegisterComponent = () => {
 				<p>
 					Already on LinkedIn?
 					<Link
-						to={'/'}
+						to={'/login'}
 						className={classes.link}
 					>
 						Sign in
