@@ -1,18 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classes from './modules/auth.module.css';
 import { LoginAPI, GoogleSignInAPI } from '../api/AuthAPI';
 import GoogleIcon from '../assets/icons/google-logo-icon.png';
 import { toast } from 'react-toastify';
 import { toastOptions } from '../toastConfig';
 import { Link, useNavigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../firebaseConfig';
+import * as helper from '../helpers/config';
 
 const LoginComponent = () => {
 	const [credentials, setCredentials] = useState({});
 	const navigate = useNavigate();
 
+	useEffect(() => {
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				navigate(helper.ROUTE_HOME);
+			}
+		});
+	}, [navigate]);
+
 	const googleLoginHandler = async () => {
 		await GoogleSignInAPI();
-		navigate('/home');
+		navigate(helper.ROUTE_HOME);
 	};
 
 	const submitHandler = async (event) => {
@@ -23,7 +34,7 @@ const LoginComponent = () => {
 				credentials.password
 			);
 			toast.success('Succesfully logged-in', toastOptions);
-			navigate('/home');
+			navigate(helper.ROUTE_HOME);
 		} catch (err) {
 			toast.error('Please check your credentials.', toastOptions);
 		}
@@ -102,7 +113,7 @@ const LoginComponent = () => {
 				<p>
 					New to LinkedIn?
 					<Link
-						to={'/register'}
+						to={helper.ROUTE_REGISTER}
 						className={classes.link}
 					>
 						Join us today!

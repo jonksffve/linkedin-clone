@@ -1,18 +1,29 @@
 import classes from './modules/auth.module.css';
 import GoogleIcon from '../assets/icons/google-logo-icon.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { RegisterAPI, GoogleSignInAPI } from '../api/AuthAPI';
 import { toast } from 'react-toastify';
 import { toastOptions } from '../toastConfig';
+import { auth } from '../firebaseConfig';
+import { onAuthStateChanged } from 'firebase/auth';
+import * as helper from '../helpers/config';
 
 const RegisterComponent = () => {
 	const [credentials, setCredentials] = useState({});
 	const navigate = useNavigate();
 
+	useEffect(() => {
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				navigate(helper.ROUTE_HOME);
+			}
+		});
+	}, [navigate]);
+
 	const googleRegisterHandler = async () => {
 		await GoogleSignInAPI();
-		navigate('/login');
+		navigate(helper.ROUTE_HOME);
 	};
 
 	const submitHandler = async (event) => {
@@ -23,7 +34,7 @@ const RegisterComponent = () => {
 				credentials.password
 			);
 			toast.success('Succesfully created account', toastOptions);
-			navigate('/login');
+			navigate(helper.ROUTE_HOME);
 		} catch (err) {
 			toast.error('Cannot create your account', toastOptions);
 		}
@@ -91,7 +102,7 @@ const RegisterComponent = () => {
 				<p>
 					Already on LinkedIn?
 					<Link
-						to={'/login'}
+						to={helper.ROUTE_LOGIN}
 						className={classes.link}
 					>
 						Sign in
