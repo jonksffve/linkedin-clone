@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import classes from './logincomponent.module.css';
 import { LoginAPI } from '../api/AuthAPI';
+import GoogleIcon from '../assets/icons/google-logo-icon.png';
 
 const LoginComponent = () => {
 	const [credentials, setCredentials] = useState({});
@@ -76,8 +77,16 @@ const LoginComponent = () => {
 				</div>
 				<div className={classes.divider}>or</div>
 				<div className={classes.btnWrapper}>
-					<button className={classes.btn}>google</button>
-					<button className={classes.btn}>email</button>
+					<button
+						className={`${classes.btn} ${classes['btn-login']}`}
+					>
+						<img
+							className={classes.logo}
+							src={GoogleIcon}
+							alt=''
+						/>
+						<span>Sign in with Google</span>
+					</button>
 				</div>
 				<p>
 					New to LinkedIn?

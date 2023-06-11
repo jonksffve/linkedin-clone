@@ -5,16 +5,9 @@
 	border-radius: 5px;
 	height: 50px;
 	font-size: 16px;
-}
-
-.btn-cancel {
-	color: red;
-	height: 30px;
-}
-
-.btn-cancel:hover {
-	background-color: rgba(201, 140, 140, 0.2);
-	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .btn-submit {
@@ -24,6 +17,12 @@
 
 .btn-submit:hover {
 	background-color: var(--main-bg-color-dark);
+}
+
+.btn-login:hover,
+.btn-login:hover span {
+	background-color: #535151;
+	color: white;
 }
 
 .wrapper {
@@ -67,6 +66,10 @@
 	gap: 10px;
 }
 
+.btnWrapper button span {
+	color: #535151;
+}
+
 .header {
 	width: 450px;
 	margin-bottom: 2rem;
@@ -106,4 +109,9 @@
 
 .divider:not(:empty)::after {
 	margin-left: 0.25em;
+}
+
+.logo {
+	width: 30px;
+	height: 30px;
 }
