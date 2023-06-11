@@ -1,12 +1,21 @@
 import { useState } from 'react';
 import classes from './logincomponent.module.css';
-import { LoginAPI } from '../api/AuthAPI';
+import { LoginAPI, GoogleSignInAPI } from '../api/AuthAPI';
 import GoogleIcon from '../assets/icons/google-logo-icon.png';
 import { toast } from 'react-toastify';
 import { toastOptions } from '../toastConfig';
 
 const LoginComponent = () => {
 	const [credentials, setCredentials] = useState({});
+
+	const googleLoginHandler = async () => {
+		try {
+			const response = await GoogleSignInAPI();
+			console.log(response);
+		} catch (error) {
+			toast.error('Please check your credentials.', toastOptions);
+		}
+	};
 
 	const submitHandler = async (event) => {
 		event.preventDefault();
@@ -81,6 +90,7 @@ const LoginComponent = () => {
 				<div className={classes.btnWrapper}>
 					<button
 						className={`${classes.btn} ${classes['btn-login']}`}
+						onClick={googleLoginHandler}
 					>
 						<img
 							className={classes.logo}
