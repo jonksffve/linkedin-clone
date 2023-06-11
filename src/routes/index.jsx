@@ -14,6 +14,10 @@ export const router = createBrowserRouter([
 				element: <HomeView />,
 			},
 			{
+				path: '/home',
+				element: <HomeView />,
+			},
+			{
 				path: '/login',
 				element: <LoginView />,
 			},

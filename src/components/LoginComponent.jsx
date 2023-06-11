@@ -4,18 +4,15 @@ import { LoginAPI, GoogleSignInAPI } from '../api/AuthAPI';
 import GoogleIcon from '../assets/icons/google-logo-icon.png';
 import { toast } from 'react-toastify';
 import { toastOptions } from '../toastConfig';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginComponent = () => {
 	const [credentials, setCredentials] = useState({});
+	const navigate = useNavigate();
 
 	const googleLoginHandler = async () => {
-		try {
-			const response = await GoogleSignInAPI();
-			console.log(response);
-		} catch (error) {
-			toast.error('Please check your credentials.', toastOptions);
-		}
+		await GoogleSignInAPI();
+		navigate('/home');
 	};
 
 	const submitHandler = async (event) => {
@@ -26,6 +23,7 @@ const LoginComponent = () => {
 				credentials.password
 			);
 			toast.success('Succesfully logged-in', toastOptions);
+			navigate('/home');
 		} catch (err) {
 			toast.error('Please check your credentials.', toastOptions);
 		}

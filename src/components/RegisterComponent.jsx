@@ -1,13 +1,19 @@
 import classes from './modules/auth.module.css';
 import GoogleIcon from '../assets/icons/google-logo-icon.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { RegisterAPI } from '../api/AuthAPI';
+import { RegisterAPI, GoogleSignInAPI } from '../api/AuthAPI';
 import { toast } from 'react-toastify';
 import { toastOptions } from '../toastConfig';
 
 const RegisterComponent = () => {
 	const [credentials, setCredentials] = useState({});
+	const navigate = useNavigate();
+
+	const googleRegisterHandler = async () => {
+		await GoogleSignInAPI();
+		navigate('/login');
+	};
 
 	const submitHandler = async (event) => {
 		event.preventDefault();
@@ -17,6 +23,7 @@ const RegisterComponent = () => {
 				credentials.password
 			);
 			toast.success('Succesfully created account', toastOptions);
+			navigate('/login');
 		} catch (err) {
 			toast.error('Cannot create your account', toastOptions);
 		}
@@ -71,7 +78,7 @@ const RegisterComponent = () => {
 				<div className={classes.btnWrapper}>
 					<button
 						className={`${classes.btn} ${classes['btn-login']}`}
-						onClick={() => {}}
+						onClick={googleRegisterHandler}
 					>
 						<img
 							className={classes.logo}
