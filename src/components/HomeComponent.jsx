@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import * as helper from '../helpers/config';
 import { auth } from '../firebaseConfig';
+import PostFormComponent from './PostFormComponent';
 
 const HomeComponent = () => {
 	const navigate = useNavigate();
@@ -18,7 +19,7 @@ const HomeComponent = () => {
 
 	return (
 		<div className={classes.container}>
-			<h2>Home route</h2>
+			<PostFormComponent />
 		</div>
 	);
 };

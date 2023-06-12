@@ -1,5 +1,7 @@
 .container {
-	width: 100%;
-	height: calc(100vh - 30px);
-	padding: 25px;
+	display: flex;
+	justify-content: center;
+	height: calc(100vh - 80px);
+	width: calc(100% - 20px);
+	padding: 10px;
 }
