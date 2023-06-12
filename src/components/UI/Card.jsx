@@ -1,8 +1,9 @@
 import classes from '../modules/card.module.css';
 
-const Card = (props) => {
-	// eslint-disable-next-line react/prop-types
-	return <div className={classes.card}>{props.children}</div>;
+const Card = ({ children, customClass }) => {
+	const classList = `${classes.card} ${customClass}`;
+
+	return <div className={classList}>{children}</div>;
 };
 
 export default Card;

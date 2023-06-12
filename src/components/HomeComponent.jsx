@@ -5,6 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import * as helper from '../helpers/config';
 import { auth } from '../firebaseConfig';
 import PostFormComponent from './PostFormComponent';
+import PostListComponent from './PostListComponent';
 
 const HomeComponent = () => {
 	const navigate = useNavigate();
@@ -20,6 +21,7 @@ const HomeComponent = () => {
 	return (
 		<div className={classes.container}>
 			<PostFormComponent />
+			<PostListComponent />
 		</div>
 	);
 };
