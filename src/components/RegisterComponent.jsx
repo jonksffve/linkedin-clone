@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { userActions } from '../store/user-slice';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
+import { createProfile } from '../api/FirestoreAPI';
 
 const RegisterComponent = () => {
 	const [credentials, setCredentials] = useState({});
@@ -33,6 +34,7 @@ const RegisterComponent = () => {
 	const googleRegisterHandler = async () => {
 		const response = await GoogleSignInAPI();
 		const { displayName: name, email, photoURL: photo } = response.user;
+		await createProfile({ name, email, photo });
 		dispatch(
 			userActions.setUserLoginState({
 				name,
