@@ -1,5 +1,7 @@
+import ProfileComponent from '../components/ProfileComponent';
+
 const ProfileView = () => {
-	return <h2>Profile page</h2>;
+	return <ProfileComponent />;
 };
 
 export default ProfileView;

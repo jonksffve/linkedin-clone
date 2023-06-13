@@ -1,35 +1,20 @@
 import classes from './modules/auth.module.css';
 import GoogleIcon from '../assets/icons/google-logo-icon.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { RegisterAPI, GoogleSignInAPI } from '../api/AuthAPI';
 import * as helper from '../helpers/config';
 import { useDispatch } from 'react-redux';
 import { userActions } from '../store/user-slice';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../firebaseConfig';
 import { createProfile } from '../api/FirestoreAPI';
+import { useAuthState } from '../hooks/use-AuthStatus';
 
 const RegisterComponent = () => {
 	const [credentials, setCredentials] = useState({});
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		onAuthStateChanged(auth, (curUser) => {
-			if (curUser) {
-				const { displayName: name, email, photoURL: photo } = curUser;
-				dispatch(
-					userActions.setUserLoginState({
-						name,
-						email,
-						photo,
-					})
-				);
-				navigate(helper.ROUTE_HOME);
-			}
-		});
-	}, [dispatch, navigate]);
+	useAuthState(helper.ROUTE_HOME);
 
 	const googleRegisterHandler = async () => {
 		const response = await GoogleSignInAPI();

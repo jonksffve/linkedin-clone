@@ -4,8 +4,9 @@ import { useDispatch } from 'react-redux';
 import { auth } from '../firebaseConfig';
 import { userActions } from '../store/user-slice';
 import { useNavigate } from 'react-router';
+import * as helper from '../helpers/config';
 
-export const useAuthState = (route) => {
+export const useAuthState = (route = null) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -20,8 +21,11 @@ export const useAuthState = (route) => {
 						photo,
 					})
 				);
+				if (route) {
+					navigate(route);
+				}
 			} else {
-				navigate(route);
+				navigate(helper.ROUTE_LOGIN);
 			}
 		});
 	}, [route, dispatch, navigate]);
