@@ -15,16 +15,26 @@ export const router = createBrowserRouter([
 				element: <IndexView />,
 			},
 			{
-				path: '/home',
-				element: <HomeView />,
-			},
-			{
-				path: '/login',
-				element: <LoginView />,
-			},
-			{
-				path: '/register',
-				element: <RegisterView />,
+				path: '/account',
+				element: <AccountLayout />,
+				children: [
+					{
+						index: true,
+						element: <HomeView />,
+					},
+					{
+						path: ':userId/edit',
+						//edit page
+					},
+					{
+						path: '/register',
+						element: <RegisterView />,
+					},
+					{
+						path: '/login',
+						element: <LoginView />,
+					},
+				],
 			},
 		],
 	},
