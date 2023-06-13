@@ -2,6 +2,7 @@ import { toast } from 'react-toastify';
 import { toastOptions } from '../toastConfig';
 import { firestore } from '../firebaseConfig';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { getCurrentTime } from '../helpers/useMoment';
 
 const dbRef = collection(firestore, 'posts');
 
@@ -9,6 +10,7 @@ export const createPost = async (data) => {
 	//Object so we can add images, documents, etc. (not just text)
 	const objectData = {
 		content: data,
+		timeStamp: getCurrentTime('lll'),
 	};
 
 	try {
