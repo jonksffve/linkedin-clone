@@ -4,21 +4,31 @@ import { LoginAPI, GoogleSignInAPI } from '../api/AuthAPI';
 import GoogleIcon from '../assets/icons/google-logo-icon.png';
 import { Link, useNavigate } from 'react-router-dom';
 import * as helper from '../helpers/config';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { userActions } from '../store/user-slice';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../firebaseConfig';
 
 const LoginComponent = () => {
 	const [credentials, setCredentials] = useState({});
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const user = useSelector((state) => state.user);
 
 	useEffect(() => {
-		if (user.email) {
-			console.log(user);
-			navigate(helper.ROUTE_HOME);
-		}
-	}, [user, navigate]);
+		onAuthStateChanged(auth, (curUser) => {
+			if (curUser) {
+				const { displayName: name, email, photoURL: photo } = curUser;
+				dispatch(
+					userActions.setUserLoginState({
+						name,
+						email,
+						photo,
+					})
+				);
+				navigate(helper.ROUTE_HOME);
+			}
+		});
+	}, [dispatch, navigate]);
 
 	const googleLoginHandler = async () => {
 		const response = await GoogleSignInAPI();
