@@ -6,10 +6,11 @@ import { getCurrentTime } from '../helpers/useMoment';
 
 const dbRef = collection(firestore, 'posts');
 
-export const createPost = async (data) => {
+export const createPost = async ({ user, content }) => {
 	//Object so we can add images, documents, etc. (not just text)
 	const objectData = {
-		content: data,
+		user,
+		content,
 		timeStamp: getCurrentTime('lll'),
 	};
 

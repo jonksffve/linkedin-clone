@@ -5,17 +5,20 @@ import { useState } from 'react';
 import Modal from './UI/Modal';
 import { createPost } from '../api/FirestoreAPI';
 
+import { useSelector } from 'react-redux';
+
 const PostFormComponent = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [inputValue, setInputValue] = useState('');
 	const [isValid, setIsValid] = useState(false);
+	const user = useSelector((state) => state.user);
 
 	const showModal = () => {
 		setIsModalOpen(true);
 	};
 
 	const handleOk = async () => {
-		createPost(inputValue);
+		createPost({ user, content: inputValue });
 		setInputValue('');
 		setIsModalOpen(false);
 	};

@@ -13,9 +13,9 @@ const userSlice = createSlice({
 		setUserLoginState: (state, action) => {
 			const { name, email, photo } = action.payload;
 			console.log(action.payload);
-			state.name = name || null;
+			state.name = name;
 			state.email = email;
-			state.photo = photo || null;
+			state.photo = photo;
 		},
 		setUserLogoutState: (state) => {
 			state.name = null;
