@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import classes from './modules/auth.module.css';
+import { useEffect, useState } from 'react';
 import { LoginAPI, GoogleSignInAPI } from '../api/AuthAPI';
 import GoogleIcon from '../assets/icons/google-logo-icon.png';
 import { Link, useNavigate } from 'react-router-dom';
