@@ -6,16 +6,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 import * as helper from '../helpers/config';
-import { useDispatch, useSelector } from 'react-redux';
-import userActions from '../store/user-slice';
+import { useDispatch } from 'react-redux';
+import { userActions } from '../store/user-slice';
 
 const LoginComponent = () => {
 	const [credentials, setCredentials] = useState({});
 	const navigate = useNavigate();
-	const user = useSelector((state) => state.user);
 	const dispatch = useDispatch();
-
-	console.log(user);
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {

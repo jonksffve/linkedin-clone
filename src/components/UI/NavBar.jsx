@@ -8,6 +8,8 @@ import { TbGridDots } from 'react-icons/tb';
 import { ImNewspaper } from 'react-icons/im';
 import UserIcon from '../../assets/icons/user.png';
 
+import { LogoutAPI } from '../../api/AuthAPI';
+
 const NavBar = () => {
 	return (
 		<nav className={classes.navigation}>
@@ -97,6 +99,14 @@ const NavBar = () => {
 						alt=''
 					/>
 				</a>
+				<button
+					type='button'
+					onClick={() => {
+						LogoutAPI();
+					}}
+				>
+					Sign out
+				</button>
 			</div>
 		</nav>
 	);
