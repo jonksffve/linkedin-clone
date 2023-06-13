@@ -43,3 +43,17 @@
 .icon:hover {
 	color: black;
 }
+
+.login-btn {
+	padding: 5px;
+	width: 8rem;
+	height: 2.5rem;
+	background-color: transparent;
+	border: 1px solid var(--gray-bg-color);
+	cursor: pointer;
+	font-size: 1.2rem;
+}
+
+.login-btn:hover {
+	border: 1px solid var(--main-bg-color-dark);
+}

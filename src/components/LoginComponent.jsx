@@ -101,6 +101,7 @@ const LoginComponent = () => {
 				<div className={classes.btnWrapper}>
 					<button
 						className={`${classes.btn} ${classes['btn-login']}`}
+						type='button'
 						onClick={googleLoginHandler}
 					>
 						<img
