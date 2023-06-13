@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import classes from './modules/home.module.css';
 import { useNavigate } from 'react-router-dom';
 import * as helper from '../helpers/config';
@@ -7,25 +8,10 @@ import { useDispatch } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 import { userActions } from '../store/user-slice';
-import { getPosts } from '../api/FirestoreAPI';
-import { useEffect, useState } from 'react';
-import Spinner from './UI/Spinner';
 
 const HomeComponent = () => {
-	const [isLoading, setIsLoading] = useState(true);
-	const [posts, setPosts] = useState([]);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-
-	useEffect(() => {
-		const fetchData = async () => {
-			const data = await getPosts();
-			setPosts(data);
-			setIsLoading(false);
-		};
-
-		fetchData();
-	}, []);
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (curUser) => {
@@ -47,8 +33,7 @@ const HomeComponent = () => {
 	return (
 		<div className={classes.container}>
 			<PostFormComponent />
-			{isLoading && <Spinner />}
-			{!isLoading && <PostListComponent posts={posts} />}
+			<PostListComponent />
 		</div>
 	);
 };
