@@ -12,8 +12,6 @@ const PostListComponent = () => {
 	const dispatch = useDispatch();
 	const posts = useSelector((state) => state.posts);
 
-	console.log(posts);
-
 	useEffect(() => {
 		const fetchData = async () => {
 			const data = await getPosts();
@@ -36,7 +34,7 @@ const PostListComponent = () => {
 								key={post.id}
 								customClass={classes['list-item']}
 							>
-								<PostComponent content={post.content} />
+								<PostComponent post={post} />
 							</Card>
 						))}
 					</div>

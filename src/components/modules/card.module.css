@@ -4,3 +4,28 @@
 	padding: 20px;
 	background-color: #f9f9f9;
 }
+
+.card-header {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+	margin: 0;
+	padding: 0;
+}
+
+.card-subheader {
+	display: flex;
+	flex-direction: column;
+}
+
+.card-subheader h3 {
+	margin: 0;
+	padding: 0;
+}
+
+.profile-img {
+	width: 40px;
+	height: 40px;
+	border: 1px solid black;
+	border-radius: 50%;
+}
