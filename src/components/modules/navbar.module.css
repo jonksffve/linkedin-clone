@@ -59,12 +59,14 @@
 }
 
 .btn.btn-logout {
-	opacity: 0;
+	display: none;
 	position: absolute;
+	background-color: #787878;
+	color: white;
 	bottom: -30px;
 	right: 5px;
 }
 
-.profile-img:hover ~ .btn.btn-logout {
-	opacity: 1;
+.navigation div:last-child:hover .btn.btn-logout {
+	display: block;
 }
