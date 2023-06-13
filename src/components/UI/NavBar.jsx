@@ -16,6 +16,8 @@ const NavBar = () => {
 	const user = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 
+	console.log(user);
+
 	const logoutHandler = async () => {
 		await LogoutAPI();
 		dispatch(userActions.setUserLogoutState());
@@ -112,6 +114,7 @@ const NavBar = () => {
 							/>
 						</a>
 						<button
+							className={`${classes.btn} ${classes['btn-logout']}`}
 							type='button'
 							onClick={logoutHandler}
 						>
@@ -124,7 +127,7 @@ const NavBar = () => {
 			{!user.email && (
 				<div>
 					<Link to={helper.ROUTE_LOGIN}>
-						<button className={classes['login-btn']}>Login</button>
+						<button className={classes.btn}>Login</button>
 					</Link>
 				</div>
 			)}
