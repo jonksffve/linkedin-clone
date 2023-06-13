@@ -1,7 +1,13 @@
 import { toast } from 'react-toastify';
 import { toastOptions } from '../toastConfig';
 import { firestore } from '../firebaseConfig';
-import { addDoc, collection, getDocs } from 'firebase/firestore';
+import {
+	addDoc,
+	collection,
+	getDocs,
+	orderBy,
+	query,
+} from 'firebase/firestore';
 import { getCurrentTime } from '../helpers/useMoment';
 
 const dbRef = collection(firestore, 'posts');
@@ -23,7 +29,8 @@ export const createPost = async ({ user, content }) => {
 };
 
 export const getPosts = async () => {
-	const data = await getDocs(dbRef);
+	//const data = await getDocs(dbRef).orderBy('timeStamp', 'desc');
+	const data = await getDocs(query(dbRef, orderBy('timeStamp', 'desc')));
 	const arrayData = data.docs.map((doc) => {
 		return {
 			...doc.data(),
