@@ -6,9 +6,13 @@ import * as helper from '../helpers/config';
 import { auth } from '../firebaseConfig';
 import PostFormComponent from './PostFormComponent';
 import PostListComponent from './PostListComponent';
+import { useSelector } from 'react-redux';
 
 const HomeComponent = () => {
 	const navigate = useNavigate();
+	const user = useSelector((state) => state.user);
+
+	console.log(user);
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {

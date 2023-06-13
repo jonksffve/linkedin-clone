@@ -6,10 +6,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 import * as helper from '../helpers/config';
+import { useDispatch, useSelector } from 'react-redux';
+import userActions from '../store/user-slice';
 
 const LoginComponent = () => {
 	const [credentials, setCredentials] = useState({});
 	const navigate = useNavigate();
+	const user = useSelector((state) => state.user);
+	const dispatch = useDispatch();
+
+	console.log(user);
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (user) => {
@@ -20,7 +26,15 @@ const LoginComponent = () => {
 	}, [navigate]);
 
 	const googleLoginHandler = async () => {
-		await GoogleSignInAPI();
+		const response = await GoogleSignInAPI();
+		const { displayName: name, email, photoURL: photo } = response.user;
+		dispatch(
+			userActions.setUserLoginState({
+				name,
+				email,
+				photo,
+			})
+		);
 		navigate(helper.ROUTE_HOME);
 	};
 
