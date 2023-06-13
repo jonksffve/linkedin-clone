@@ -103,13 +103,13 @@ const NavBar = () => {
 						</ul>
 					</div>
 					<div>
-						<a href='#'>
+						<Link to={helper.ROUTE_PROFILE}>
 							<img
 								className={classes['profile-img']}
 								src={user.photo}
 								alt=''
 							/>
-						</a>
+						</Link>
 						<button
 							className={`${classes.btn} ${classes['btn-logout']}`}
 							type='button'
