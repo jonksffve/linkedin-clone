@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import classes from './modules/auth.module.css';
 import { LoginAPI, GoogleSignInAPI } from '../api/AuthAPI';
 import GoogleIcon from '../assets/icons/google-logo-icon.png';
-import { toast } from 'react-toastify';
-import { toastOptions } from '../toastConfig';
 import { Link, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
@@ -28,16 +26,8 @@ const LoginComponent = () => {
 
 	const submitHandler = async (event) => {
 		event.preventDefault();
-		try {
-			const response = await LoginAPI(
-				credentials.email,
-				credentials.password
-			);
-			toast.success('Succesfully logged-in', toastOptions);
-			navigate(helper.ROUTE_HOME);
-		} catch (err) {
-			toast.error('Please check your credentials.', toastOptions);
-		}
+		await LoginAPI(credentials.email, credentials.password);
+		navigate(helper.ROUTE_HOME);
 	};
 
 	return (

@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+import { toastOptions } from '../toastConfig';
 import { auth } from '../firebaseConfig';
 import {
 	signInWithEmailAndPassword,
@@ -7,14 +9,29 @@ import {
 } from 'firebase/auth';
 
 export const LoginAPI = async (email, password) => {
-	return await signInWithEmailAndPassword(auth, email, password);
+	try {
+		await signInWithEmailAndPassword(auth, email, password);
+		toast.success('Succesfully logged-in', toastOptions);
+	} catch (error) {
+		toast.error('Please check your credentials.', toastOptions);
+	}
 };
 
 export const RegisterAPI = async (email, password) => {
-	return await createUserWithEmailAndPassword(auth, email, password);
+	try {
+		await createUserWithEmailAndPassword(auth, email, password);
+		toast.success('Succesfully created account', toastOptions);
+	} catch (error) {
+		toast.error('Cannot create your account', toastOptions);
+	}
 };
 
 export const GoogleSignInAPI = async () => {
-	const provider = new GoogleAuthProvider();
-	return await signInWithPopup(auth, provider);
+	try {
+		const provider = new GoogleAuthProvider();
+		await signInWithPopup(auth, provider);
+		toast.success('Succesfully logged-in', toastOptions);
+	} catch (error) {
+		toast.error('Something happened.', toastOptions);
+	}
 };

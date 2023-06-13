@@ -3,8 +3,6 @@ import GoogleIcon from '../assets/icons/google-logo-icon.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { RegisterAPI, GoogleSignInAPI } from '../api/AuthAPI';
-import { toast } from 'react-toastify';
-import { toastOptions } from '../toastConfig';
 import { auth } from '../firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import * as helper from '../helpers/config';
@@ -28,16 +26,8 @@ const RegisterComponent = () => {
 
 	const submitHandler = async (event) => {
 		event.preventDefault();
-		try {
-			const response = await RegisterAPI(
-				credentials.email,
-				credentials.password
-			);
-			toast.success('Succesfully created account', toastOptions);
-			navigate(helper.ROUTE_HOME);
-		} catch (err) {
-			toast.error('Cannot create your account', toastOptions);
-		}
+		await RegisterAPI(credentials.email, credentials.password);
+		navigate(helper.ROUTE_HOME);
 	};
 
 	return (
