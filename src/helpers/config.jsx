@@ -1,4 +1,4 @@
 export const ROUTE_ROOT = '/';
-export const ROUTE_HOME = '/home';
-export const ROUTE_LOGIN = '/login';
-export const ROUTE_REGISTER = '/register';
+export const ROUTE_HOME = '/account/';
+export const ROUTE_LOGIN = '/account/login';
+export const ROUTE_REGISTER = '/account/register';
