@@ -1,5 +1,4 @@
 import Card from './UI/Card';
-import userImg from '../assets/icons/user.png';
 import classes from './modules/home.module.css';
 import { useState } from 'react';
 import Modal from './UI/Modal';
@@ -32,7 +31,7 @@ const PostFormComponent = () => {
 			<div className={classes.wrapper}>
 				<img
 					className={classes['profile-img']}
-					src={userImg}
+					src={user.photo}
 					alt=''
 				/>
 				<button

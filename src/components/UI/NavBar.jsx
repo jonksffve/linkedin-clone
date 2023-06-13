@@ -6,7 +6,6 @@ import { AiOutlineSearch, AiOutlineHome, AiOutlineBell } from 'react-icons/ai';
 import { BsPeople, BsBriefcase, BsChatDots } from 'react-icons/bs';
 import { TbGridDots } from 'react-icons/tb';
 import { ImNewspaper } from 'react-icons/im';
-import UserIcon from '../../assets/icons/user.png';
 import { LogoutAPI } from '../../api/AuthAPI';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -109,7 +108,7 @@ const NavBar = () => {
 						<a href='#'>
 							<img
 								className={classes['profile-img']}
-								src={UserIcon}
+								src={user.photo}
 								alt=''
 							/>
 						</a>
