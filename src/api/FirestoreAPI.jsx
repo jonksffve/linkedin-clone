@@ -107,7 +107,6 @@ export const updateUserInformation = async (id, objectData) => {
 		await updateDoc(profileRef, objectData);
 		toast.success('Profile updated succesfully.', toastOptions);
 	} catch (error) {
-		console.error(error);
 		toast.error(
 			'Something happened, could not update user profile.',
 			toastOptions

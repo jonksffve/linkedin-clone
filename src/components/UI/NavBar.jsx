@@ -15,8 +15,6 @@ const NavBar = () => {
 	const user = useSelector((state) => state.user);
 	const dispatch = useDispatch();
 
-	console.log(user);
-
 	const logoutHandler = async () => {
 		await LogoutAPI();
 		dispatch(userActions.setUserLogoutState());

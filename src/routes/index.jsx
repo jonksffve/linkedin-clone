@@ -19,15 +19,19 @@ export const router = createBrowserRouter([
 				element: <IndexView />,
 			},
 			{
-				path: '/account',
+				path: 'feed',
+				element: <HomeView />,
+			},
+			{
+				path: 'account/',
 				element: <AccountLayout />,
 				children: [
 					{
 						index: true,
-						element: <HomeView />,
+						element: <ProfileView />,
 					},
 					{
-						path: 'profile',
+						path: ':id',
 						element: <ProfileView />,
 					},
 					{
