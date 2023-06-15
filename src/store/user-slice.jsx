@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+	id: undefined,
 	name: undefined,
 	email: undefined,
 	photo: undefined,
@@ -15,8 +16,17 @@ const userSlice = createSlice({
 	initialState,
 	reducers: {
 		setUserLoginState: (state, action) => {
-			const { name, email, photo, headline, location, company, collage } =
-				action.payload;
+			const {
+				id,
+				name,
+				email,
+				photo,
+				headline,
+				location,
+				company,
+				collage,
+			} = action.payload;
+			state.id = id;
 			state.name = name;
 			state.email = email;
 			state.photo = photo;
@@ -26,6 +36,7 @@ const userSlice = createSlice({
 			state.collage = collage;
 		},
 		setUserLogoutState: (state) => {
+			state.id = undefined;
 			state.name = undefined;
 			state.email = undefined;
 			state.photo = undefined;

@@ -73,7 +73,7 @@ export const getUserProfile = async (id) => {
 		const docRef = doc(dbProfilesRef, id);
 		const docSnap = await getDoc(docRef);
 		if (docSnap.exists()) {
-			return docSnap.data();
+			return { ...docSnap.data(), id };
 		}
 		return new Error('Document does not exist.');
 	} catch (error) {

@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
 import { ROUTE_EDIT } from '../helpers/config';
 
 const ProfileComponent = () => {
-	const user = useSelector((state) => state.user);
 	useAuthState();
+	const user = useSelector((state) => state.user);
 
 	return (
 		<Card customClass={classes.profile}>
@@ -28,12 +28,28 @@ const ProfileComponent = () => {
 			<div className={classes['profile-body']}>
 				<div>
 					<p>{user.name}</p>
-					<p>Titles</p>
-					<p>Comments</p>
+					<p>
+						{user.headline
+							? user.headline
+							: 'No headline has been set'}
+					</p>
+					<p>
+						{user.location
+							? user.location
+							: 'No location has been set'}
+					</p>
 				</div>
 				<div>
-					<p>Group</p>
-					<p>University</p>
+					<p>
+						{user.company
+							? user.company
+							: 'No company has been set'}
+					</p>
+					<p>
+						{user.collage
+							? user.collage
+							: 'No collage has been set'}
+					</p>
 				</div>
 				<div>
 					<Link
