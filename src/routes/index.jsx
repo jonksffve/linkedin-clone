@@ -7,6 +7,7 @@ import HomeView from '../pages/HomeView';
 import LoginView from '../pages/LoginView';
 import RegisterView from '../pages/RegisterView';
 import ProfileView from '../pages/ProfileView';
+import ProfileEditView from '../pages/ProfileEditView';
 
 export const router = createBrowserRouter([
 	{
@@ -30,8 +31,8 @@ export const router = createBrowserRouter([
 						element: <ProfileView />,
 					},
 					{
-						path: ':userId/edit',
-						//edit page
+						path: 'edit',
+						element: <ProfileEditView />,
 					},
 					{
 						path: 'register',

@@ -1,6 +1,9 @@
 import { Fragment } from 'react';
+import { useAuthState } from '../hooks/use-AuthStatus';
 
 const IndexComponent = () => {
+	useAuthState();
+
 	return (
 		<Fragment>
 			<h2>This is my personal project</h2>

@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as helper from '../helpers/config';
 import { useDispatch } from 'react-redux';
 import { userActions } from '../store/user-slice';
-import { createProfile } from '../api/FirestoreAPI';
+import { createProfile, getUserProfile } from '../api/FirestoreAPI';
 import { useAuthState } from '../hooks/use-AuthStatus';
 
 const LoginComponent = () => {
@@ -19,14 +19,9 @@ const LoginComponent = () => {
 	const googleLoginHandler = async () => {
 		const response = await GoogleSignInAPI();
 		const { displayName: name, email, photoURL: photo } = response.user;
-		await createProfile({ name, email, photo });
-		dispatch(
-			userActions.setUserLoginState({
-				name,
-				email,
-				photo,
-			})
-		);
+		const { id } = await createProfile({ name, email, photo });
+		const profile = await getUserProfile(id);
+		dispatch(userActions.setUserLoginState(profile));
 		navigate(helper.ROUTE_HOME);
 	};
 

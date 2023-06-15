@@ -9,6 +9,7 @@ import {
 	getDocs,
 	orderBy,
 	query,
+	doc,
 } from 'firebase/firestore';
 import { getCurrentTime } from '../helpers/useMoment';
 
@@ -24,7 +25,7 @@ export const createPost = async ({ user, content }) => {
 
 	try {
 		await addDoc(dbPostsRef, objectData);
-		toast.success('Post created succesfully.', toastOptions);
+		toast.promise('Post created succesfully.', toastOptions);
 	} catch (error) {
 		toast.error('Something happened, could not create post.', toastOptions);
 	}
@@ -55,14 +56,31 @@ export const createProfile = async ({ name, email, photo }) => {
 
 		//Guard clase if it's created already!
 		if (profile.docs.length > 0) {
-			return;
+			return { id: profile.docs[0].id };
 		}
 
-		await addDoc(dbProfilesRef, profileObj);
+		const newProfile = await addDoc(dbProfilesRef, profileObj);
+		return { id: newProfile.id };
 	} catch (error) {
-		console.error(error);
 		toast.error(
 			'Something happened, could not create profile.',
+			toastOptions
+		);
+	}
+};
+
+export const getUserProfile = async (id) => {
+	try {
+		console.log(id);
+		const docRef = doc(dbProfilesRef, id);
+		const docSnap = await getDoc(docRef);
+		if (docSnap.exists()) {
+			return docSnap.data();
+		}
+		return new Error('Document does not exist.');
+	} catch (error) {
+		toast.error(
+			'Something happened, could not retrieve profile.',
 			toastOptions
 		);
 	}

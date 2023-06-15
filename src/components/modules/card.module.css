@@ -1,11 +1,17 @@
 .card {
 	width: fit-content;
 	height: fit-content;
-	padding: 20px;
+	padding: 10px;
 	background-color: #f9f9f9;
 }
 
-.card-header {
+.card.profile {
+	width: 700px;
+	display: flex;
+	flex-direction: column;
+}
+
+.header {
 	display: flex;
 	gap: 5px;
 	align-items: center;
@@ -13,19 +19,57 @@
 	padding: 0;
 }
 
-.card-subheader {
+.subheader {
 	display: flex;
 	flex-direction: column;
 }
 
-.card-subheader h3 {
+.subheader h3 {
 	margin: 0;
 	padding: 0;
 }
 
 .profile-img {
-	width: 40px;
-	height: 40px;
+	background-color: white;
 	border: 1px solid black;
 	border-radius: 50%;
+}
+
+.profile-img.small {
+	width: 40px;
+	height: 40px;
+}
+
+.profile-img.large {
+	position: absolute;
+	bottom: -15px;
+	left: 30px;
+	width: 120px;
+	height: 120px;
+}
+
+.profile-header {
+	position: relative;
+}
+
+.profile-body {
+	height: auto;
+}
+
+.banner {
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.profile-body {
+	width: 100%;
+	margin-top: 15px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.link {
+	text-decoration: none;
+	color: rgb(107, 91, 38);
 }
