@@ -27,25 +27,25 @@ const ProfileComponent = () => {
 			</div>
 			<div className={classes['profile-body']}>
 				<div>
-					<p>{user.name}</p>
-					<p>
+					<p className={classes.name}>{user.name}</p>
+					<p className={classes.headline}>
 						{user.headline
 							? user.headline
 							: 'No headline has been set'}
 					</p>
-					<p>
+					<p className={classes.location}>
 						{user.location
 							? user.location
 							: 'No location has been set'}
 					</p>
 				</div>
 				<div>
-					<p>
+					<p className={classes.company}>
 						{user.company
 							? user.company
 							: 'No company has been set'}
 					</p>
-					<p>
+					<p className={classes.college}>
 						{user.collage
 							? user.collage
 							: 'No collage has been set'}

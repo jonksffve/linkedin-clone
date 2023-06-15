@@ -53,7 +53,30 @@
 }
 
 .profile-body {
+	padding: 10px;
 	height: auto;
+}
+
+.profile-body p {
+	padding: 0;
+	margin: 0px;
+}
+
+.profile-body div p.name {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.profile-body div p.headline,
+.profile-body div p.location {
+	font-size: 13px;
+	color: #888888;
+}
+
+.profile-body div p.company,
+.profile-body div p.college {
+	font-size: 15px;
+	font-weight: bold;
 }
 
 .banner {
