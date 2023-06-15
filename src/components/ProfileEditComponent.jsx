@@ -70,14 +70,14 @@ const ProfileEditComponent = () => {
 						user.workplace ? user.workplace : 'Where do you work?'
 					}
 				/>
-				<label htmlFor='collage'>Collage</label>
+				<label htmlFor='college'>College/University</label>
 				<input
 					onChange={inputHandler}
 					type='text'
-					name='collage'
-					id='collage'
+					name='college'
+					id='college'
 					placeholder={
-						user.collage ? user.collage : 'Where did you study?'
+						user.college ? user.college : 'Where did you study?'
 					}
 				/>
 				<button type='submit'>Save</button>

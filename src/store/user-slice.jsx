@@ -8,7 +8,7 @@ const initialState = {
 	headline: undefined,
 	location: undefined,
 	company: undefined,
-	collage: undefined,
+	college: undefined,
 };
 
 const userSlice = createSlice({
@@ -24,7 +24,7 @@ const userSlice = createSlice({
 				headline,
 				location,
 				company,
-				collage,
+				college,
 			} = action.payload;
 			state.id = id;
 			state.name = name;
@@ -33,7 +33,7 @@ const userSlice = createSlice({
 			state.headline = headline;
 			state.location = location;
 			state.company = company;
-			state.collage = collage;
+			state.college = college;
 		},
 		setUserLogoutState: (state) => {
 			state.id = undefined;
@@ -43,7 +43,7 @@ const userSlice = createSlice({
 			state.headline = undefined;
 			state.location = undefined;
 			state.company = undefined;
-			state.collage = undefined;
+			state.college = undefined;
 		},
 	},
 });
