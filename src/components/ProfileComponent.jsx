@@ -46,9 +46,9 @@ const ProfileComponent = () => {
 							: 'No company has been set'}
 					</p>
 					<p className={classes.college}>
-						{user.collage
-							? user.collage
-							: 'No collage has been set'}
+						{user.college
+							? user.college
+							: 'No college has been set'}
 					</p>
 				</div>
 				<div>

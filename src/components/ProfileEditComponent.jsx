@@ -67,7 +67,7 @@ const ProfileEditComponent = () => {
 					name='company'
 					id='company'
 					placeholder={
-						user.workplace ? user.workplace : 'Where do you work?'
+						user.company ? user.company : 'Where do you work?'
 					}
 				/>
 				<label htmlFor='college'>College/University</label>
