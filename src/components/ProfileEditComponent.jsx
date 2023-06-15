@@ -4,16 +4,25 @@ import Card from './UI/Card';
 import classes from './modules/profile.module.css';
 import { useSelector } from 'react-redux';
 import { updateUserInformation } from '../api/FirestoreAPI';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE_PROFILE } from '../helpers/config';
+import { IoReturnDownBackOutline } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 
 const ProfileEditComponent = () => {
 	useAuthState();
+	const navigate = useNavigate();
 	const [formValues, setFormValues] = useState({});
 	const user = useSelector((state) => state.user);
 
 	const submitHandler = (event) => {
 		event.preventDefault();
+		if (Object.keys(formValues).length === 0) {
+			return navigate(ROUTE_PROFILE);
+		}
 		updateUserInformation(user.id, formValues);
 		setFormValues({});
+		navigate(ROUTE_PROFILE);
 	};
 
 	const inputHandler = (event) => {
@@ -27,6 +36,9 @@ const ProfileEditComponent = () => {
 
 	return (
 		<Card>
+			<Link to={ROUTE_PROFILE}>
+				<IoReturnDownBackOutline size={24} />
+			</Link>
 			<form
 				className={classes.form}
 				onSubmit={submitHandler}
