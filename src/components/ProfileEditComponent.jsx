@@ -3,6 +3,7 @@ import { useAuthState } from '../hooks/use-AuthStatus';
 import Card from './UI/Card';
 import classes from './modules/profile.module.css';
 import { useSelector } from 'react-redux';
+import { updateUserInformation } from '../api/FirestoreAPI';
 
 const ProfileEditComponent = () => {
 	useAuthState();
@@ -11,7 +12,8 @@ const ProfileEditComponent = () => {
 
 	const submitHandler = (event) => {
 		event.preventDefault();
-		console.log(formValues);
+		updateUserInformation(user.id, formValues);
+		setFormValues({});
 	};
 
 	const inputHandler = (event) => {
@@ -78,7 +80,6 @@ const ProfileEditComponent = () => {
 						user.collage ? user.collage : 'Where did you study?'
 					}
 				/>
-
 				<button type='submit'>Save</button>
 			</form>
 		</Card>

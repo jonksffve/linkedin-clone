@@ -10,6 +10,7 @@ import {
 	orderBy,
 	query,
 	doc,
+	updateDoc,
 } from 'firebase/firestore';
 import { getCurrentTime } from '../helpers/useMoment';
 
@@ -25,7 +26,7 @@ export const createPost = async ({ user, content }) => {
 
 	try {
 		await addDoc(dbPostsRef, objectData);
-		toast.promise('Post created succesfully.', toastOptions);
+		toast.success('Post created succesfully.', toastOptions);
 	} catch (error) {
 		toast.error('Something happened, could not create post.', toastOptions);
 	}
@@ -97,5 +98,19 @@ export const getUserId = async (email) => {
 		return undefined;
 	} catch (error) {
 		toast.error('Something happened, could not get user ID.', toastOptions);
+	}
+};
+
+export const updateUserInformation = async (id, objectData) => {
+	try {
+		const profileRef = doc(dbProfilesRef, id);
+		await updateDoc(profileRef, objectData);
+		toast.success('Profile updated succesfully.', toastOptions);
+	} catch (error) {
+		console.error(error);
+		toast.error(
+			'Something happened, could not update user profile.',
+			toastOptions
+		);
 	}
 };
