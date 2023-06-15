@@ -56,11 +56,10 @@ export const createProfile = async ({ name, email, photo }) => {
 
 		//Guard clase if it's created already!
 		if (profile.docs.length > 0) {
-			return { id: profile.docs[0].id };
+			return;
 		}
 
-		const newProfile = await addDoc(dbProfilesRef, profileObj);
-		return { id: newProfile.id };
+		await addDoc(dbProfilesRef, profileObj);
 	} catch (error) {
 		toast.error(
 			'Something happened, could not create profile.',
@@ -71,7 +70,6 @@ export const createProfile = async ({ name, email, photo }) => {
 
 export const getUserProfile = async (id) => {
 	try {
-		console.log(id);
 		const docRef = doc(dbProfilesRef, id);
 		const docSnap = await getDoc(docRef);
 		if (docSnap.exists()) {
@@ -83,5 +81,21 @@ export const getUserProfile = async (id) => {
 			'Something happened, could not retrieve profile.',
 			toastOptions
 		);
+	}
+};
+
+export const getUserId = async (email) => {
+	try {
+		const profile = await getDocs(
+			query(dbProfilesRef, where('email', '==', email))
+		);
+
+		if (profile.docs.length > 0) {
+			return { id: profile.docs[0].id };
+		}
+
+		return undefined;
+	} catch (error) {
+		toast.error('Something happened, could not get user ID.', toastOptions);
 	}
 };

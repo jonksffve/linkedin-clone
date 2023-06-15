@@ -5,22 +5,18 @@ import { auth } from '../firebaseConfig';
 import { userActions } from '../store/user-slice';
 import { useNavigate } from 'react-router';
 import * as helper from '../helpers/config';
+import { getUserId, getUserProfile } from '../api/FirestoreAPI';
 
 export const useAuthState = (route = null) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		onAuthStateChanged(auth, (curUser) => {
+		onAuthStateChanged(auth, async (curUser) => {
 			if (curUser) {
-				const { displayName: name, email, photoURL: photo } = curUser;
-				dispatch(
-					userActions.setUserLoginState({
-						name,
-						email,
-						photo,
-					})
-				);
+				const { id } = await getUserId(curUser.email);
+				const profile = await getUserProfile(id);
+				dispatch(userActions.setUserLoginState(profile));
 				if (route) {
 					navigate(route);
 				}
