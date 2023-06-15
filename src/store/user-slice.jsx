@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-	name: null,
-	email: null,
-	photo: null,
-	headline: null,
-	location: null,
-	company: null,
-	collage: null,
+	name: undefined,
+	email: undefined,
+	photo: undefined,
+	headline: undefined,
+	location: undefined,
+	company: undefined,
+	collage: undefined,
 };
 
 const userSlice = createSlice({
@@ -26,13 +26,13 @@ const userSlice = createSlice({
 			state.collage = collage;
 		},
 		setUserLogoutState: (state) => {
-			state.name = null;
-			state.email = null;
-			state.photo = null;
-			state.headline = null;
-			state.location = null;
-			state.company = null;
-			state.collage = null;
+			state.name = undefined;
+			state.email = undefined;
+			state.photo = undefined;
+			state.headline = undefined;
+			state.location = undefined;
+			state.company = undefined;
+			state.collage = undefined;
 		},
 	},
 });
