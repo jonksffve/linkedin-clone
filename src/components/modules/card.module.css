@@ -1,7 +1,7 @@
 .card {
 	width: fit-content;
 	height: fit-content;
-	padding: 15px;
+	margin: 0;
 	background-color: #f9f9f9;
 }
 
@@ -107,19 +107,21 @@ a {
 }
 
 .toggleMenu {
+	margin: 0;
+	width: 350px;
 	display: flex;
 	flex-direction: column;
+	position: absolute;
 	gap: 10px;
-	position: fixed;
 	right: 10px;
 	border: 1px solid lightgray;
 	border-radius: 5px;
 	padding: 15px;
-	z-index: 3;
 }
 
 .menuHeader {
 	width: 100%;
+	padding: 0px;
 	display: flex;
 	gap: 15px;
 	align-items: center;
@@ -129,7 +131,6 @@ a {
 	display: flex;
 	gap: 20px;
 	align-items: center;
-	width: 100%;
 	background-color: transparent;
 	border: none;
 	border-radius: 5px;
