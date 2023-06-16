@@ -11,33 +11,65 @@ import {
 	query,
 	doc,
 	updateDoc,
+	Timestamp,
 } from 'firebase/firestore';
-import { getCurrentTime } from '../helpers/useMoment';
+import moment from 'moment/moment';
 
 const dbPostsRef = collection(firestore, 'posts');
 const dbProfilesRef = collection(firestore, 'profiles');
 
 export const createPost = async ({ user, content }) => {
 	const objectData = {
-		user,
+		user: {
+			id: user.id,
+			name: user.name,
+			photo: user.photo,
+		},
 		content,
-		timeStamp: getCurrentTime('lll'),
+		timeStamp: Timestamp.now(),
 	};
 
 	try {
-		await addDoc(dbPostsRef, objectData);
+		const response = await addDoc(dbPostsRef, objectData);
 		toast.success('Post created succesfully.', toastOptions);
+		return response.id;
 	} catch (error) {
+		console.log(error);
 		toast.error('Something happened, could not create post.', toastOptions);
+	}
+};
+
+export const getPost = async (id) => {
+	try {
+		const docRef = doc(dbPostsRef, id);
+		const docSnap = await getDoc(docRef);
+		if (docSnap.exists()) {
+			const { user, content, timeStamp } = docSnap.data();
+			return {
+				id: docSnap.id,
+				user,
+				content,
+				timeStamp: moment(timeStamp.toDate()).format('lll'),
+			};
+		}
+		return new Error('Document does not exist.');
+	} catch (error) {
+		toast.error(
+			'Something happened, could not retrieve post.',
+			toastOptions
+		);
 	}
 };
 
 export const getPosts = async () => {
 	const data = await getDocs(query(dbPostsRef, orderBy('timeStamp', 'desc')));
 	const arrayData = data.docs.map((doc) => {
+		const { user, content, timeStamp } = doc.data();
 		return {
-			...doc.data(),
 			id: doc.id,
+			user,
+			content,
+			timeStamp: moment(timeStamp.toDate()).format('lll'),
 		};
 	});
 	return arrayData;

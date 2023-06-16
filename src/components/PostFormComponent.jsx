@@ -2,7 +2,7 @@ import Card from './UI/Card';
 import classes from './modules/home.module.css';
 import { useState } from 'react';
 import Modal from './UI/Modal';
-import { createPost } from '../api/FirestoreAPI';
+import { createPost, getPost } from '../api/FirestoreAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import { postsActions } from '../store/posts-slice';
 
@@ -19,8 +19,9 @@ const PostFormComponent = () => {
 
 	const handleOk = async () => {
 		const post = { user, content: inputValue };
-		await createPost(post);
-		dispatch(postsActions.addNewPost({ post }));
+		const id = await createPost(post);
+		const postObj = await getPost(id);
+		dispatch(postsActions.addNewPost({ post: postObj }));
 		setInputValue('');
 		setIsModalOpen(false);
 	};
