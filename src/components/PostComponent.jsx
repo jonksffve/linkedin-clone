@@ -1,10 +1,19 @@
 import classes from './modules/card.module.css';
-import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
+
+//<AiFillHeart />
 
 const PostComponent = ({ post }) => {
+	const user = useSelector((state) => state.user);
+
+	const likeHandler = () => {
+		console.log(`Clicked: ${post.id} by ${user.id}`);
+	};
+
 	return (
-		<Fragment>
+		<div className={classes.profile}>
 			<div className={classes.header}>
 				<Link to={`/account/${post.user.id}`}>
 					<img
@@ -24,7 +33,12 @@ const PostComponent = ({ post }) => {
 			</div>
 			<small>{post.timeStamp}</small>
 			<p>{post.content}</p>
-		</Fragment>
+			<div className={classes['btn-container']}>
+				<AiOutlineHeart onClick={likeHandler} />
+				<button>Comment</button>
+				<button>3rd</button>
+			</div>
+		</div>
 	);
 };
 

@@ -30,10 +30,7 @@ const PostListComponent = () => {
 					<h2>List of posts</h2>
 					<div className={classes['list-container']}>
 						{posts.posts.map((post) => (
-							<Card
-								key={post.id}
-								customClass={classes['list-item']}
-							>
+							<Card key={post.id}>
 								<PostComponent post={post} />
 							</Card>
 						))}

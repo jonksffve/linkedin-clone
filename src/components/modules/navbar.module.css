@@ -11,7 +11,16 @@
 
 .navigation div:last-child {
 	margin-left: auto;
-	margin-right: 40px;
+	margin-right: 20px;
+}
+
+.menuCard {
+	margin-left: auto;
+	margin-right: 20px;
+}
+
+.menuCard img {
+	cursor: pointer;
 }
 
 .profile-img {
@@ -56,17 +65,4 @@
 
 .btn:hover {
 	border: 1px solid var(--main-bg-color-dark);
-}
-
-.btn.btn-logout {
-	display: none;
-	position: absolute;
-	background-color: #787878;
-	color: white;
-	bottom: -30px;
-	right: 5px;
-}
-
-.navigation div:last-child:hover .btn.btn-logout {
-	display: block;
 }

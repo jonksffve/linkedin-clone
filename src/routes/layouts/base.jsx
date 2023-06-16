@@ -1,6 +1,6 @@
 import classes from '../../components/modules/baselayout.module.css';
 import { Outlet } from 'react-router-dom';
-import MainNavigation from '../../components/UI/NavBar';
+import MainNavigation from '../../components/UI/Menu/NavBar';
 import { Fragment } from 'react';
 
 const BaseLayout = () => {
