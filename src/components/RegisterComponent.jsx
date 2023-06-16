@@ -32,8 +32,9 @@ const RegisterComponent = () => {
 
 	const submitHandler = async (event) => {
 		event.preventDefault();
-		await RegisterAPI(credentials.email, credentials.password);
-		navigate(helper.ROUTE_HOME);
+		console.log(credentials);
+		await RegisterAPI(credentials);
+		navigate(helper.ROUTE_LOGIN);
 	};
 
 	return (
@@ -47,6 +48,19 @@ const RegisterComponent = () => {
 				onSubmit={submitHandler}
 			>
 				<div className={classes.inputWrapper}>
+					<input
+						className={classes.input}
+						type='text'
+						name='name'
+						id='name'
+						placeholder='Enter your name'
+						onChange={(event) => {
+							setCredentials({
+								...credentials,
+								name: event.target.value,
+							});
+						}}
+					/>
 					<input
 						className={classes.input}
 						type='email'

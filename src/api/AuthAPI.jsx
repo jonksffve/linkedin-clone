@@ -8,6 +8,7 @@ import {
 	signInWithPopup,
 	signOut,
 } from 'firebase/auth';
+import { createProfile } from './FirestoreAPI';
 
 export const LoginAPI = async (email, password) => {
 	try {
@@ -43,10 +44,20 @@ export const LogoutAPI = async () => {
 	}
 };
 
-export const RegisterAPI = async (email, password) => {
+export const RegisterAPI = async ({ name, email, password }) => {
 	try {
-		await createUserWithEmailAndPassword(auth, email, password);
+		const response = await createUserWithEmailAndPassword(
+			auth,
+			email,
+			password
+		);
+		const userObj = {
+			name,
+			email,
+		};
+		await createProfile(userObj);
 		toast.success('Succesfully created account', toastOptions);
+		return response;
 	} catch (error) {
 		toast.error('Cannot create your account', toastOptions);
 	}

@@ -28,7 +28,15 @@ const LoginComponent = () => {
 
 	const submitHandler = async (event) => {
 		event.preventDefault();
-		await LoginAPI(credentials.email, credentials.password);
+		const response = await LoginAPI(
+			credentials.email,
+			credentials.password
+		);
+		const { displayName: name, email, photoURL: photo } = response.user;
+		await createProfile({ name, email, photo });
+		const { id } = await getUserId(email);
+		const profile = await getUserProfile(id);
+		dispatch(userActions.setUserLoginState(profile));
 		navigate(helper.ROUTE_HOME);
 	};
 

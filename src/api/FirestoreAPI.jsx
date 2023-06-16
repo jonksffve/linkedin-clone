@@ -76,7 +76,7 @@ export const getPosts = async () => {
 	return arrayData;
 };
 
-export const createProfile = async ({ name, email, photo }) => {
+export const createProfile = async ({ name, email, photo = 'none' }) => {
 	const profileObj = {
 		name,
 		email,
