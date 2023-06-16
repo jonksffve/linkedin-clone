@@ -11,13 +11,13 @@
 
 .navigation div:last-child {
 	margin-left: auto;
-	margin-right: 20px;
+	margin-right: 10px;
 }
 
 .menuCard {
 	position: relative;
 	margin-left: auto;
-	margin-right: 20px;
+	margin-right: 10px;
 }
 
 .menuCard img {
