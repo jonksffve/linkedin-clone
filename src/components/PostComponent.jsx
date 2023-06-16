@@ -6,7 +6,7 @@ const PostComponent = ({ post }) => {
 	return (
 		<Fragment>
 			<div className={classes.header}>
-				<Link to={`/profile/${post.user.id}`}>
+				<Link to={`/account/${post.user.id}`}>
 					<img
 						className={`${classes['profile-img']} ${classes.small}`}
 						src={post.user.photo}
@@ -14,7 +14,7 @@ const PostComponent = ({ post }) => {
 					/>
 				</Link>
 				<div className={classes.subheader}>
-					<Link to={`/profile/${post.user.id}`}>
+					<Link to={`/account/${post.user.id}`}>
 						<h3>{post.user.name}</h3>
 					</Link>
 					<small>
