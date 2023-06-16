@@ -13,7 +13,7 @@ const PostComponent = ({ post }) => {
 	};
 
 	return (
-		<div className={classes.profile}>
+		<div className={classes.posts}>
 			<div className={classes.header}>
 				<Link to={`/account/${post.user.id}`}>
 					<img
@@ -35,8 +35,6 @@ const PostComponent = ({ post }) => {
 			<p>{post.content}</p>
 			<div className={classes['btn-container']}>
 				<AiOutlineHeart onClick={likeHandler} />
-				<button>Comment</button>
-				<button>3rd</button>
 			</div>
 		</div>
 	);
