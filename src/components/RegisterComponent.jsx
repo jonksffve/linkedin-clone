@@ -14,7 +14,7 @@ const RegisterComponent = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	useAuthState(helper.ROUTE_HOME);
+	useAuthState(helper.ROUTE_HOME, true);
 
 	const googleRegisterHandler = async () => {
 		const response = await GoogleSignInAPI();

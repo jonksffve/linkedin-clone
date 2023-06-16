@@ -100,3 +100,7 @@
 a {
 	text-decoration: none;
 }
+
+.list-item {
+	border: #888888;
+}

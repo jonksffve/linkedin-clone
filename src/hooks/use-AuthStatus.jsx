@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 import * as helper from '../helpers/config';
 import { getUserId, getUserProfile } from '../api/FirestoreAPI';
 
-export const useAuthState = (route = null) => {
+export const useAuthState = (route = null, register = false) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -21,6 +21,7 @@ export const useAuthState = (route = null) => {
 					navigate(route);
 				}
 			} else {
+				if (register) return;
 				navigate(helper.ROUTE_LOGIN);
 			}
 		});

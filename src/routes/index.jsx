@@ -6,8 +6,9 @@ import IndexView from '../pages/IndexView';
 import HomeView from '../pages/HomeView';
 import LoginView from '../pages/LoginView';
 import RegisterView from '../pages/RegisterView';
-import ProfileView from '../pages/ProfileView';
+import UserProfileView from '../pages/UserProfileView';
 import ProfileEditView from '../pages/ProfileEditView';
+import ProfileView from '../pages/ProfileView';
 
 export const router = createBrowserRouter([
 	{
@@ -28,7 +29,7 @@ export const router = createBrowserRouter([
 				children: [
 					{
 						index: true,
-						element: <ProfileView />,
+						element: <UserProfileView />,
 					},
 					{
 						path: ':id',
