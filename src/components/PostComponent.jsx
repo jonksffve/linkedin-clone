@@ -17,7 +17,9 @@ const PostComponent = ({ post }) => {
 					<Link to={`/profile/${post.user.id}`}>
 						<h3>{post.user.name}</h3>
 					</Link>
-					<small>Description</small>
+					<small>
+						{post.user.headline ? post.user.headline : ''}
+					</small>
 				</div>
 			</div>
 			<small>{post.timeStamp}</small>

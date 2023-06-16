@@ -23,6 +23,7 @@ export const createPost = async ({ user, content }) => {
 		user: {
 			id: user.id,
 			name: user.name,
+			headline: user.headline || '',
 			photo: user.photo,
 		},
 		content,

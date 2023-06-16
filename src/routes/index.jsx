@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
 				element: <HomeView />,
 			},
 			{
-				path: 'account/',
+				path: 'account',
 				element: <AccountLayout />,
 				children: [
 					{
