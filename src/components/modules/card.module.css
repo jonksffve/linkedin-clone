@@ -7,9 +7,11 @@
 }
 
 .profile {
-	width: 500px;
+	width: 700px;
 	display: flex;
 	flex-direction: column;
+	position: relative;
+	z-index: -1;
 }
 
 .header {
@@ -81,9 +83,9 @@
 }
 
 .banner {
-	top: 0;
-	left: 0;
 	width: 100%;
+	position: relative;
+	z-index: 0;
 }
 
 .profile-body {
@@ -111,12 +113,13 @@ a {
 	width: 350px;
 	display: flex;
 	flex-direction: column;
-	position: absolute;
+	position: fixed;
 	gap: 10px;
-	right: 0px;
+	right: 10px;
 	border: 1px solid lightgray;
 	border-radius: 5px;
 	padding: 15px;
+	z-index: 1;
 }
 
 .menuHeader {
