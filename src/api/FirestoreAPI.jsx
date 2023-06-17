@@ -173,7 +173,9 @@ export const getComments = async (postID, setCommentStatus) => {
 	onSnapshot(
 		query(dbCommentsRef, where('postID', '==', postID)),
 		(response) => {
-			const arrayData = response.docs.map((doc) => doc.data());
+			const arrayData = response.docs.map((doc) => {
+				return { id: doc.id, ...doc.data() };
+			});
 			setCommentStatus({
 				comments: arrayData,
 				commentCount: arrayData.length,
