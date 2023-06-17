@@ -7,7 +7,6 @@ import BannerBg from '../assets/images/banner.png';
 import classes from './modules/card.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import PostComponent from './PostComponent';
-import { postsActions } from '../store/posts-slice';
 
 const ProfileComponent = () => {
 	useAuthState();
