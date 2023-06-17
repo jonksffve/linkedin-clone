@@ -150,6 +150,7 @@ a {
 
 .btn-container {
 	display: flex;
+	flex-direction: column;
 	gap: 5px;
 }
 
@@ -159,7 +160,12 @@ a {
 }
 
 .btn-link.btn-liked {
-	color: red;
+	color: var(--main-bg-color);
+}
+
+.btn-header {
+	display: flex;
+	justify-content: space-between;
 }
 
 .btn-title {
@@ -167,4 +173,26 @@ a {
 	margin: 0;
 	font-size: 14px;
 	color: #888888;
+}
+
+hr {
+	background-color: rgb(181, 181, 181);
+	height: 1px;
+	border: 0;
+}
+
+.btn-item {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.blue {
+	font-weight: bold;
+	color: var(--main-bg-color);
+}
+
+.black {
+	font-weight: bold;
+	color: black;
 }

@@ -40,21 +40,39 @@ const PostComponent = ({ post }) => {
 			<small>{post.timeStamp}</small>
 			<p>{post.content}</p>
 			<div className={classes['btn-container']}>
-				<div>
+				<div className={classes['btn-header']}>
 					<p className={classes['btn-title']}>
 						{likeStatus.likesCount} people like this post
 					</p>
-					{likeStatus.isLikedByUser ? (
-						<AiFillHeart
-							onClick={likeHandler}
-							className={`${classes['btn-link']} ${classes['btn-liked']}`}
-						/>
-					) : (
-						<AiOutlineHeart
-							onClick={likeHandler}
-							className={classes['btn-link']}
-						/>
-					)}
+					<p className={classes['btn-title']}>0 comments</p>
+				</div>
+				<div>
+					<hr />
+				</div>
+				<div className={classes['btn-footer']}>
+					<div className={classes['btn-item']}>
+						{likeStatus.isLikedByUser ? (
+							<AiFillHeart
+								onClick={likeHandler}
+								className={`${classes['btn-link']} ${classes['btn-liked']}`}
+							/>
+						) : (
+							<AiOutlineHeart
+								onClick={likeHandler}
+								className={classes['btn-link']}
+							/>
+						)}
+						<p
+							className={`${
+								likeStatus.isLikedByUser
+									? classes.blue
+									: classes.black
+							}
+							`}
+						>
+							Like
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
