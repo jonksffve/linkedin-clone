@@ -196,3 +196,8 @@ hr {
 	font-weight: bold;
 	color: black;
 }
+
+.btn-footer {
+	display: flex;
+	gap: 25px;
+}

@@ -73,6 +73,29 @@ const PostComponent = ({ post }) => {
 							Like
 						</p>
 					</div>
+					<div className={classes['btn-item']}>
+						{likeStatus.isLikedByUser ? (
+							<AiFillHeart
+								onClick={likeHandler}
+								className={`${classes['btn-link']} ${classes['btn-liked']}`}
+							/>
+						) : (
+							<AiOutlineHeart
+								onClick={likeHandler}
+								className={classes['btn-link']}
+							/>
+						)}
+						<p
+							className={`${
+								likeStatus.isLikedByUser
+									? classes.blue
+									: classes.black
+							}
+							`}
+						>
+							Comment
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
