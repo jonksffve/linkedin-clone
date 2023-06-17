@@ -12,11 +12,14 @@ import {
 	doc,
 	updateDoc,
 	Timestamp,
+	setDoc,
+	onSnapshot,
 } from 'firebase/firestore';
 import moment from 'moment/moment';
 
 const dbPostsRef = collection(firestore, 'posts');
 const dbProfilesRef = collection(firestore, 'profiles');
+const dbLikesRef = collection(firestore, 'likes');
 
 export const createPost = async ({ user, content }) => {
 	const objectData = {
@@ -74,6 +77,22 @@ export const getPosts = async () => {
 		};
 	});
 	return arrayData;
+};
+
+export const getLikes = async (postID, userID) => {
+	try {
+		if (!postID && !userID) return;
+		const data = await getDocs(
+			query(dbLikesRef, where('postID', '==', postID))
+		);
+		const arrayData = data.docs.map((doc) => doc.data());
+		return {
+			likes: arrayData.length,
+			isLikedByUser: arrayData.some((el) => el.userID === userID),
+		};
+	} catch (error) {
+		toast.error('Something happened, could not fetch likes.', toastOptions);
+	}
 };
 
 export const createProfile = async ({ name, email, photo = 'none' }) => {
@@ -149,8 +168,8 @@ export const updateUserInformation = async (id, objectData) => {
 
 export const likePost = async (postID, userID) => {
 	try {
-		const id = `${postID}_${userID}`;
-		console.log('hitted endpoint', id);
+		const likeRef = doc(dbLikeRef, `${postID}_${userID}`);
+		await setDoc(likeRef, { postID, userID });
 	} catch (error) {
 		toast.error('Something happened, could not like post.', toastOptions);
 	}

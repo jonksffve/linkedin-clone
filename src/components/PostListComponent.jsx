@@ -1,5 +1,5 @@
 import classes from './modules/home.module.css';
-import { getPosts } from '../api/FirestoreAPI';
+import { getPosts, getLikes } from '../api/FirestoreAPI';
 import { Fragment, useEffect, useState } from 'react';
 import PostComponent from './PostComponent';
 import Spinner from './UI/Spinner';
@@ -11,16 +11,26 @@ const PostListComponent = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const dispatch = useDispatch();
 	const posts = useSelector((state) => state.posts);
+	const user = useSelector((state) => state.user);
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const data = await getPosts();
-			dispatch(postsActions.addPosts({ posts: data }));
+			const dataPosts = await getPosts();
+			const newArray = await Promise.all(
+				dataPosts.map(async (post) => {
+					const likes = await getLikes(post.id, user.id);
+					return {
+						...post,
+						...likes,
+					};
+				})
+			);
+			dispatch(postsActions.addPosts({ posts: newArray }));
 			setIsLoading(false);
 		};
 
 		fetchData();
-	}, [dispatch]);
+	}, [dispatch, user.id]);
 
 	return (
 		<Fragment>

@@ -4,7 +4,7 @@ import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { likePost } from '../api/FirestoreAPI';
 
-//<AiFillHeart />
+<AiFillHeart />;
 
 const PostComponent = ({ post }) => {
 	const user = useSelector((state) => state.user);
@@ -35,7 +35,17 @@ const PostComponent = ({ post }) => {
 			<small>{post.timeStamp}</small>
 			<p>{post.content}</p>
 			<div className={classes['btn-container']}>
-				<AiOutlineHeart onClick={likeHandler} />
+				{post.isLikedByUser ? (
+					<AiFillHeart
+						onClick={likeHandler}
+						className={`${classes['btn-link']} ${classes['btn-liked']}`}
+					/>
+				) : (
+					<AiOutlineHeart
+						onClick={likeHandler}
+						className={classes['btn-link']}
+					/>
+				)}
 			</div>
 		</div>
 	);
