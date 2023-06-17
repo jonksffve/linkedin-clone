@@ -3,15 +3,17 @@ import { Link } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { likePost } from '../api/FirestoreAPI';
-
-<AiFillHeart />;
+import { useState } from 'react';
 
 const PostComponent = ({ post }) => {
+	const [liked, setLiked] = useState(post.isLikedByUser);
 	const user = useSelector((state) => state.user);
 
 	const likeHandler = () => {
-		likePost(post.id, user.id);
+		likePost(post.id, user.id, post.isLikedByUser);
 	};
+
+	console.log('Post: ', post.id, 'is: ', liked);
 
 	return (
 		<div className={classes.posts}>
@@ -34,6 +36,7 @@ const PostComponent = ({ post }) => {
 			</div>
 			<small>{post.timeStamp}</small>
 			<p>{post.content}</p>
+			<p>{post.likes}</p>
 			<div className={classes['btn-container']}>
 				{post.isLikedByUser ? (
 					<AiFillHeart

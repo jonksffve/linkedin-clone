@@ -14,6 +14,7 @@ import {
 	Timestamp,
 	setDoc,
 	onSnapshot,
+	deleteDoc,
 } from 'firebase/firestore';
 import moment from 'moment/moment';
 
@@ -91,6 +92,7 @@ export const getLikes = async (postID, userID) => {
 			isLikedByUser: arrayData.some((el) => el.userID === userID),
 		};
 	} catch (error) {
+		console.log(error);
 		toast.error('Something happened, could not fetch likes.', toastOptions);
 	}
 };
@@ -166,10 +168,14 @@ export const updateUserInformation = async (id, objectData) => {
 	}
 };
 
-export const likePost = async (postID, userID) => {
+export const likePost = async (postID, userID, isLiked) => {
 	try {
-		const likeRef = doc(dbLikeRef, `${postID}_${userID}`);
-		await setDoc(likeRef, { postID, userID });
+		const likeRef = doc(dbLikesRef, `${postID}_${userID}`);
+		if (isLiked) {
+			await deleteDoc(likeRef);
+		} else {
+			await setDoc(likeRef, { postID, userID });
+		}
 	} catch (error) {
 		toast.error('Something happened, could not like post.', toastOptions);
 	}
