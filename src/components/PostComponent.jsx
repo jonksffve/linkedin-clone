@@ -8,7 +8,6 @@ import { getLikes } from '../api/FirestoreAPI';
 
 const PostComponent = ({ post }) => {
 	const user = useSelector((state) => state.user);
-
 	const [likeStatus, setLikeStatus] = useState({});
 
 	useMemo(async () => {
@@ -40,19 +39,23 @@ const PostComponent = ({ post }) => {
 			</div>
 			<small>{post.timeStamp}</small>
 			<p>{post.content}</p>
-			<p>{likeStatus.likesCount}</p>
 			<div className={classes['btn-container']}>
-				{likeStatus.isLikedByUser ? (
-					<AiFillHeart
-						onClick={likeHandler}
-						className={`${classes['btn-link']} ${classes['btn-liked']}`}
-					/>
-				) : (
-					<AiOutlineHeart
-						onClick={likeHandler}
-						className={classes['btn-link']}
-					/>
-				)}
+				<div>
+					<p className={classes['btn-title']}>
+						{likeStatus.likesCount} people like this post
+					</p>
+					{likeStatus.isLikedByUser ? (
+						<AiFillHeart
+							onClick={likeHandler}
+							className={`${classes['btn-link']} ${classes['btn-liked']}`}
+						/>
+					) : (
+						<AiOutlineHeart
+							onClick={likeHandler}
+							className={classes['btn-link']}
+						/>
+					)}
+				</div>
 			</div>
 		</div>
 	);
