@@ -3,17 +3,21 @@ import { Link } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { likePost } from '../api/FirestoreAPI';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import { getLikes } from '../api/FirestoreAPI';
 
 const PostComponent = ({ post }) => {
-	const [liked, setLiked] = useState(post.isLikedByUser);
 	const user = useSelector((state) => state.user);
 
-	const likeHandler = () => {
-		likePost(post.id, user.id, post.isLikedByUser);
-	};
+	const [likeStatus, setLikeStatus] = useState({});
 
-	console.log('Post: ', post.id, 'is: ', liked);
+	useMemo(async () => {
+		await getLikes(post.id, user.id, setLikeStatus);
+	}, [post.id, user.id]);
+
+	const likeHandler = () => {
+		likePost(post.id, user.id, likeStatus.isLikedByUser);
+	};
 
 	return (
 		<div className={classes.posts}>
@@ -36,9 +40,9 @@ const PostComponent = ({ post }) => {
 			</div>
 			<small>{post.timeStamp}</small>
 			<p>{post.content}</p>
-			<p>{post.likes}</p>
+			<p>{likeStatus.likesCount}</p>
 			<div className={classes['btn-container']}>
-				{post.isLikedByUser ? (
+				{likeStatus.isLikedByUser ? (
 					<AiFillHeart
 						onClick={likeHandler}
 						className={`${classes['btn-link']} ${classes['btn-liked']}`}

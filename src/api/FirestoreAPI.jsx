@@ -80,17 +80,18 @@ export const getPosts = async () => {
 	return arrayData;
 };
 
-export const getLikes = async (postID, userID) => {
+export const getLikes = async (postID, userID, setLikeStatus) => {
 	try {
-		if (!postID && !userID) return;
-		const data = await getDocs(
-			query(dbLikesRef, where('postID', '==', postID))
+		onSnapshot(
+			query(dbLikesRef, where('postID', '==', postID)),
+			(response) => {
+				const arrayData = response.docs.map((doc) => doc.data());
+				setLikeStatus({
+					likesCount: arrayData?.length,
+					isLikedByUser: arrayData.some((el) => el.userID === userID),
+				});
+			}
 		);
-		const arrayData = data.docs.map((doc) => doc.data());
-		return {
-			likes: arrayData.length,
-			isLikedByUser: arrayData.some((el) => el.userID === userID),
-		};
 	} catch (error) {
 		console.log(error);
 		toast.error('Something happened, could not fetch likes.', toastOptions);
