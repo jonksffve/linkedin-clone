@@ -146,3 +146,12 @@ export const updateUserInformation = async (id, objectData) => {
 		);
 	}
 };
+
+export const likePost = async (postID, userID) => {
+	try {
+		const id = `${postID}_${userID}`;
+		console.log('hitted endpoint', id);
+	} catch (error) {
+		toast.error('Something happened, could not like post.', toastOptions);
+	}
+};

@@ -2,6 +2,7 @@ import classes from './modules/card.module.css';
 import { Link } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
+import { likePost } from '../api/FirestoreAPI';
 
 //<AiFillHeart />
 
@@ -9,7 +10,7 @@ const PostComponent = ({ post }) => {
 	const user = useSelector((state) => state.user);
 
 	const likeHandler = () => {
-		console.log(`Clicked: ${post.id} by ${user.id}`);
+		likePost(post.id, user.id);
 	};
 
 	return (
