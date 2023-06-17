@@ -3,9 +3,9 @@ import { useState } from 'react';
 import Modal from './UI/Modal';
 import Card from './UI/Card';
 import { useSelector } from 'react-redux';
-import { createPost, getPost } from '../api/FirestoreAPI';
+import { createPost } from '../api/FirestoreAPI';
 
-const PostFormComponent = ({ onAddPost }) => {
+const PostFormComponent = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [inputValue, setInputValue] = useState('');
 	const [isValid, setIsValid] = useState(false);
@@ -16,11 +16,7 @@ const PostFormComponent = ({ onAddPost }) => {
 	};
 
 	const handleOk = async () => {
-		const id = await createPost({ user, content: inputValue });
-		const post = await getPost(id);
-		onAddPost((prevState) => {
-			return [post, ...prevState];
-		});
+		await createPost({ user, content: inputValue });
 		setInputValue('');
 		setIsModalOpen(false);
 	};

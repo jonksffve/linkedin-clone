@@ -2,7 +2,7 @@ import classes from './modules/home.module.css';
 import PostFormComponent from './PostFormComponent';
 import PostListComponent from './PostListComponent';
 import { useAuthState } from '../hooks/use-AuthStatus';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { getPosts } from '../api/FirestoreAPI';
 
 const HomeComponent = () => {
@@ -10,19 +10,14 @@ const HomeComponent = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [posts, setPosts] = useState([]);
 
-	useEffect(() => {
-		const fetchData = async () => {
-			const dataPosts = await getPosts();
-			setPosts([...dataPosts]);
-			setIsLoading(false);
-		};
-
-		fetchData();
+	useMemo(async () => {
+		await getPosts(setPosts);
+		setIsLoading(false);
 	}, []);
 
 	return (
 		<div className={classes.container}>
-			<PostFormComponent onAddPost={setPosts} />
+			<PostFormComponent />
 			<PostListComponent
 				isLoading={isLoading}
 				posts={posts}

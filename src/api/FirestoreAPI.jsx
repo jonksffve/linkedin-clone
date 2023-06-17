@@ -35,67 +35,37 @@ export const createPost = async ({ user, content }) => {
 	};
 
 	try {
-		const response = await addDoc(dbPostsRef, objectData);
+		await addDoc(dbPostsRef, objectData);
 		toast.success('Post created succesfully.', toastOptions);
-		return response.id;
 	} catch (error) {
 		console.log(error);
 		toast.error('Something happened, could not create post.', toastOptions);
 	}
 };
 
-export const getPost = async (id) => {
-	try {
-		const docRef = doc(dbPostsRef, id);
-		const docSnap = await getDoc(docRef);
-		if (docSnap.exists()) {
-			const { user, content, timeStamp } = docSnap.data();
+export const getPosts = async (setPosts) => {
+	onSnapshot(query(dbPostsRef, orderBy('timeStamp', 'desc')), (response) => {
+		const arrayData = response.docs.map((doc) => {
+			const { user, content, timeStamp } = doc.data();
 			return {
-				id: docSnap.id,
+				id: doc.id,
 				user,
 				content,
 				timeStamp: moment(timeStamp.toDate()).format('lll'),
 			};
-		}
-		return new Error('Document does not exist.');
-	} catch (error) {
-		toast.error(
-			'Something happened, could not retrieve post.',
-			toastOptions
-		);
-	}
-};
-
-export const getPosts = async () => {
-	const data = await getDocs(query(dbPostsRef, orderBy('timeStamp', 'desc')));
-	const arrayData = data.docs.map((doc) => {
-		const { user, content, timeStamp } = doc.data();
-		return {
-			id: doc.id,
-			user,
-			content,
-			timeStamp: moment(timeStamp.toDate()).format('lll'),
-		};
+		});
+		setPosts(arrayData);
 	});
-	return arrayData;
 };
 
 export const getLikes = async (postID, userID, setLikeStatus) => {
-	try {
-		onSnapshot(
-			query(dbLikesRef, where('postID', '==', postID)),
-			(response) => {
-				const arrayData = response.docs.map((doc) => doc.data());
-				setLikeStatus({
-					likesCount: arrayData?.length,
-					isLikedByUser: arrayData.some((el) => el.userID === userID),
-				});
-			}
-		);
-	} catch (error) {
-		console.log(error);
-		toast.error('Something happened, could not fetch likes.', toastOptions);
-	}
+	onSnapshot(query(dbLikesRef, where('postID', '==', postID)), (response) => {
+		const arrayData = response.docs.map((doc) => doc.data());
+		setLikeStatus({
+			likesCount: arrayData?.length,
+			isLikedByUser: arrayData.some((el) => el.userID === userID),
+		});
+	});
 };
 
 export const createProfile = async ({ name, email, photo = 'none' }) => {
