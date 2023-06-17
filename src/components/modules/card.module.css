@@ -188,11 +188,13 @@ hr {
 }
 
 .blue {
+	cursor: pointer;
 	font-weight: bold;
 	color: var(--main-bg-color);
 }
 
 .black {
+	cursor: pointer;
 	font-weight: bold;
 	color: black;
 }
@@ -200,4 +202,38 @@ hr {
 .btn-footer {
 	display: flex;
 	gap: 25px;
+}
+
+.comment-container {
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+
+.comment-input {
+	width: 100%;
+	line-height: 1.45rem;
+	padding: 10px;
+	border: 1px solid var(--gray-bg-color);
+	border-radius: 15px;
+	color: var(--gray-bg-color-dark);
+}
+
+.comment-input:focus {
+	outline: 1px solid var(--gray-bg-color-dark);
+	color: var(--gray-bg-color-dark);
+}
+
+.send-icon {
+	color: var(--gray-bg-color);
+	padding: 5px;
+	font-size: 20px;
+	cursor: pointer;
+	position: absolute;
+	right: 10px;
+	transition: color 250ms ease 250ms;
+}
+
+.send-icon:hover {
+	color: var(--gray-bg-color-dark);
 }

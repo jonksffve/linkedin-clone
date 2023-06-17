@@ -21,6 +21,7 @@ import moment from 'moment/moment';
 const dbPostsRef = collection(firestore, 'posts');
 const dbProfilesRef = collection(firestore, 'profiles');
 const dbLikesRef = collection(firestore, 'likes');
+const dbCommentsRef = collection(firestore, 'comments');
 
 export const createPost = async ({ user, content }) => {
 	const objectData = {
@@ -150,4 +151,33 @@ export const likePost = async (postID, userID, isLiked) => {
 	} catch (error) {
 		toast.error('Something happened, could not like post.', toastOptions);
 	}
+};
+
+export const createComment = async (postID, userID, comment) => {
+	try {
+		await addDoc(dbCommentsRef, {
+			postID,
+			userID,
+			comment,
+		});
+		toast.success('Comment sent to post.', toastOptions);
+	} catch (error) {
+		toast.error(
+			'Something happened, could not create comment.',
+			toastOptions
+		);
+	}
+};
+
+export const getComments = async (postID, setCommentStatus) => {
+	onSnapshot(
+		query(dbCommentsRef, where('postID', '==', postID)),
+		(response) => {
+			const arrayData = response.docs.map((doc) => doc.data());
+			setCommentStatus({
+				comments: arrayData,
+				commentCount: arrayData.length,
+			});
+		}
+	);
 };
