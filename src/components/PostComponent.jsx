@@ -32,7 +32,7 @@ const PostComponent = ({ post }) => {
 	};
 
 	const submitHandler = async () => {
-		await createComment(post.id, user, comment);
+		await createComment(post.id, user, comment.trimEnd());
 		setComment('');
 	};
 
@@ -58,10 +58,12 @@ const PostComponent = ({ post }) => {
 					<small>
 						{post.user.headline ? post.user.headline : ''}
 					</small>
+					<small>{post.timeStamp}</small>
 				</div>
 			</div>
-			<small>{post.timeStamp}</small>
-			<p>{post.content}</p>
+			<div className={classes['comment-content']}>
+				<p>{post.content}</p>
+			</div>
 			<div className={classes['btn-container']}>
 				<div className={classes['btn-header']}>
 					<p className={classes['btn-title']}>
@@ -133,7 +135,7 @@ const PostComponent = ({ post }) => {
 							value={comment}
 							placeholder='Add a comment...'
 							onChange={(event) => {
-								setComment(event.target.value);
+								setComment(event.target.value.trimStart());
 							}}
 						/>
 						<BsSend

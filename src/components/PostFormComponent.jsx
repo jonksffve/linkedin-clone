@@ -16,7 +16,7 @@ const PostFormComponent = () => {
 	};
 
 	const handleOk = async () => {
-		await createPost({ user, content: inputValue });
+		await createPost({ user, content: inputValue.trimEnd() });
 		setInputValue('');
 		setIsModalOpen(false);
 	};

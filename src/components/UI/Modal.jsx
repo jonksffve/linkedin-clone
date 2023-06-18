@@ -35,8 +35,8 @@ const CustomModal = ({
 					placeholder='What do you want to talk about?'
 					value={value}
 					onChange={(event) => {
-						onTyping(event.target.value);
-						onSetValue(event.target.value);
+						onTyping(event.target.value.trim().length !== 0);
+						onSetValue(event.target.value.trimStart());
 					}}
 				/>
 			</form>
