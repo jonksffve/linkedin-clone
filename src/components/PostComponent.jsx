@@ -15,6 +15,7 @@ const PostComponent = ({ post }) => {
 		commentCount: 0,
 	});
 	const [showCommentBox, setShowCommentBox] = useState(false);
+	const [showComments, setShowComments] = useState(false);
 	const [comment, setComment] = useState('');
 
 	useMemo(async () => {
@@ -31,8 +32,13 @@ const PostComponent = ({ post }) => {
 	};
 
 	const submitHandler = async () => {
-		await createComment(post.id, user.id, comment);
+		await createComment(post.id, user, comment);
 		setComment('');
+	};
+
+	const showCommentsHandler = () => {
+		if (commentStatus.comments.length === 0) return;
+		setShowComments(!showComments);
 	};
 
 	return (
@@ -61,7 +67,10 @@ const PostComponent = ({ post }) => {
 					<p className={classes['btn-title']}>
 						{likeStatus.likesCount} people like this post
 					</p>
-					<p className={classes['btn-title']}>
+					<p
+						className={`${classes['btn-title']} ${classes['comment-link']}`}
+						onClick={showCommentsHandler}
+					>
 						{commentStatus.commentCount} people have commented on
 						this
 					</p>
@@ -116,6 +125,7 @@ const PostComponent = ({ post }) => {
 				{showCommentBox && (
 					<div className={classes['comment-container']}>
 						<input
+							autoComplete='off'
 							className={classes['comment-input']}
 							type='text'
 							name='comment'
@@ -130,6 +140,42 @@ const PostComponent = ({ post }) => {
 							className={classes['send-icon']}
 							onClick={submitHandler}
 						/>
+					</div>
+				)}
+				{showComments && (
+					<div className={classes['comments-container']}>
+						{commentStatus.comments.map((comment) => {
+							return (
+								<div
+									key={comment.id}
+									className={classes['comment-item']}
+								>
+									<img
+										className={`${classes['profile-img']} ${classes.small}`}
+										src={comment.user.photo}
+										alt=''
+									/>
+									<div className={classes['comment-body']}>
+										<div
+											className={
+												classes['comment-header']
+											}
+										>
+											<h4>{comment.user.name}</h4>
+											<p>•</p>
+											<small>{comment.timeStamp}</small>
+										</div>
+										<p
+											className={
+												classes['comment-content']
+											}
+										>
+											{comment.comment}
+										</p>
+									</div>
+								</div>
+							);
+						})}
 					</div>
 				)}
 			</div>

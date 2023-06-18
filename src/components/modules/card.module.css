@@ -237,3 +237,46 @@ hr {
 .send-icon:hover {
 	color: var(--gray-bg-color-dark);
 }
+
+.comment-link {
+	cursor: pointer;
+}
+
+.comment-link:hover {
+	text-decoration: underline;
+}
+
+.comments-container {
+	padding: 10px;
+	max-height: 500px;
+	overflow: auto;
+}
+
+.comment-item {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.comment-body {
+	padding: 10px;
+	background-color: var(--gray-bg-color);
+	border-radius: 20px;
+	margin-bottom: 10px;
+	width: 100%;
+}
+
+.comment-header {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.comment-body small {
+	font-size: 12px;
+	color: var(--gray-bg-color-dark);
+}
+
+.comment-content {
+	padding: 10px;
+}

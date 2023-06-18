@@ -153,12 +153,13 @@ export const likePost = async (postID, userID, isLiked) => {
 	}
 };
 
-export const createComment = async (postID, userID, comment) => {
+export const createComment = async (postID, user, comment) => {
 	try {
 		await addDoc(dbCommentsRef, {
 			postID,
-			userID,
+			user,
 			comment,
+			timeStamp: Timestamp.now(),
 		});
 		toast.success('Comment sent to post.', toastOptions);
 	} catch (error) {
@@ -171,10 +172,21 @@ export const createComment = async (postID, userID, comment) => {
 
 export const getComments = async (postID, setCommentStatus) => {
 	onSnapshot(
-		query(dbCommentsRef, where('postID', '==', postID)),
+		query(
+			dbCommentsRef,
+			where('postID', '==', postID),
+			orderBy('timeStamp', 'desc')
+		),
 		(response) => {
 			const arrayData = response.docs.map((doc) => {
-				return { id: doc.id, ...doc.data() };
+				const { postID, user, comment, timeStamp } = doc.data();
+				return {
+					id: doc.id,
+					postID,
+					user,
+					comment,
+					timeStamp: moment(timeStamp.toDate()).format('lll'),
+				};
 			});
 			setCommentStatus({
 				comments: arrayData,

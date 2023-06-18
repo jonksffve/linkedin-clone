@@ -25,3 +25,13 @@ body {
 	width: 100%;
 	height: 100vh;
 }
+
+p,
+h2,
+h3,
+h4,
+small,
+strong {
+	padding: 0;
+	margin: 0;
+}
