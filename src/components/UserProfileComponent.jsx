@@ -13,18 +13,16 @@ import { useState } from 'react';
 const UserProfileComponent = () => {
 	useAuthState();
 	const user = useSelector((state) => state.user);
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [isValid, setIsValid] = useState(false);
-
-	const showModal = () => {
-		setIsModalOpen(true);
-	};
+	const [isModalOpen, setIsModalOpen] = useState({
+		profileImage: false,
+		bannerImage: false,
+	});
+	const [isValid, setIsValid] = useState({
+		profileImage: false,
+		bannerImage: false,
+	});
 
 	const handleOk = async () => {
-		setIsModalOpen(false);
-	};
-
-	const handleCancel = () => {
 		setIsModalOpen(false);
 	};
 
@@ -37,7 +35,16 @@ const UserProfileComponent = () => {
 						src={BannerBg}
 						alt=''
 					/>
-					<button>Editar foto de portada</button>
+					<button
+						onClick={() => {
+							setIsModalOpen({
+								...isModalOpen,
+								bannerImage: true,
+							});
+						}}
+					>
+						Editar foto de portada
+					</button>
 				</div>
 				<div className={classes['image-container']}>
 					<img
@@ -47,7 +54,12 @@ const UserProfileComponent = () => {
 					/>
 					<BsFillCameraFill
 						className={classes.link}
-						onClick={showModal}
+						onClick={() => {
+							setIsModalOpen({
+								...isModalOpen,
+								profileImage: true,
+							});
+						}}
 					/>
 				</div>
 			</div>
@@ -88,10 +100,33 @@ const UserProfileComponent = () => {
 			</div>
 			<Modal
 				title='Upload profile image'
-				open={isModalOpen}
+				open={isModalOpen.profileImage}
 				onOk={handleOk}
-				onCancel={handleCancel}
-				valid={isValid}
+				onCancel={() => {
+					setIsModalOpen({
+						...isModalOpen,
+						profileImage: false,
+					});
+				}}
+				valid={isValid.profileImage}
+				action='Update'
+				mask={true}
+			>
+				<form>
+					<input type='file' />
+				</form>
+			</Modal>
+			<Modal
+				title='Upload banner image'
+				open={isModalOpen.bannerImage}
+				onOk={handleOk}
+				onCancel={() => {
+					setIsModalOpen({
+						...isModalOpen,
+						bannerImage: false,
+					});
+				}}
+				valid={isValid.bannerImage}
 				action='Update'
 				mask={true}
 			>
