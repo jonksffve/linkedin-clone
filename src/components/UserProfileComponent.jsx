@@ -9,6 +9,7 @@ import { BsFillCameraFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { ROUTE_EDIT } from '../helpers/config';
 import { useState } from 'react';
+import { Progress } from 'antd';
 
 const UserProfileComponent = () => {
 	useAuthState();
@@ -22,6 +23,7 @@ const UserProfileComponent = () => {
 		bannerImage: false,
 	});
 	const [fileInput, setFileInput] = useState('');
+	const [uploadProgress, setUploadProgress] = useState(0);
 
 	const handleOk = async () => {
 		setIsModalOpen(false);
@@ -123,6 +125,11 @@ const UserProfileComponent = () => {
 							});
 						}}
 					/>
+					<Progress
+						type='circle'
+						percent={uploadProgress}
+						size={20}
+					/>
 				</form>
 			</Modal>
 			<Modal
@@ -148,6 +155,11 @@ const UserProfileComponent = () => {
 								bannerImage: event.target.value !== '',
 							});
 						}}
+					/>
+					<Progress
+						type='circle'
+						percent={uploadProgress}
+						size={20}
 					/>
 				</form>
 			</Modal>
