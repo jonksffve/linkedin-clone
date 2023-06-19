@@ -312,3 +312,14 @@ hr {
 .comment-content {
 	padding: 10px;
 }
+
+.form {
+	padding: 10px;
+}
+
+.form input {
+	width: 100%;
+	line-height: 1.25em;
+	border: 1px solid #c4c4c4;
+	border-radius: 5px;
+}

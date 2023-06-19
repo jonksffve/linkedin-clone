@@ -21,6 +21,7 @@ const UserProfileComponent = () => {
 		profileImage: false,
 		bannerImage: false,
 	});
+	const [fileInput, setFileInput] = useState('');
 
 	const handleOk = async () => {
 		setIsModalOpen(false);
@@ -112,8 +113,16 @@ const UserProfileComponent = () => {
 				action='Update'
 				mask={true}
 			>
-				<form>
-					<input type='file' />
+				<form className={classes.form}>
+					<input
+						type='file'
+						onChange={(event) => {
+							setIsValid({
+								...isValid,
+								profileImage: event.target.value !== '',
+							});
+						}}
+					/>
 				</form>
 			</Modal>
 			<Modal
@@ -130,8 +139,16 @@ const UserProfileComponent = () => {
 				action='Update'
 				mask={true}
 			>
-				<form>
-					<input type='file' />
+				<form className={classes.form}>
+					<input
+						type='file'
+						onChange={(event) => {
+							setIsValid({
+								...isValid,
+								bannerImage: event.target.value !== '',
+							});
+						}}
+					/>
 				</form>
 			</Modal>
 		</Card>
