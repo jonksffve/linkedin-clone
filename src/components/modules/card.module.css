@@ -71,6 +71,7 @@
 	border-radius: 50%;
 	display: flex;
 	transition: all 250ms;
+	cursor: pointer;
 }
 
 .image-container button {

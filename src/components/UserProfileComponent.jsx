@@ -1,6 +1,7 @@
 import classes from './modules/card.module.css';
 import { useAuthState } from '../hooks/use-AuthStatus';
 import Card from './UI/Card';
+import Modal from './UI/Modal';
 import { useSelector } from 'react-redux';
 import BannerBg from '../assets/images/banner.jfif';
 import { BiEdit } from 'react-icons/bi';
@@ -12,7 +13,20 @@ import { useState } from 'react';
 const UserProfileComponent = () => {
 	useAuthState();
 	const user = useSelector((state) => state.user);
-	const [showModal, setShowModal] = useState({});
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isValid, setIsValid] = useState(false);
+
+	const showModal = () => {
+		setIsModalOpen(true);
+	};
+
+	const handleOk = async () => {
+		setIsModalOpen(false);
+	};
+
+	const handleCancel = () => {
+		setIsModalOpen(false);
+	};
 
 	return (
 		<Card customClass={classes.profile}>
@@ -31,12 +45,10 @@ const UserProfileComponent = () => {
 						src={user.photo}
 						alt=''
 					/>
-					<Link
-						to=''
+					<BsFillCameraFill
 						className={classes.link}
-					>
-						<BsFillCameraFill />
-					</Link>
+						onClick={showModal}
+					/>
 				</div>
 			</div>
 			<div className={classes['profile-body']}>
@@ -74,6 +86,19 @@ const UserProfileComponent = () => {
 					</Link>
 				</div>
 			</div>
+			<Modal
+				title='Upload profile image'
+				open={isModalOpen}
+				onOk={handleOk}
+				onCancel={handleCancel}
+				valid={isValid}
+				action='Update'
+				mask={true}
+			>
+				<form>
+					<input type='file' />
+				</form>
+			</Modal>
 		</Card>
 	);
 };

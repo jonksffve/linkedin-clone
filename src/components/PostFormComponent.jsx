@@ -41,14 +41,29 @@ const PostFormComponent = () => {
 				</button>
 			</div>
 			<Modal
+				title='Create a post'
 				open={isModalOpen}
 				onOk={handleOk}
 				onCancel={handleCancel}
-				value={inputValue}
-				onSetValue={setInputValue}
-				onTyping={setIsValid}
 				valid={isValid}
-			/>
+				action='Post'
+				mask={true}
+			>
+				<form autoComplete='off'>
+					<input
+						className={classes['form-input']}
+						type='text'
+						name='content'
+						id='content'
+						placeholder='What do you want to talk about?'
+						value={inputValue}
+						onChange={(event) => {
+							setIsValid(event.target.value.trim().length !== 0);
+							setInputValue(event.target.value.trimStart());
+						}}
+					/>
+				</form>
+			</Modal>
 		</Card>
 	);
 };
