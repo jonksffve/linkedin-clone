@@ -57,6 +57,35 @@
 	position: relative;
 }
 
+.image-container {
+	position: relative;
+}
+
+.image-container .link {
+	position: absolute;
+	left: 40px;
+	top: -10px;
+	background-color: white;
+	border: 1px solid black;
+	padding: 5px;
+	border-radius: 50%;
+	display: flex;
+	transition: all 250ms;
+}
+
+.image-container button {
+	position: absolute;
+	top: 10px;
+	right: 20px;
+	background-color: black;
+	color: #c4c4c4;
+	border-radius: 5px;
+	border: 1px solid #c4c4c4;
+	padding: 5px;
+	font-size: 14px;
+	letter-spacing: 1.5px;
+}
+
 .profile-body {
 	padding: 10px;
 	height: auto;
@@ -86,7 +115,10 @@
 
 .banner {
 	width: 100%;
-	position: relative;
+}
+
+.banner + button {
+	cursor: pointer;
 }
 
 .profile-body {
@@ -98,12 +130,13 @@
 
 .link {
 	text-decoration: none;
-	color: rgb(107, 91, 38);
+	color: black;
 }
 
 a {
 	text-decoration: none;
 	padding: 0px;
+	margin: 0px;
 }
 
 .list-item {
