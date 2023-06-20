@@ -16,7 +16,7 @@ import {
 	getUserProfile,
 } from '../../api/FirestoreAPI';
 import { useMemo, useState } from 'react';
-import { getLikes } from '../../api/FirestoreAPI';
+import { getLikes, updatePostContent } from '../../api/FirestoreAPI';
 import Modal from '../UI/Modal';
 
 const PostComponent = ({ post }) => {
@@ -212,12 +212,14 @@ const PostComponent = ({ post }) => {
 					setShowModal(false);
 				}}
 				onOk={() => {
-					console.log('clicked it, ', editValue, post.id);
+					updatePostContent(post.id, { content: editValue });
+					setShowModal(false);
 				}}
 				valid={formValid}
 				action={'Update'}
 			>
 				<form
+					className={classes.form}
 					onSubmit={(event) => {
 						event.preventDefault();
 					}}

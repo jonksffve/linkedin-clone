@@ -327,6 +327,7 @@ hr {
 }
 
 .form input {
+	padding: 5px;
 	width: 100%;
 	line-height: 1.25em;
 	border: 1px solid #c4c4c4;
