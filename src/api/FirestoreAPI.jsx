@@ -18,6 +18,7 @@ import {
 } from 'firebase/firestore';
 import moment from 'moment/moment';
 
+//? REFERENCES TO COLLECTIONS IN FIREBASE
 const dbPostsRef = collection(firestore, 'posts');
 const dbProfilesRef = collection(firestore, 'profiles');
 const dbLikesRef = collection(firestore, 'likes');
@@ -183,6 +184,19 @@ export const updateUserInformation = async (userID, objectData) => {
 	} catch (error) {
 		toast.error(
 			'Something happened, could not update user profile.',
+			toastOptions
+		);
+	}
+};
+
+export const updatePostContent = async (postID, objectContent) => {
+	try {
+		const postRef = doc(dbPostsRef, postID);
+		await updateDoc(postRef, objectContent);
+		toast.success('Post content updated succesfully.', toastOptions);
+	} catch (error) {
+		toast.error(
+			'Something happened, could not update post content.',
 			toastOptions
 		);
 	}
