@@ -60,6 +60,10 @@ const PostComponent = ({ post }) => {
 
 	return (
 		<div className={classes.posts}>
+			<Header />
+			<Content />
+			<Footer />
+
 			<div className={classes.header}>
 				<Link to={`/account/${post.userID}`}>
 					<img
