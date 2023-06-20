@@ -1,4 +1,4 @@
-import classes from './modules/card.module.css';
+import classes from '../modules/card.module.css';
 import { Link } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
 import { BsSend } from 'react-icons/bs';

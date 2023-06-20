@@ -1,9 +1,9 @@
-import classes from './modules/home.module.css';
+import classes from '../modules/home.module.css';
 import { useState } from 'react';
-import Modal from './UI/Modal';
-import Card from './UI/Card';
+import Modal from '../UI/Modal';
+import Card from '../UI/Card';
 import { useSelector } from 'react-redux';
-import { createPost } from '../api/FirestoreAPI';
+import { createPost } from '../../api/FirestoreAPI';
 
 const PostFormComponent = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);

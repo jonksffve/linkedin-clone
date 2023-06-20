@@ -1,8 +1,8 @@
-import classes from './modules/home.module.css';
+import classes from '../modules/home.module.css';
 import { Fragment } from 'react';
 import PostComponent from './PostComponent';
-import Spinner from './UI/Spinner';
-import Card from './UI/Card';
+import Spinner from '../UI/Spinner';
+import Card from '../UI/Card';
 
 const PostListComponent = ({ isLoading, posts }) => {
 	return (
