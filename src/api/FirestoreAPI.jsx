@@ -69,11 +69,17 @@ export const getLikes = async (postID, userID, setLikeStatus) => {
 	});
 };
 
-export const createProfile = async ({ name, email, photo = 'none' }) => {
+export const createProfile = async ({
+	name,
+	email,
+	photo = 'none',
+	banner = 'none',
+}) => {
 	const profileObj = {
 		name,
 		email,
 		photo,
+		banner,
 	};
 
 	try {

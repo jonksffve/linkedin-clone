@@ -8,8 +8,9 @@ import { BiEdit } from 'react-icons/bi';
 import { BsFillCameraFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { ROUTE_EDIT } from '../helpers/config';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Progress } from 'antd';
+import { uploadImage } from '../api/StorageAPI';
 
 const UserProfileComponent = () => {
 	useAuthState();
@@ -22,12 +23,20 @@ const UserProfileComponent = () => {
 		profileImage: false,
 		bannerImage: false,
 	});
-	const [fileInput, setFileInput] = useState('');
+	const [fileInput, setFileInput] = useState({});
 	const [uploadProgress, setUploadProgress] = useState(0);
 
-	const handleOk = async () => {
-		setIsModalOpen(false);
+	const handleOk = (type) => {
+		uploadImage(
+			fileInput,
+			setUploadProgress,
+			setIsModalOpen,
+			user.id,
+			type
+		);
 	};
+
+	console.log(user);
 
 	return (
 		<Card customClass={classes.profile}>
@@ -35,7 +44,7 @@ const UserProfileComponent = () => {
 				<div className={classes['image-container']}>
 					<img
 						className={classes.banner}
-						src={BannerBg}
+						src={user.banner}
 						alt=''
 					/>
 					<button
@@ -104,7 +113,9 @@ const UserProfileComponent = () => {
 			<Modal
 				title='Upload profile image'
 				open={isModalOpen.profileImage}
-				onOk={handleOk}
+				onOk={() => {
+					handleOk('photo');
+				}}
 				onCancel={() => {
 					setIsModalOpen({
 						...isModalOpen,
@@ -115,7 +126,12 @@ const UserProfileComponent = () => {
 				action='Update'
 				mask={true}
 			>
-				<form className={classes.form}>
+				<form
+					className={classes.form}
+					onSubmit={(event) => {
+						event.preventDefault();
+					}}
+				>
 					<input
 						type='file'
 						onChange={(event) => {
@@ -135,7 +151,9 @@ const UserProfileComponent = () => {
 			<Modal
 				title='Upload banner image'
 				open={isModalOpen.bannerImage}
-				onOk={handleOk}
+				onOk={() => {
+					handleOk('banner');
+				}}
 				onCancel={() => {
 					setIsModalOpen({
 						...isModalOpen,
@@ -146,7 +164,12 @@ const UserProfileComponent = () => {
 				action='Update'
 				mask={true}
 			>
-				<form className={classes.form}>
+				<form
+					className={classes.form}
+					onSubmit={(event) => {
+						event.preventDefault();
+					}}
+				>
 					<input
 						type='file'
 						onChange={(event) => {
@@ -154,6 +177,7 @@ const UserProfileComponent = () => {
 								...isValid,
 								bannerImage: event.target.value !== '',
 							});
+							setFileInput(event.target.files[0]);
 						}}
 					/>
 					<Progress
