@@ -212,7 +212,9 @@ const PostComponent = ({ post }) => {
 					setShowModal(false);
 				}}
 				onOk={() => {
-					updatePostContent(post.id, { content: editValue });
+					updatePostContent(post.id, {
+						content: editValue.trimEnd(),
+					});
 					setShowModal(false);
 				}}
 				valid={formValid}
@@ -229,7 +231,9 @@ const PostComponent = ({ post }) => {
 						value={editValue}
 						onChange={(event) => {
 							setEditValue(event.target.value.trimStart());
-							setFormValid(event.target.value.trimEnd() !== '');
+							setFormValid(
+								event.target.value.trim().length !== 0
+							);
 						}}
 					/>
 				</form>

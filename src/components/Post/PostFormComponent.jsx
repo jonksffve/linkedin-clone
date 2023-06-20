@@ -47,7 +47,6 @@ const PostFormComponent = () => {
 				onCancel={handleCancel}
 				valid={isValid}
 				action='Post'
-				mask={true}
 			>
 				<form autoComplete='off'>
 					<input
