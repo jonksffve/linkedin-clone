@@ -23,14 +23,9 @@ const dbProfilesRef = collection(firestore, 'profiles');
 const dbLikesRef = collection(firestore, 'likes');
 const dbCommentsRef = collection(firestore, 'comments');
 
-export const createPost = async ({ user, content }) => {
+export const createPost = async ({ userID, content }) => {
 	const objectData = {
-		user: {
-			id: user.id,
-			name: user.name,
-			headline: user.headline || '',
-			photo: user.photo,
-		},
+		userID,
 		content,
 		timeStamp: Timestamp.now(),
 	};
@@ -47,10 +42,10 @@ export const createPost = async ({ user, content }) => {
 export const getPosts = async (setPosts) => {
 	onSnapshot(query(dbPostsRef, orderBy('timeStamp', 'desc')), (response) => {
 		const arrayData = response.docs.map((doc) => {
-			const { user, content, timeStamp } = doc.data();
+			const { userID, content, timeStamp } = doc.data();
 			return {
 				id: doc.id,
-				user,
+				userID,
 				content,
 				timeStamp: moment(timeStamp.toDate()).format('lll'),
 			};
@@ -117,25 +112,9 @@ export const getUserProfile = async (id) => {
 	}
 };
 
-export const getUserId = async (email) => {
+export const updateUserInformation = async (userID, objectData) => {
 	try {
-		const profile = await getDocs(
-			query(dbProfilesRef, where('email', '==', email))
-		);
-
-		if (profile.docs.length > 0) {
-			return { id: profile.docs[0].id };
-		}
-
-		return undefined;
-	} catch (error) {
-		toast.error('Something happened, could not get user ID.', toastOptions);
-	}
-};
-
-export const updateUserInformation = async (id, objectData) => {
-	try {
-		const profileRef = doc(dbProfilesRef, id);
+		const profileRef = doc(dbProfilesRef, userID);
 		await updateDoc(profileRef, objectData);
 		toast.success('Profile updated succesfully.', toastOptions);
 	} catch (error) {
