@@ -332,3 +332,18 @@ hr {
 	border: 1px solid #c4c4c4;
 	border-radius: 5px;
 }
+
+.update-btns {
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+}
+
+.update-btns svg {
+	padding: 5px;
+}
+
+.update-btns svg:hover {
+	background-color: #c2c2c2;
+	border-radius: 50%;
+}

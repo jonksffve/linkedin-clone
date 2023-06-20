@@ -1,6 +1,12 @@
 import classes from '../modules/card.module.css';
 import { Link } from 'react-router-dom';
-import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
+import {
+	AiOutlineHeart,
+	AiFillHeart,
+	AiOutlineComment,
+	AiOutlineDelete,
+	AiOutlineEdit,
+} from 'react-icons/ai';
 import { BsSend } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 import {
@@ -11,9 +17,11 @@ import {
 } from '../../api/FirestoreAPI';
 import { useMemo, useState } from 'react';
 import { getLikes } from '../../api/FirestoreAPI';
+import Modal from '../UI/Modal';
 
 const PostComponent = ({ post }) => {
 	const user = useSelector((state) => state.user);
+	const [showModal, setShowModal] = useState(false);
 	const [likeStatus, setLikeStatus] = useState({ likes: [], likesCount: 0 });
 	const [commentStatus, setCommentStatus] = useState({
 		comments: [],
@@ -23,6 +31,8 @@ const PostComponent = ({ post }) => {
 	const [showComments, setShowComments] = useState(false);
 	const [comment, setComment] = useState('');
 	const [postUser, setPostUser] = useState({});
+	const [editValue, setEditValue] = useState(post.content);
+	const [formValid, setFormValid] = useState(true);
 
 	useMemo(async () => {
 		await getUserProfile(post.userID, setPostUser);
@@ -64,6 +74,15 @@ const PostComponent = ({ post }) => {
 					</Link>
 					<small>{postUser.headline ? postUser.headline : ''}</small>
 					<small>{post.timeStamp}</small>
+				</div>
+				<div className={classes['update-btns']}>
+					<AiOutlineEdit
+						size={24}
+						onClick={() => {
+							setShowModal(true);
+						}}
+					/>
+					<AiOutlineDelete size={24} />
 				</div>
 			</div>
 			<div className={classes['comment-content']}>
@@ -186,6 +205,33 @@ const PostComponent = ({ post }) => {
 					</div>
 				)}
 			</div>
+			<Modal
+				title={'Update post'}
+				open={showModal}
+				onCancel={() => {
+					setShowModal(false);
+				}}
+				onOk={() => {
+					console.log('clicked it, ', editValue, post.id);
+				}}
+				valid={formValid}
+				action={'Update'}
+			>
+				<form
+					onSubmit={(event) => {
+						event.preventDefault();
+					}}
+				>
+					<input
+						type='text'
+						value={editValue}
+						onChange={(event) => {
+							setEditValue(event.target.value.trimStart());
+							setFormValid(event.target.value.trimEnd() !== '');
+						}}
+					/>
+				</form>
+			</Modal>
 		</div>
 	);
 };

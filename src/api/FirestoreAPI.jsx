@@ -23,22 +23,7 @@ const dbProfilesRef = collection(firestore, 'profiles');
 const dbLikesRef = collection(firestore, 'likes');
 const dbCommentsRef = collection(firestore, 'comments');
 
-export const createPost = async ({ userID, content }) => {
-	const objectData = {
-		userID,
-		content,
-		timeStamp: Timestamp.now(),
-	};
-
-	try {
-		await addDoc(dbPostsRef, objectData);
-		toast.success('Post created succesfully.', toastOptions);
-	} catch (error) {
-		console.log(error);
-		toast.error('Something happened, could not create post.', toastOptions);
-	}
-};
-
+//* GET METHODS
 export const getPosts = async (setPosts) => {
 	onSnapshot(query(dbPostsRef, orderBy('timeStamp', 'desc')), (response) => {
 		const arrayData = response.docs.map((doc) => {
@@ -64,38 +49,6 @@ export const getLikes = async (postID, userID, setLikeStatus) => {
 	});
 };
 
-export const createProfile = async ({
-	name,
-	email,
-	photo = 'none',
-	banner = 'none',
-}) => {
-	const profileObj = {
-		name,
-		email,
-		photo,
-		banner,
-	};
-
-	try {
-		const profile = await getDocs(
-			query(dbProfilesRef, where('email', '==', email))
-		);
-
-		//Guard clase if it's created already!
-		if (profile.docs.length > 0) {
-			return;
-		}
-
-		await addDoc(dbProfilesRef, profileObj);
-	} catch (error) {
-		toast.error(
-			'Something happened, could not create profile.',
-			toastOptions
-		);
-	}
-};
-
 export const getUserProfile = async (id, setPostUser = undefined) => {
 	try {
 		const docRef = doc(dbProfilesRef, id);
@@ -108,49 +61,6 @@ export const getUserProfile = async (id, setPostUser = undefined) => {
 	} catch (error) {
 		toast.error(
 			'Something happened, could not retrieve profile.',
-			toastOptions
-		);
-	}
-};
-
-export const updateUserInformation = async (userID, objectData) => {
-	try {
-		const profileRef = doc(dbProfilesRef, userID);
-		await updateDoc(profileRef, objectData);
-		toast.success('Profile updated succesfully.', toastOptions);
-	} catch (error) {
-		toast.error(
-			'Something happened, could not update user profile.',
-			toastOptions
-		);
-	}
-};
-
-export const likePost = async (postID, userID, isLiked) => {
-	try {
-		const likeRef = doc(dbLikesRef, `${postID}_${userID}`);
-		if (isLiked) {
-			await deleteDoc(likeRef);
-		} else {
-			await setDoc(likeRef, { postID, userID });
-		}
-	} catch (error) {
-		toast.error('Something happened, could not like post.', toastOptions);
-	}
-};
-
-export const createComment = async (postID, user, comment) => {
-	try {
-		await addDoc(dbCommentsRef, {
-			postID,
-			user,
-			comment,
-			timeStamp: Timestamp.now(),
-		});
-		toast.success('Comment sent to post.', toastOptions);
-	} catch (error) {
-		toast.error(
-			'Something happened, could not create comment.',
 			toastOptions
 		);
 	}
@@ -195,5 +105,99 @@ export const getUserId = async (email) => {
 		return undefined;
 	} catch (error) {
 		toast.error('Something happened, could not get user ID.', toastOptions);
+	}
+};
+
+//* POST METHODS
+export const createPost = async ({ userID, content }) => {
+	const objectData = {
+		userID,
+		content,
+		timeStamp: Timestamp.now(),
+	};
+
+	try {
+		await addDoc(dbPostsRef, objectData);
+		toast.success('Post created succesfully.', toastOptions);
+	} catch (error) {
+		console.log(error);
+		toast.error('Something happened, could not create post.', toastOptions);
+	}
+};
+
+export const createProfile = async ({
+	name,
+	email,
+	photo = 'none',
+	banner = 'none',
+}) => {
+	const profileObj = {
+		name,
+		email,
+		photo,
+		banner,
+	};
+
+	try {
+		const profile = await getDocs(
+			query(dbProfilesRef, where('email', '==', email))
+		);
+
+		//Guard clase if it's created already!
+		if (profile.docs.length > 0) {
+			return;
+		}
+
+		await addDoc(dbProfilesRef, profileObj);
+	} catch (error) {
+		toast.error(
+			'Something happened, could not create profile.',
+			toastOptions
+		);
+	}
+};
+
+export const createComment = async (postID, user, comment) => {
+	try {
+		await addDoc(dbCommentsRef, {
+			postID,
+			user,
+			comment,
+			timeStamp: Timestamp.now(),
+		});
+		toast.success('Comment sent to post.', toastOptions);
+	} catch (error) {
+		toast.error(
+			'Something happened, could not create comment.',
+			toastOptions
+		);
+	}
+};
+
+//* PATCH METHODS
+export const updateUserInformation = async (userID, objectData) => {
+	try {
+		const profileRef = doc(dbProfilesRef, userID);
+		await updateDoc(profileRef, objectData);
+		toast.success('Profile updated succesfully.', toastOptions);
+	} catch (error) {
+		toast.error(
+			'Something happened, could not update user profile.',
+			toastOptions
+		);
+	}
+};
+
+//*POST-DELETE METHODS
+export const likePost = async (postID, userID, isLiked) => {
+	try {
+		const likeRef = doc(dbLikesRef, `${postID}_${userID}`);
+		if (isLiked) {
+			await deleteDoc(likeRef);
+		} else {
+			await setDoc(likeRef, { postID, userID });
+		}
+	} catch (error) {
+		toast.error('Something happened, could not like post.', toastOptions);
 	}
 };
