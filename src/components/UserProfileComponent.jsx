@@ -25,8 +25,6 @@ const UserProfileComponent = () => {
 	const [uploadProgress, setUploadProgress] = useState(0);
 	const [currentImgs, setCurrentImgs] = useState({});
 
-	console.log(user);
-
 	const handleOk = (type) => {
 		uploadImage(
 			user.id,

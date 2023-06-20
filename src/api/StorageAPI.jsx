@@ -33,13 +33,13 @@ export const uploadImage = (
 			await updateUserInformation(userID, userObj);
 			setFileInput({});
 			setUploadProgress(0);
+			setIsModalOpen(false);
 			setCurrentImgs((prevState) => {
 				return {
 					...prevState,
 					...userObj,
 				};
 			});
-			setIsModalOpen(false);
 		}
 	);
 };

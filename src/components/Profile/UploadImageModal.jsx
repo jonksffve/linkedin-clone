@@ -28,11 +28,13 @@ const UploadImageModal = (props) => {
 						props.setFileInput(event.target.files[0]);
 					}}
 				/>
-				<Progress
-					type='circle'
-					percent={props.progress}
-					size={20}
-				/>
+				{props.progress > 0 && (
+					<Progress
+						type='circle'
+						percent={props.progress}
+						size={20}
+					/>
+				)}
 			</form>
 		</Modal>
 	);
