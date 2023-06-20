@@ -202,7 +202,18 @@ export const updatePostContent = async (postID, objectContent) => {
 	}
 };
 
-//*POST-DELETE METHODS
+//* DELETE METHODS
+export const deletePost = async (postID) => {
+	try {
+		const postRef = doc(dbPostsRef, postID);
+		await deleteDoc(postRef);
+		toast.success('Post deleted succesfully.', toastOptions);
+	} catch (error) {
+		toast.error('Something happened, could not delete post.', toastOptions);
+	}
+};
+
+//* POST-DELETE METHODS
 export const likePost = async (postID, userID, isLiked) => {
 	try {
 		const likeRef = doc(dbLikesRef, `${postID}_${userID}`);
