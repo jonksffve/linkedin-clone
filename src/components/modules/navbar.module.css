@@ -30,6 +30,7 @@
 	height: 32px;
 	border: 1px solid black;
 	border-radius: 50%;
+	object-fit: contain;
 }
 
 .logo {

@@ -96,11 +96,12 @@ export const createProfile = async ({
 	}
 };
 
-export const getUserProfile = async (id) => {
+export const getUserProfile = async (id, setPostUser = undefined) => {
 	try {
 		const docRef = doc(dbProfilesRef, id);
 		const docSnap = await getDoc(docRef);
 		if (docSnap.exists()) {
+			if (setPostUser) return setPostUser({ ...docSnap.data(), id });
 			return { ...docSnap.data(), id };
 		}
 		return new Error('Document does not exist.');
@@ -179,4 +180,20 @@ export const getComments = async (postID, setCommentStatus) => {
 			});
 		}
 	);
+};
+
+export const getUserId = async (email) => {
+	try {
+		const profile = await getDocs(
+			query(dbProfilesRef, where('email', '==', email))
+		);
+
+		if (profile.docs.length > 0) {
+			return { id: profile.docs[0].id };
+		}
+
+		return undefined;
+	} catch (error) {
+		toast.error('Something happened, could not get user ID.', toastOptions);
+	}
 };

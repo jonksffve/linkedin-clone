@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom';
 import { AiOutlineHeart, AiFillHeart, AiOutlineComment } from 'react-icons/ai';
 import { BsSend } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
-import { createComment, getComments, likePost } from '../api/FirestoreAPI';
+import {
+	createComment,
+	getComments,
+	likePost,
+	getUserProfile,
+} from '../api/FirestoreAPI';
 import { useMemo, useState } from 'react';
 import { getLikes } from '../api/FirestoreAPI';
 
@@ -17,11 +22,13 @@ const PostComponent = ({ post }) => {
 	const [showCommentBox, setShowCommentBox] = useState(false);
 	const [showComments, setShowComments] = useState(false);
 	const [comment, setComment] = useState('');
+	const [postUser, setPostUser] = useState({});
 
 	useMemo(async () => {
+		await getUserProfile(post.userID, setPostUser);
 		await getLikes(post.id, user.id, setLikeStatus);
 		await getComments(post.id, setCommentStatus);
-	}, [post.id, user.id]);
+	}, [post.id, user.id, post.userID]);
 
 	const likeHandler = () => {
 		likePost(post.id, user.id, likeStatus.isLikedByUser);
@@ -44,20 +51,18 @@ const PostComponent = ({ post }) => {
 	return (
 		<div className={classes.posts}>
 			<div className={classes.header}>
-				<Link to={`/account/${post.user.id}`}>
+				<Link to={`/account/${post.userID}`}>
 					<img
 						className={`${classes['profile-img']} ${classes.small}`}
-						src={post.user.photo}
+						src={postUser.photo}
 						alt=''
 					/>
 				</Link>
 				<div className={classes.subheader}>
-					<Link to={`/account/${post.user.id}`}>
-						<h3>{post.user.name}</h3>
+					<Link to={`/account/${post.userID}`}>
+						<h3>{postUser.name}</h3>
 					</Link>
-					<small>
-						{post.user.headline ? post.user.headline : ''}
-					</small>
+					<small>{postUser.headline ? postUser.headline : ''}</small>
 					<small>{post.timeStamp}</small>
 				</div>
 			</div>
