@@ -1,27 +1,25 @@
 import classes from './modules/card.module.css';
 import { useAuthState } from '../hooks/use-AuthStatus';
 import Card from './UI/Card';
-import Modal from './UI/Modal';
 import { useSelector } from 'react-redux';
-import BannerBg from '../assets/images/banner.jfif';
 import { BiEdit } from 'react-icons/bi';
 import { BsFillCameraFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { ROUTE_EDIT } from '../helpers/config';
-import { useEffect, useState } from 'react';
-import { Progress } from 'antd';
+import { useState } from 'react';
 import { uploadImage } from '../api/StorageAPI';
+import EditModal from './Profile/UploadImageModal';
 
 const UserProfileComponent = () => {
 	useAuthState();
 	const user = useSelector((state) => state.user);
 	const [isModalOpen, setIsModalOpen] = useState({
-		profileImage: false,
-		bannerImage: false,
+		photo: false,
+		banner: false,
 	});
 	const [isValid, setIsValid] = useState({
-		profileImage: false,
-		bannerImage: false,
+		photo: false,
+		banner: false,
 	});
 	const [fileInput, setFileInput] = useState({});
 	const [uploadProgress, setUploadProgress] = useState(0);
@@ -36,8 +34,6 @@ const UserProfileComponent = () => {
 		);
 	};
 
-	console.log(user);
-
 	return (
 		<Card customClass={classes.profile}>
 			<div className={classes['profile-header']}>
@@ -51,7 +47,7 @@ const UserProfileComponent = () => {
 						onClick={() => {
 							setIsModalOpen({
 								...isModalOpen,
-								bannerImage: true,
+								banner: true,
 							});
 						}}
 					>
@@ -69,7 +65,7 @@ const UserProfileComponent = () => {
 						onClick={() => {
 							setIsModalOpen({
 								...isModalOpen,
-								profileImage: true,
+								photo: true,
 							});
 						}}
 					/>
@@ -110,83 +106,44 @@ const UserProfileComponent = () => {
 					</Link>
 				</div>
 			</div>
-			<Modal
+			<EditModal
+				type='photo'
 				title='Upload profile image'
-				open={isModalOpen.profileImage}
+				open={isModalOpen.photo}
 				onOk={() => {
 					handleOk('photo');
 				}}
 				onCancel={() => {
 					setIsModalOpen({
 						...isModalOpen,
-						profileImage: false,
+						photo: false,
 					});
 				}}
-				valid={isValid.profileImage}
+				valid={isValid.photo}
 				action='Update'
-				mask={true}
-			>
-				<form
-					className={classes.form}
-					onSubmit={(event) => {
-						event.preventDefault();
-					}}
-				>
-					<input
-						type='file'
-						onChange={(event) => {
-							setIsValid({
-								...isValid,
-								profileImage: event.target.value !== '',
-							});
-						}}
-					/>
-					<Progress
-						type='circle'
-						percent={uploadProgress}
-						size={20}
-					/>
-				</form>
-			</Modal>
-			<Modal
+				setIsValid={setIsValid}
+				setFileInput={setFileInput}
+				progress={uploadProgress}
+			/>
+			<EditModal
+				type={'banner'}
 				title='Upload banner image'
-				open={isModalOpen.bannerImage}
+				open={isModalOpen.banner}
 				onOk={() => {
 					handleOk('banner');
 				}}
 				onCancel={() => {
 					setIsModalOpen({
 						...isModalOpen,
-						bannerImage: false,
+						banner: false,
 					});
 				}}
-				valid={isValid.bannerImage}
+				valid={isValid.banner}
 				action='Update'
-				mask={true}
-			>
-				<form
-					className={classes.form}
-					onSubmit={(event) => {
-						event.preventDefault();
-					}}
-				>
-					<input
-						type='file'
-						onChange={(event) => {
-							setIsValid({
-								...isValid,
-								bannerImage: event.target.value !== '',
-							});
-							setFileInput(event.target.files[0]);
-						}}
-					/>
-					<Progress
-						type='circle'
-						percent={uploadProgress}
-						size={20}
-					/>
-				</form>
-			</Modal>
+				setIsValid={setIsValid}
+				setFileInput={setFileInput}
+				progress={uploadProgress}
+			/>
 		</Card>
 	);
 };
