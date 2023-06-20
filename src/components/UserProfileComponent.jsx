@@ -23,14 +23,19 @@ const UserProfileComponent = () => {
 	});
 	const [fileInput, setFileInput] = useState({});
 	const [uploadProgress, setUploadProgress] = useState(0);
+	const [currentImgs, setCurrentImgs] = useState({});
+
+	console.log(user);
 
 	const handleOk = (type) => {
 		uploadImage(
+			user.id,
 			fileInput,
+			type,
 			setUploadProgress,
 			setIsModalOpen,
-			user.id,
-			type
+			setCurrentImgs,
+			setFileInput
 		);
 	};
 
@@ -40,7 +45,11 @@ const UserProfileComponent = () => {
 				<div className={classes['image-container']}>
 					<img
 						className={classes.banner}
-						src={user.banner}
+						src={
+							currentImgs.banner
+								? currentImgs.banner
+								: user.banner
+						}
 						alt=''
 					/>
 					<button
@@ -57,7 +66,7 @@ const UserProfileComponent = () => {
 				<div className={classes['image-container']}>
 					<img
 						className={`${classes['profile-img']} ${classes.large}`}
-						src={user.photo}
+						src={currentImgs.photo ? currentImgs.photo : user.photo}
 						alt=''
 					/>
 					<BsFillCameraFill

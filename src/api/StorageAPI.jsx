@@ -3,11 +3,13 @@ import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { updateUserInformation } from './FirestoreAPI';
 
 export const uploadImage = (
+	userID,
 	file,
+	type,
 	setUploadProgress,
 	setIsModalOpen,
-	userID,
-	type
+	setCurrentImgs,
+	setFileInput
 ) => {
 	const storageRef = ref(storage, `images/${file.name}`);
 	const uploadTask = uploadBytesResumable(storageRef, file);
@@ -29,7 +31,14 @@ export const uploadImage = (
 				[type]: imgURL,
 			};
 			await updateUserInformation(userID, userObj);
-			console.log(imgURL);
+			setFileInput({});
+			setUploadProgress(0);
+			setCurrentImgs((prevState) => {
+				return {
+					...prevState,
+					...userObj,
+				};
+			});
 			setIsModalOpen(false);
 		}
 	);
