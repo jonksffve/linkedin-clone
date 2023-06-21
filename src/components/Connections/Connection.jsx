@@ -1,5 +1,3 @@
-import ImgBanner from '../../assets/images/banner.jfif';
-import ImgPhoto from '../../assets/images/profile.jpg';
 import classes from '../modules/card.module.css';
 import Card from '../UI/Card';
 
@@ -9,12 +7,12 @@ const Connection = ({ user }) => {
 			<div className={classes.header}>
 				<img
 					className={classes.banner}
-					src={ImgBanner}
+					src={user.banner}
 					alt=''
 				/>
 				<img
 					className={`${classes['profile-img']} ${classes.medium}`}
-					src={ImgPhoto}
+					src={user.photo}
 					alt=''
 				/>
 			</div>

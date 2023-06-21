@@ -3,8 +3,10 @@ import classes from '../modules/card.module.css';
 import { useEffect, useState } from 'react';
 import { getAllUsers } from '../../api/FirestoreAPI';
 import Connection from './Connection';
+import { useSelector } from 'react-redux';
 
 const ConnectionsComponent = () => {
+	const user = useSelector((state) => state.user);
 	const [users, setUsers] = useState([]);
 
 	useEffect(() => {
@@ -15,14 +17,18 @@ const ConnectionsComponent = () => {
 	return (
 		<Card customClass={classes.connections}>
 			<h2>Follow more professionals!</h2>
-			{users.map((user) => {
-				return (
-					<Connection
-						key={user.id}
-						user={user}
-					/>
-				);
-			})}
+			<div className={classes['connections-wrapper']}>
+				{users
+					.filter((item) => item.id !== user.id)
+					.map((user) => {
+						return (
+							<Connection
+								key={user.id}
+								user={user}
+							/>
+						);
+					})}
+			</div>
 		</Card>
 	);
 };
