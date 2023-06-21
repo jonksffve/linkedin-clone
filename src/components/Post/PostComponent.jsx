@@ -17,8 +17,6 @@ const PostComponent = ({ post }) => {
 	});
 	const [postUser, setPostUser] = useState({});
 	const [showModal, setShowModal] = useState(false);
-	const [editValue, setEditValue] = useState(post.content);
-	const [formValid, setFormValid] = useState(true);
 
 	useMemo(async () => {
 		await getUserProfile(post.userID, setPostUser);
@@ -31,6 +29,7 @@ const PostComponent = ({ post }) => {
 			<PostHeader
 				post={post}
 				postUser={postUser}
+				onShowModal={setShowModal}
 			/>
 			<PostContent content={post.content} />
 			<PostFooter
@@ -39,7 +38,11 @@ const PostComponent = ({ post }) => {
 				postID={post.id}
 				userID={user.id}
 			/>
-			{/* <PostEditModal /> */}
+			<PostEditModal
+				post={post}
+				showModal={showModal}
+				onShowModal={setShowModal}
+			/>
 		</div>
 	);
 };

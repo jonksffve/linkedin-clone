@@ -1,16 +1,24 @@
-const PostEditModal = () => {
+import classes from '../modules/card.module.css';
+import { useState } from 'react';
+import Modal from '../UI/Modal';
+import { updatePostContent } from '../../api/FirestoreAPI';
+
+const PostEditModal = ({ post, showModal, onShowModal }) => {
+	const [editValue, setEditValue] = useState(post.content);
+	const [formValid, setFormValid] = useState(true);
+
 	return (
 		<Modal
 			title={'Update post'}
 			open={showModal}
 			onCancel={() => {
-				setShowModal(false);
+				onShowModal(false);
 			}}
 			onOk={() => {
 				updatePostContent(post.id, {
 					content: editValue.trimEnd(),
 				});
-				setShowModal(false);
+				onShowModal(false);
 			}}
 			valid={formValid}
 			action={'Update'}
