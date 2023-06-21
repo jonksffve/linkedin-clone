@@ -74,17 +74,24 @@ export const getComments = async (postID, setCommentStatus) => {
 			where('postID', '==', postID),
 			orderBy('timeStamp', 'desc')
 		),
-		(response) => {
-			const arrayData = response.docs.map((doc) => {
-				const { postID, user, comment, timeStamp } = doc.data();
-				return {
-					id: doc.id,
-					postID,
-					user,
-					comment,
-					timeStamp: moment(timeStamp.toDate()).format('lll'),
-				};
-			});
+		async (response) => {
+			const arrayData = await Promise.all(
+				response.docs.map(async (doc) => {
+					const { postID, userID, comment, timeStamp } = doc.data();
+					const { name, photo } = await getUserProfile(userID);
+					return {
+						id: doc.id,
+						postID,
+						user: {
+							name,
+							photo,
+						},
+						comment,
+						timeStamp: moment(timeStamp.toDate()).format('lll'),
+					};
+				})
+			);
+
 			setCommentStatus({
 				comments: arrayData,
 				commentCount: arrayData.length,
@@ -158,15 +165,15 @@ export const createProfile = async ({
 	}
 };
 
-export const createComment = async (postID, user, comment) => {
+export const createComment = async (postID, userID, comment) => {
 	try {
 		await addDoc(dbCommentsRef, {
 			postID,
-			user,
+			userID,
 			comment,
 			timeStamp: Timestamp.now(),
 		});
-		toast.success('Comment sent to post.', toastOptions);
+		toast.success('Commented on this post, succesfully.', toastOptions);
 	} catch (error) {
 		toast.error(
 			'Something happened, could not create comment.',
