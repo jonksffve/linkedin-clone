@@ -24,6 +24,7 @@ const dbPostsRef = collection(firestore, 'posts');
 const dbProfilesRef = collection(firestore, 'profiles');
 const dbLikesRef = collection(firestore, 'likes');
 const dbCommentsRef = collection(firestore, 'comments');
+const dbConnectionsRef = collection(firestore, 'connections');
 
 //* GET METHODS
 export const getAllUsers = async (setUsers) => {
@@ -199,6 +200,21 @@ export const createComment = async (postID, userID, comment) => {
 	} catch (error) {
 		toast.error(
 			'Something happened, could not create comment.',
+			toastOptions
+		);
+	}
+};
+
+export const createConnection = async (userID, targetID) => {
+	try {
+		const compoundID = `${userID}_${targetID}`;
+		await setDoc(doc(dbConnectionsRef, compoundID), {
+			userID,
+			targetID,
+		});
+	} catch (error) {
+		toast.error(
+			'Something happened, could not connect to user.',
 			toastOptions
 		);
 	}
