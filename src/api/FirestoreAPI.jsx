@@ -25,6 +25,11 @@ const dbLikesRef = collection(firestore, 'likes');
 const dbCommentsRef = collection(firestore, 'comments');
 
 //* GET METHODS
+export const getAllUsers = async () => {
+	const response = await getDocs(dbProfilesRef);
+	return response;
+};
+
 export const getPosts = async (setPosts, setIsLoading) => {
 	onSnapshot(query(dbPostsRef, orderBy('timeStamp', 'desc')), (response) => {
 		const arrayData = response.docs.map((doc) => {
