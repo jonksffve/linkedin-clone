@@ -7,14 +7,11 @@ import * as helper from '../helpers/config';
 import { useDispatch } from 'react-redux';
 import { userActions } from '../store/user-slice';
 import { createProfile, getUserId, getUserProfile } from '../api/FirestoreAPI';
-import { useAuthState } from '../hooks/use-AuthStatus';
 
 const LoginComponent = () => {
 	const [credentials, setCredentials] = useState({});
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-
-	useAuthState(helper.ROUTE_HOME);
 
 	const googleLoginHandler = async () => {
 		const response = await GoogleSignInAPI();
