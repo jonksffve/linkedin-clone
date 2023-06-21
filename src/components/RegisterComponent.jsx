@@ -7,14 +7,11 @@ import * as helper from '../helpers/config';
 import { useDispatch } from 'react-redux';
 import { userActions } from '../store/user-slice';
 import { createProfile } from '../api/FirestoreAPI';
-import { useAuthState } from '../hooks/use-AuthStatus';
 
 const RegisterComponent = () => {
 	const [credentials, setCredentials] = useState({});
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-
-	useAuthState(helper.ROUTE_HOME, true);
 
 	const googleRegisterHandler = async () => {
 		const response = await GoogleSignInAPI();
