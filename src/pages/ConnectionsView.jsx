@@ -1,4 +1,4 @@
-import ConnectionsComponent from '../components/ConnectionsComponent';
+import ConnectionsComponent from '../components/Connections/ConnectionsComponent';
 import Spinner from '../components/UI/Spinner';
 import { useAuthState } from '../hooks/use-AuthStatus';
 import { useState } from 'react';
