@@ -15,8 +15,6 @@ const Connection = ({ user, currentUserID }) => {
 		createConnection(currentUserID, user.id);
 	};
 
-	console.log(isConnected);
-
 	return (
 		<Card customClass={classes['card-connection']}>
 			<div className={classes.header}>
