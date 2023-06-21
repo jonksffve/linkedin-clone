@@ -60,6 +60,10 @@
 	background-color: var(--main-bg-color-light);
 }
 
+.card-connection button.connected {
+	background-color: var(--main-bg-color-light);
+}
+
 .header {
 	display: flex;
 	gap: 5px;

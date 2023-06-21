@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import { createConnection, getConnections } from '../../api/FirestoreAPI';
 import classes from '../modules/card.module.css';
 import Card from '../UI/Card';
-import { AiOutlineUsergroupAdd } from 'react-icons/ai';
+import {
+	AiOutlineUsergroupAdd,
+	AiOutlineUsergroupDelete,
+} from 'react-icons/ai';
 
 const Connection = ({ user, currentUserID }) => {
 	const [isConnected, setIsConnected] = useState(false);
@@ -34,8 +37,11 @@ const Connection = ({ user, currentUserID }) => {
 				<small>{user.headline}</small>
 			</div>
 			{isConnected ? (
-				<button onClick={connectHandler}>
-					<AiOutlineUsergroupAdd size={24} />
+				<button
+					onClick={connectHandler}
+					className={classes.connected}
+				>
+					<AiOutlineUsergroupDelete size={24} />
 					Disconnect
 				</button>
 			) : (
