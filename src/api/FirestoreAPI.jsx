@@ -17,6 +17,7 @@ import {
 	deleteDoc,
 } from 'firebase/firestore';
 import moment from 'moment/moment';
+import { DEFAULT_BANNER, DEFAULT_PHOTO } from '../helpers/config';
 
 //? REFERENCES TO COLLECTIONS IN FIREBASE
 const dbPostsRef = collection(firestore, 'posts');
@@ -157,8 +158,8 @@ export const createPost = async ({
 export const createProfile = async ({
 	name,
 	email,
-	photo = 'none',
-	banner = 'none',
+	photo = DEFAULT_PHOTO,
+	banner = DEFAULT_BANNER,
 }) => {
 	const profileObj = {
 		name,
