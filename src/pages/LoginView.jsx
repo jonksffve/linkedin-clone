@@ -7,6 +7,7 @@ import { ROUTE_HOME } from '../helpers/config';
 const LoginView = () => {
 	const [loading, setLoading] = useState(true);
 	useAuthState(ROUTE_HOME, setLoading);
+
 	return loading ? <Spinner /> : <LoginComponent />;
 };
 

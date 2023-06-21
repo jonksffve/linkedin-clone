@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useAuthState } from '../hooks/use-AuthStatus';
 import Card from './UI/Card';
 import classes from './modules/profile.module.css';
 import { useSelector } from 'react-redux';
@@ -10,7 +9,6 @@ import { IoReturnDownBackOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 
 const ProfileEditComponent = () => {
-	useAuthState();
 	const navigate = useNavigate();
 	const [formValues, setFormValues] = useState({});
 	const user = useSelector((state) => state.user);

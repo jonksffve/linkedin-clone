@@ -1,5 +1,4 @@
 import classes from './modules/card.module.css';
-import { useAuthState } from '../hooks/use-AuthStatus';
 import Card from './UI/Card';
 import { useSelector } from 'react-redux';
 import { BiEdit } from 'react-icons/bi';
@@ -11,7 +10,6 @@ import { uploadImage } from '../api/StorageAPI';
 import EditModal from './Profile/UploadImageModal';
 
 const UserProfileComponent = () => {
-	useAuthState();
 	const user = useSelector((state) => state.user);
 	const [isModalOpen, setIsModalOpen] = useState({
 		photo: false,
