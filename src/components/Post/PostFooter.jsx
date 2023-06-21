@@ -2,11 +2,21 @@ import classes from '../modules/card.module.css';
 import { AiFillHeart, AiOutlineHeart, AiOutlineComment } from 'react-icons/ai';
 import { BsSend } from 'react-icons/bs';
 import { useState } from 'react';
+import { createComment, likePost } from '../../api/FirestoreAPI';
 
-const PostFooter = ({ likeStatus, commentStatus, onLike, onCreateComment }) => {
+const PostFooter = ({ likeStatus, commentStatus, postID, userID }) => {
 	const [showCommentBox, setShowCommentBox] = useState(false);
 	const [showComments, setShowComments] = useState(false);
 	const [comment, setComment] = useState('');
+
+	const likeHandler = () => {
+		likePost(postID, userID, likeStatus.isLikedByUser);
+	};
+
+	const submitHandler = async () => {
+		await createComment(postID, userID, comment.trimEnd());
+		setComment('');
+	};
 
 	const showCommentHandler = () => {
 		setShowCommentBox(true);
@@ -36,7 +46,7 @@ const PostFooter = ({ likeStatus, commentStatus, onLike, onCreateComment }) => {
 			<div className={classes['btn-footer']}>
 				<div
 					className={classes['btn-item']}
-					onClick={onLike}
+					onClick={likeHandler}
 				>
 					{likeStatus.isLikedByUser ? (
 						<AiFillHeart
@@ -93,9 +103,7 @@ const PostFooter = ({ likeStatus, commentStatus, onLike, onCreateComment }) => {
 					/>
 					<BsSend
 						className={classes['send-icon']}
-						onClick={() => {
-							onCreateComment(comment, setComment);
-						}}
+						onClick={submitHandler}
 					/>
 				</div>
 			)}

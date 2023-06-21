@@ -1,11 +1,6 @@
 import classes from '../modules/card.module.css';
 import { useSelector } from 'react-redux';
-import {
-	createComment,
-	getComments,
-	likePost,
-	getUserProfile,
-} from '../../api/FirestoreAPI';
+import { getComments, getUserProfile } from '../../api/FirestoreAPI';
 import { useMemo, useState } from 'react';
 import { getLikes } from '../../api/FirestoreAPI';
 import PostHeader from './PostHeader';
@@ -31,16 +26,6 @@ const PostComponent = ({ post }) => {
 		await getComments(post.id, setCommentStatus);
 	}, [post.id, user.id, post.userID]);
 
-	const likeHandler = () => {
-		likePost(post.id, user.id, likeStatus.isLikedByUser);
-	};
-
-	const submitHandler = async (comment, setComment) => {
-		console.log(comment);
-		await createComment(post.id, user, comment.trimEnd());
-		setComment('');
-	};
-
 	return (
 		<div className={classes.posts}>
 			<PostHeader
@@ -51,8 +36,8 @@ const PostComponent = ({ post }) => {
 			<PostFooter
 				likeStatus={likeStatus}
 				commentStatus={commentStatus}
-				onLike={likeHandler}
-				onCreateComment={submitHandler}
+				postID={post.id}
+				userID={user.id}
 			/>
 			{/* <PostEditModal /> */}
 		</div>
