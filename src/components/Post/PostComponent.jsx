@@ -1,13 +1,4 @@
 import classes from '../modules/card.module.css';
-import { Link } from 'react-router-dom';
-import {
-	AiOutlineHeart,
-	AiFillHeart,
-	AiOutlineComment,
-	AiOutlineDelete,
-	AiOutlineEdit,
-} from 'react-icons/ai';
-import { BsSend } from 'react-icons/bs';
 import { useSelector } from 'react-redux';
 import {
 	createComment,
@@ -16,21 +7,21 @@ import {
 	getUserProfile,
 } from '../../api/FirestoreAPI';
 import { useMemo, useState } from 'react';
-import { getLikes, updatePostContent } from '../../api/FirestoreAPI';
-import Modal from '../UI/Modal';
+import { getLikes } from '../../api/FirestoreAPI';
+import PostHeader from './PostHeader';
+import PostContent from './PostContent';
+import PostFooter from './PostFooter';
+import PostEditModal from './PostEditModal';
 
 const PostComponent = ({ post }) => {
 	const user = useSelector((state) => state.user);
-	const [showModal, setShowModal] = useState(false);
 	const [likeStatus, setLikeStatus] = useState({ likes: [], likesCount: 0 });
 	const [commentStatus, setCommentStatus] = useState({
 		comments: [],
 		commentCount: 0,
 	});
-	const [showCommentBox, setShowCommentBox] = useState(false);
-	const [showComments, setShowComments] = useState(false);
-	const [comment, setComment] = useState('');
 	const [postUser, setPostUser] = useState({});
+	const [showModal, setShowModal] = useState(false);
 	const [editValue, setEditValue] = useState(post.content);
 	const [formValid, setFormValid] = useState(true);
 
@@ -44,204 +35,26 @@ const PostComponent = ({ post }) => {
 		likePost(post.id, user.id, likeStatus.isLikedByUser);
 	};
 
-	const showCommentHandler = () => {
-		setShowCommentBox(true);
-	};
-
-	const submitHandler = async () => {
+	const submitHandler = async (comment, setComment) => {
+		console.log(comment);
 		await createComment(post.id, user, comment.trimEnd());
 		setComment('');
 	};
 
-	const showCommentsHandler = () => {
-		if (commentStatus.comments.length === 0) return;
-		setShowComments(!showComments);
-	};
-
 	return (
 		<div className={classes.posts}>
-			<Header />
-			<Content />
-			<Footer />
-
-			<div className={classes.header}>
-				<Link to={`/account/${post.userID}`}>
-					<img
-						className={`${classes['profile-img']} ${classes.small}`}
-						src={postUser.photo}
-						alt=''
-					/>
-				</Link>
-				<div className={classes.subheader}>
-					<Link to={`/account/${post.userID}`}>
-						<h3>{postUser.name}</h3>
-					</Link>
-					<small>{postUser.headline ? postUser.headline : ''}</small>
-					<small>{post.timeStamp}</small>
-				</div>
-				<div className={classes['update-btns']}>
-					<AiOutlineEdit
-						size={24}
-						onClick={() => {
-							setShowModal(true);
-						}}
-					/>
-					<AiOutlineDelete size={24} />
-				</div>
-			</div>
-			<div className={classes['comment-content']}>
-				<p>{post.content}</p>
-			</div>
-			<div className={classes['btn-container']}>
-				<div className={classes['btn-header']}>
-					<p className={classes['btn-title']}>
-						{likeStatus.likesCount} people like this post
-					</p>
-					<p
-						className={`${classes['btn-title']} ${classes['comment-link']}`}
-						onClick={showCommentsHandler}
-					>
-						{commentStatus.commentCount} people have commented on
-						this
-					</p>
-				</div>
-				<div>
-					<hr />
-				</div>
-				<div className={classes['btn-footer']}>
-					<div
-						className={classes['btn-item']}
-						onClick={likeHandler}
-					>
-						{likeStatus.isLikedByUser ? (
-							<AiFillHeart
-								className={`${classes['btn-link']} ${classes['btn-liked']}`}
-							/>
-						) : (
-							<AiOutlineHeart className={classes['btn-link']} />
-						)}
-						<p
-							className={`${
-								likeStatus.isLikedByUser
-									? classes.blue
-									: classes.black
-							}
-							`}
-						>
-							Like
-						</p>
-					</div>
-					<div
-						className={classes['btn-item']}
-						onClick={showCommentHandler}
-					>
-						<AiOutlineComment
-							className={`${
-								showCommentBox
-									? `${classes['btn-link']} ${classes['btn-liked']}`
-									: classes['btn-link']
-							}`}
-						/>
-						<p
-							className={`${
-								showCommentBox ? classes.blue : classes.black
-							}
-							`}
-						>
-							Comment
-						</p>
-					</div>
-				</div>
-				{showCommentBox && (
-					<div className={classes['comment-container']}>
-						<input
-							autoComplete='off'
-							className={classes['comment-input']}
-							type='text'
-							name='comment'
-							id='comment'
-							value={comment}
-							placeholder='Add a comment...'
-							onChange={(event) => {
-								setComment(event.target.value.trimStart());
-							}}
-						/>
-						<BsSend
-							className={classes['send-icon']}
-							onClick={submitHandler}
-						/>
-					</div>
-				)}
-				{showComments && (
-					<div className={classes['comments-container']}>
-						{commentStatus.comments.map((comment) => {
-							return (
-								<div
-									key={comment.id}
-									className={classes['comment-item']}
-								>
-									<img
-										className={`${classes['profile-img']} ${classes.small}`}
-										src={comment.user.photo}
-										alt=''
-									/>
-									<div className={classes['comment-body']}>
-										<div
-											className={
-												classes['comment-header']
-											}
-										>
-											<h4>{comment.user.name}</h4>
-											<p>•</p>
-											<small>{comment.timeStamp}</small>
-										</div>
-										<p
-											className={
-												classes['comment-content']
-											}
-										>
-											{comment.comment}
-										</p>
-									</div>
-								</div>
-							);
-						})}
-					</div>
-				)}
-			</div>
-			<Modal
-				title={'Update post'}
-				open={showModal}
-				onCancel={() => {
-					setShowModal(false);
-				}}
-				onOk={() => {
-					updatePostContent(post.id, {
-						content: editValue.trimEnd(),
-					});
-					setShowModal(false);
-				}}
-				valid={formValid}
-				action={'Update'}
-			>
-				<form
-					className={classes.form}
-					onSubmit={(event) => {
-						event.preventDefault();
-					}}
-				>
-					<input
-						type='text'
-						value={editValue}
-						onChange={(event) => {
-							setEditValue(event.target.value.trimStart());
-							setFormValid(
-								event.target.value.trim().length !== 0
-							);
-						}}
-					/>
-				</form>
-			</Modal>
+			<PostHeader
+				post={post}
+				postUser={postUser}
+			/>
+			<PostContent content={post.content} />
+			<PostFooter
+				likeStatus={likeStatus}
+				commentStatus={commentStatus}
+				onLike={likeHandler}
+				onCreateComment={submitHandler}
+			/>
+			{/* <PostEditModal /> */}
 		</div>
 	);
 };
