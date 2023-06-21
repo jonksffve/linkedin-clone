@@ -135,7 +135,6 @@ export const getConnections = async (userID, targetID, setIsConnected) => {
 		query(dbConnectionsRef, where('userID', '==', userID)),
 		(response) => {
 			const arrayData = response.docs.map((doc) => doc.data());
-			console.log(arrayData);
 			setIsConnected(
 				arrayData.some((item) => item.targetID === targetID)
 			);
