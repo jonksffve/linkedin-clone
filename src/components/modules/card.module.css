@@ -16,12 +16,47 @@
 	width: 500px;
 }
 
+.connections {
+	width: 80%;
+}
+
+.card-connection {
+	width: 30%;
+	border: 1px solid var(--gray-bg-color-light);
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.card-connection:hover {
+	box-shadow: 10px 8px 6px -2px rgba(0, 0, 0, 0.36);
+	-webkit-box-shadow: 10px 8px 6px -2px rgba(0, 0, 0, 0.36);
+	-moz-box-shadow: 10px 8px 6px -2px rgba(0, 0, 0, 0.36);
+}
+
+.card-connection button {
+	background-color: transparent;
+	border: 1px solid var(--main-bg-color);
+	border-radius: 20px;
+	line-height: 1.25rem;
+	font-size: 16px;
+	font-weight: bold;
+	color: var(--main-bg-color);
+}
+
+.card-connection button:hover {
+	border: 2px solid var(--main-bg-color);
+	background-color: var(--main-bg-color-light);
+}
+
 .header {
 	display: flex;
 	gap: 5px;
 	align-items: center;
 	margin: 0;
 	padding: 0;
+	position: relative;
 }
 
 .subheader {
@@ -44,6 +79,15 @@
 	width: 40px;
 	height: 40px;
 	object-fit: contain;
+}
+
+.profile-img.medium {
+	width: 80px;
+	height: 80px;
+	position: absolute;
+	object-fit: contain;
+	bottom: -10px;
+	left: 5px;
 }
 
 .profile-img.large {

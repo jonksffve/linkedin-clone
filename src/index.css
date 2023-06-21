@@ -14,8 +14,10 @@
 	-webkit-text-size-adjust: 100%;
 
 	--main-bg-color: #0077b5;
+	--main-bg-color-light: rgba(112, 181, 249, 0.2);
 	--main-bg-color-dark: #015a8a;
 	--gray-bg-color: #c9c9c9;
+	--gray-bg-color-light: #dfdddd;
 	--gray-bg-color-dark: #858585;
 }
 
