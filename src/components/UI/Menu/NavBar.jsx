@@ -47,12 +47,12 @@ const NavBar = () => {
 					<div>
 						<ul className={classes.links}>
 							<li className={classes.link}>
-								<a href='#'>
+								<Link to={''}>
 									<AiOutlineSearch
 										size={30}
 										className={classes.icon}
 									/>
-								</a>
+								</Link>
 							</li>
 							<li className={classes.link}>
 								<Link to={helper.ROUTE_HOME}>
@@ -71,45 +71,45 @@ const NavBar = () => {
 								</Link>
 							</li>
 							<li className={classes.link}>
-								<a href='#'>
+								<Link to={''}>
 									<BsBriefcase
 										size={30}
 										className={classes.icon}
 									/>
-								</a>
+								</Link>
 							</li>
 							<li className={classes.link}>
-								<a href='#'>
+								<Link to={''}>
 									<BsChatDots
 										size={30}
 										className={classes.icon}
 									/>
-								</a>
+								</Link>
 							</li>
 							<li className={classes.link}>
-								<a href='#'>
+								<Link to={''}>
 									<TbGridDots
 										size={30}
 										className={classes.icon}
 									/>
-								</a>
+								</Link>
 							</li>
 
 							<li className={classes.link}>
-								<a href='#'>
+								<Link to={''}>
 									<AiOutlineBell
 										size={30}
 										className={classes.icon}
 									/>
-								</a>
+								</Link>
 							</li>
 							<li className={classes.link}>
-								<a href='#'>
+								<Link to={''}>
 									<ImNewspaper
 										size={30}
 										className={classes.icon}
 									/>
-								</a>
+								</Link>
 							</li>
 						</ul>
 					</div>
