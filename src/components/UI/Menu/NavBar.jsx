@@ -63,12 +63,12 @@ const NavBar = () => {
 								</Link>
 							</li>
 							<li className={classes.link}>
-								<a href='#'>
+								<Link to={helper.ROUTE_CONNECTIONS}>
 									<AiOutlineUserSwitch
 										size={30}
 										className={classes.icon}
 									/>
-								</a>
+								</Link>
 							</li>
 							<li className={classes.link}>
 								<a href='#'>
