@@ -9,6 +9,7 @@ import RegisterView from '../pages/RegisterView';
 import UserProfileView from '../pages/UserProfileView';
 import ProfileEditView from '../pages/ProfileEditView';
 import ProfileView from '../pages/ProfileView';
+import ConnectionsView from '../pages/ConnectionsView';
 
 export const router = createBrowserRouter([
 	{
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
 				path: 'feed',
 				element: <HomeView />,
 			},
+			{ path: 'connections', element: <ConnectionsView /> },
 			{
 				path: 'account',
 				element: <AccountLayout />,
