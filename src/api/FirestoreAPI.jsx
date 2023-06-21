@@ -25,7 +25,7 @@ const dbLikesRef = collection(firestore, 'likes');
 const dbCommentsRef = collection(firestore, 'comments');
 
 //* GET METHODS
-export const getPosts = async (setPosts) => {
+export const getPosts = async (setPosts, setIsLoading) => {
 	onSnapshot(query(dbPostsRef, orderBy('timeStamp', 'desc')), (response) => {
 		const arrayData = response.docs.map((doc) => {
 			const { userID, content, timeStamp } = doc.data();
@@ -37,6 +37,7 @@ export const getPosts = async (setPosts) => {
 			};
 		});
 		setPosts(arrayData);
+		setIsLoading(false);
 	});
 };
 

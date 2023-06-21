@@ -2,8 +2,13 @@ import classes from '../../modules/navbar.module.css';
 import LogoIcon from '../../../assets/icons/linkedin-logo-icon.png';
 import { Link } from 'react-router-dom';
 import * as helper from '../../../helpers/config';
-import { AiOutlineSearch, AiOutlineHome, AiOutlineBell } from 'react-icons/ai';
-import { BsPeople, BsBriefcase, BsChatDots } from 'react-icons/bs';
+import {
+	AiOutlineSearch,
+	AiOutlineHome,
+	AiOutlineBell,
+	AiOutlineUserSwitch,
+} from 'react-icons/ai';
+import { BsBriefcase, BsChatDots } from 'react-icons/bs';
 import { TbGridDots } from 'react-icons/tb';
 import { ImNewspaper } from 'react-icons/im';
 import { LogoutAPI } from '../../../api/AuthAPI';
@@ -59,7 +64,7 @@ const NavBar = () => {
 							</li>
 							<li className={classes.link}>
 								<a href='#'>
-									<BsPeople
+									<AiOutlineUserSwitch
 										size={30}
 										className={classes.icon}
 									/>

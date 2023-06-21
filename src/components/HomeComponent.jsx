@@ -11,8 +11,7 @@ const HomeComponent = () => {
 	const [posts, setPosts] = useState([]);
 
 	useMemo(async () => {
-		await getPosts(setPosts);
-		setIsLoading(false);
+		await getPosts(setPosts, setIsLoading);
 	}, []);
 
 	return (
