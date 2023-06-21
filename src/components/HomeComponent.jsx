@@ -1,12 +1,10 @@
 import classes from './modules/home.module.css';
 import PostFormComponent from './Post/PostFormComponent';
 import PostListComponent from './Post/PostListComponent';
-import { useAuthState } from '../hooks/use-AuthStatus';
 import { useMemo, useState } from 'react';
 import { getPosts } from '../api/FirestoreAPI';
 
 const HomeComponent = () => {
-	useAuthState();
 	const [isLoading, setIsLoading] = useState(true);
 	const [posts, setPosts] = useState([]);
 
