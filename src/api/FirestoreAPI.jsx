@@ -118,7 +118,13 @@ export const getUserId = async (email) => {
 };
 
 //* POST METHODS
-export const createPost = async ({ userID, content }) => {
+export const createPost = async ({
+	userID,
+	content,
+	setInputValue,
+	setIsModalOpen,
+	setIsValid,
+}) => {
 	const objectData = {
 		userID,
 		content,
@@ -127,6 +133,9 @@ export const createPost = async ({ userID, content }) => {
 
 	try {
 		await addDoc(dbPostsRef, objectData);
+		setInputValue('');
+		setIsModalOpen(false);
+		setIsValid(false);
 		toast.success('Post created succesfully.', toastOptions);
 	} catch (error) {
 		console.log(error);

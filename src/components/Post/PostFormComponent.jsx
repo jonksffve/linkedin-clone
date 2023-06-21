@@ -16,9 +16,13 @@ const PostFormComponent = () => {
 	};
 
 	const handleOk = async () => {
-		await createPost({ userID: user.id, content: inputValue.trimEnd() });
-		setInputValue('');
-		setIsModalOpen(false);
+		await createPost({
+			userID: user.id,
+			content: inputValue.trimEnd(),
+			setInputValue,
+			setIsModalOpen,
+			setIsValid,
+		});
 	};
 
 	const handleCancel = () => {
