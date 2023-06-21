@@ -1,8 +1,12 @@
 import classes from '../modules/card.module.css';
 import { Link } from 'react-router-dom';
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
+import PostConfirmDelete from './PostConfirmDelete';
+import { useState } from 'react';
 
-const PostHeader = ({ post, postUser, onShowModal, onShowPopup }) => {
+const PostHeader = ({ post, postUser, onShowModal }) => {
+	const [showConfirmation, setShowConfirmation] = useState(false);
+
 	return (
 		<div className={classes.header}>
 			<Link to={`/account/${post.userID}`}>
@@ -29,8 +33,13 @@ const PostHeader = ({ post, postUser, onShowModal, onShowPopup }) => {
 				<AiOutlineDelete
 					size={24}
 					onClick={() => {
-						onShowPopup(true);
+						setShowConfirmation(true);
 					}}
+				/>
+				<PostConfirmDelete
+					showPopup={showConfirmation}
+					onShowPopup={setShowConfirmation}
+					postID={post.id}
 				/>
 			</div>
 		</div>
