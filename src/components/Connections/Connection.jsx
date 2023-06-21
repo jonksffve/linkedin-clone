@@ -1,5 +1,6 @@
 import classes from '../modules/card.module.css';
 import Card from '../UI/Card';
+import { AiOutlineUsergroupAdd } from 'react-icons/ai';
 
 const Connection = ({ user }) => {
 	return (
@@ -20,7 +21,10 @@ const Connection = ({ user }) => {
 				<h3>{user.name}</h3>
 				<small>{user.headline}</small>
 			</div>
-			<button>Connect</button>
+			<button>
+				<AiOutlineUsergroupAdd size={24} />
+				Connect
+			</button>
 		</Card>
 	);
 };
