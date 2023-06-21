@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux';
 import { auth } from '../firebaseConfig';
 import { userActions } from '../store/user-slice';
 import { useNavigate } from 'react-router';
-import * as helper from '../helpers/config';
+import { ROUTE_LOGIN } from '../helpers/config';
 import { getUserId, getUserProfile } from '../api/FirestoreAPI';
 
-export const useAuthState = (route = null, register = false) => {
+export const useAuthState = (route = null, setLoading) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -21,9 +21,9 @@ export const useAuthState = (route = null, register = false) => {
 					navigate(route);
 				}
 			} else {
-				if (register) return;
-				navigate(helper.ROUTE_LOGIN);
+				navigate(ROUTE_LOGIN);
 			}
+			setLoading(false);
 		});
-	}, [route, dispatch, navigate]);
+	}, [route, dispatch, navigate, setLoading]);
 };
