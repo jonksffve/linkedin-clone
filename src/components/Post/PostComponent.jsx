@@ -7,6 +7,7 @@ import PostHeader from './PostHeader';
 import PostContent from './PostContent';
 import PostFooter from './PostFooter';
 import PostEditModal from './PostEditModal';
+import PostConfirmDelete from './PostConfirmDelete';
 
 const PostComponent = ({ post }) => {
 	const user = useSelector((state) => state.user);
@@ -17,6 +18,7 @@ const PostComponent = ({ post }) => {
 	});
 	const [postUser, setPostUser] = useState({});
 	const [showModal, setShowModal] = useState(false);
+	const [showConfirmation, setShowConfirmation] = useState(false);
 
 	useMemo(async () => {
 		await getUserProfile(post.userID, setPostUser);
@@ -30,6 +32,7 @@ const PostComponent = ({ post }) => {
 				post={post}
 				postUser={postUser}
 				onShowModal={setShowModal}
+				onShowPopup={setShowConfirmation}
 			/>
 			<PostContent content={post.content} />
 			<PostFooter
@@ -42,6 +45,11 @@ const PostComponent = ({ post }) => {
 				post={post}
 				showModal={showModal}
 				onShowModal={setShowModal}
+			/>
+			<PostConfirmDelete
+				showPopup={showConfirmation}
+				onShowPopup={setShowConfirmation}
+				postID={post.id}
 			/>
 		</div>
 	);

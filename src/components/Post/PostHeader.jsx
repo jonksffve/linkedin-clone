@@ -2,7 +2,7 @@ import classes from '../modules/card.module.css';
 import { Link } from 'react-router-dom';
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 
-const PostHeader = ({ post, postUser, onShowModal }) => {
+const PostHeader = ({ post, postUser, onShowModal, onShowPopup }) => {
 	return (
 		<div className={classes.header}>
 			<Link to={`/account/${post.userID}`}>
@@ -26,7 +26,12 @@ const PostHeader = ({ post, postUser, onShowModal }) => {
 						onShowModal(true);
 					}}
 				/>
-				<AiOutlineDelete size={24} />
+				<AiOutlineDelete
+					size={24}
+					onClick={() => {
+						onShowPopup(true);
+					}}
+				/>
 			</div>
 		</div>
 	);
