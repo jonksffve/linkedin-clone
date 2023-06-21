@@ -130,6 +130,19 @@ export const getUserId = async (email) => {
 	}
 };
 
+export const getConnections = async (userID, targetID, setIsConnected) => {
+	onSnapshot(
+		query(dbConnectionsRef, where('userID', '==', userID)),
+		(response) => {
+			const arrayData = response.docs.map((doc) => doc.data());
+			console.log(arrayData);
+			setIsConnected(
+				arrayData.some((item) => item.targetID === targetID)
+			);
+		}
+	);
+};
+
 //* POST METHODS
 export const createPost = async ({
 	userID,
@@ -213,6 +226,7 @@ export const createConnection = async (userID, targetID) => {
 			targetID,
 		});
 	} catch (error) {
+		console.log(error);
 		toast.error(
 			'Something happened, could not connect to user.',
 			toastOptions

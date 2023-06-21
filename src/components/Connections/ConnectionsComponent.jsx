@@ -20,11 +20,12 @@ const ConnectionsComponent = () => {
 			<div className={classes['connections-wrapper']}>
 				{users
 					.filter((item) => item.id !== user.id)
-					.map((user) => {
+					.map((item) => {
 						return (
 							<Connection
-								key={user.id}
-								user={user}
+								key={item.id}
+								user={item}
+								currentUserID={user.id}
 							/>
 						);
 					})}
