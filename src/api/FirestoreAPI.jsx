@@ -218,22 +218,6 @@ export const createComment = async (postID, userID, comment) => {
 	}
 };
 
-export const createConnection = async (userID, targetID) => {
-	try {
-		const compoundID = `${userID}_${targetID}`;
-		await setDoc(doc(dbConnectionsRef, compoundID), {
-			userID,
-			targetID,
-		});
-	} catch (error) {
-		console.log(error);
-		toast.error(
-			'Something happened, could not connect to user.',
-			toastOptions
-		);
-	}
-};
-
 //* PATCH METHODS
 export const updateUserInformation = async (userID, objectData) => {
 	try {
@@ -285,5 +269,24 @@ export const likePost = async (postID, userID, isLiked) => {
 		}
 	} catch (error) {
 		toast.error('Something happened, could not like post.', toastOptions);
+	}
+};
+
+export const createConnection = async (userID, targetID, isConnected) => {
+	try {
+		const connectionRef = doc(dbConnectionsRef, `${userID}_${targetID}`);
+		if (isConnected) {
+			await deleteDoc(connectionRef);
+		} else {
+			await setDoc(connectionRef, {
+				userID,
+				targetID,
+			});
+		}
+	} catch (error) {
+		toast.error(
+			'Something happened, could not connect to user.',
+			toastOptions
+		);
 	}
 };

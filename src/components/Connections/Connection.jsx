@@ -12,7 +12,7 @@ const Connection = ({ user, currentUserID }) => {
 	}, [currentUserID, user]);
 
 	const connectHandler = () => {
-		createConnection(currentUserID, user.id);
+		createConnection(currentUserID, user.id, isConnected);
 	};
 
 	return (
