@@ -211,10 +211,12 @@ export const updatePostContent = async (postID, objectContent) => {
 };
 
 //* DELETE METHODS
-export const deletePost = async (postID) => {
+export const deletePost = async (postID, setConfirmLoading, onShowPopup) => {
 	try {
 		const postRef = doc(dbPostsRef, postID);
 		await deleteDoc(postRef);
+		setConfirmLoading(false);
+		onShowPopup(false);
 		toast.success('Post deleted succesfully.', toastOptions);
 	} catch (error) {
 		toast.error('Something happened, could not delete post.', toastOptions);

@@ -6,11 +6,9 @@ import { deletePost } from '../../api/FirestoreAPI';
 const PostConfirmDelete = ({ showPopup, onShowPopup, postID }) => {
 	const [confirmLoading, setConfirmLoading] = useState(false);
 
-	const handleOk = async () => {
+	const handleOk = () => {
 		setConfirmLoading(true);
-		await deletePost(postID);
-		onShowPopup(false);
-		setConfirmLoading(false);
+		deletePost(postID, setConfirmLoading, onShowPopup);
 	};
 
 	const handleCancel = () => {
