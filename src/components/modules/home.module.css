@@ -53,3 +53,18 @@
 	border: none;
 	outline: none;
 }
+
+.form-icons {
+	position: absolute;
+	bottom: 15px;
+}
+
+.form-icons svg {
+	cursor: pointer;
+	padding: 5px;
+	border-radius: 50%;
+}
+
+.form-icons svg:hover {
+	background-color: var(--gray-bg-color-light);
+}
