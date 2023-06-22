@@ -6,7 +6,7 @@ import { BsFillCameraFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { ROUTE_EDIT } from '../helpers/config';
 import { useState } from 'react';
-import { uploadImage } from '../api/StorageAPI';
+import { uploadUserImage } from '../api/StorageAPI';
 import EditModal from './Profile/UploadImageModal';
 
 const UserProfileComponent = () => {
@@ -24,7 +24,7 @@ const UserProfileComponent = () => {
 	const [currentImgs, setCurrentImgs] = useState({});
 
 	const handleOk = (type) => {
-		uploadImage(
+		uploadUserImage(
 			user.id,
 			fileInput,
 			type,
