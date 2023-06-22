@@ -28,8 +28,6 @@ const MenuSearch = ({ onClose }) => {
 		getAllUsers(setUserList);
 	}, []);
 
-	console.log(userList, filteredUsers, searchInput);
-
 	return (
 		<div className={classes['search-wrapper']}>
 			<form className={classes['search-form']}>
