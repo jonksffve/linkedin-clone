@@ -48,6 +48,10 @@
 	text-decoration: none;
 }
 
+.link svg {
+	cursor: pointer;
+}
+
 .icon {
 	color: #787878;
 }
@@ -68,4 +72,32 @@
 
 .btn:hover {
 	border: 1px solid var(--main-bg-color-dark);
+}
+
+.search-form {
+	width: 50%;
+	margin-left: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+.search-form input {
+	width: 100%;
+	padding: 10px;
+	border: var(--gray-bg-color-light);
+	color: var(--gray-bg-color-light);
+	border-radius: 10px;
+}
+
+.search-form input:focus {
+	outline: none;
+	border: 2px solid var(--main-bg-color);
+}
+
+.search-form svg {
+	position: absolute;
+	right: 10px;
+	cursor: pointer;
 }
