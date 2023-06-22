@@ -7,7 +7,7 @@ import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../../../store/user-slice';
 import MenuLinks from './MenuLinks';
-import Popover from '../Popover';
+import Popover from './SubMenuPopover';
 import SubMenuLinks from './SubMenuLinks';
 
 const NavBar = () => {

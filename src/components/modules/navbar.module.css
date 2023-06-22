@@ -106,19 +106,6 @@
 	cursor: pointer;
 }
 
-.search-popmenu {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	position: absolute;
-	top: 50px;
-	width: calc(100% - 20px);
-	background-color: aliceblue;
-	padding: 10px;
-	margin: 0 !important;
-}
-
 .submenu-item {
 	cursor: pointer;
 	display: flex;
@@ -147,4 +134,16 @@
 	gap: 20px;
 	width: 200px;
 	padding: 5px;
+}
+
+.search-popover {
+	position: relative;
+	width: 300px;
+}
+
+.search-popover svg {
+	position: absolute;
+	top: -25px;
+	right: 0px;
+	cursor: pointer;
 }

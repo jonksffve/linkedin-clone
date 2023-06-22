@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import classes from '../../modules/navbar.module.css';
 import { AiOutlineClose } from 'react-icons/ai';
 import { getAllUsers } from '../../../api/FirestoreAPI';
+import SearchPopover from './SearchPopover';
 
 const MenuSearch = ({ onClose }) => {
 	const [userList, setUserList] = useState([]);
@@ -38,6 +39,9 @@ const MenuSearch = ({ onClose }) => {
 					id='search'
 					placeholder='Search an user'
 					value={searchInput}
+					onFocus={(event) => {
+						setIsValid(event.target.value.trim().length > 0);
+					}}
 					onChange={(event) => {
 						setSearchInput(event.target.value.trimStart());
 						setIsValid(event.target.value.trim().length > 0);
@@ -51,20 +55,26 @@ const MenuSearch = ({ onClose }) => {
 				/>
 			</form>
 			{isValid && (
-				<div className={classes['search-popmenu']}>
-					{filteredUsers.map((user) => {
-						return (
-							<div key={user.id}>
-								<img
-									className={classes['profile-img']}
-									src={user.photo}
-									alt=''
-								/>
-								<h3>{user.name}</h3>
-							</div>
-						);
-					})}
-				</div>
+				// <div className={classes['search-popmenu']}>
+				// 	{filteredUsers.map((user) => {
+				// 		return (
+				// 			<div key={user.id}>
+				// 				<img
+				// 					className={classes['profile-img']}
+				// 					src={user.photo}
+				// 					alt=''
+				// 				/>
+				// 				<h3>{user.name}</h3>
+				// 			</div>
+				// 		);
+				// 	})}
+				// </div>
+				<SearchPopover
+					onClose={setIsValid}
+					open={isValid}
+					title='Search results'
+					users={filteredUsers}
+				/>
 			)}
 		</div>
 	);

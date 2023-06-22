@@ -1,5 +1,5 @@
 import { Popover } from 'antd';
-import classes from '../modules/navbar.module.css';
+import classes from '../../modules/navbar.module.css';
 
 const PopoverWrapper = ({ title, children, user, placement }) => {
 	const content = <div className={classes.popover}>{children}</div>;
