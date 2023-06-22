@@ -7,16 +7,11 @@ import { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../../../store/user-slice';
 import MenuLinks from './MenuLinks';
-import MenuPopup from './MenuCard';
+import Popover from '../Popover';
 
 const NavBar = () => {
 	const user = useSelector((state) => state.user);
-	const [showPopupMenu, setshowPopupMenu] = useState(false);
 	const dispatch = useDispatch();
-
-	const menuHandler = () => {
-		setshowPopupMenu(!showPopupMenu);
-	};
 
 	const logoutHandler = async () => {
 		await LogoutAPI();
@@ -37,17 +32,7 @@ const NavBar = () => {
 			{user.email && (
 				<Fragment>
 					<MenuLinks />
-					<div className={classes.menuCard}>
-						<img
-							onClick={menuHandler}
-							className={classes['profile-img']}
-							src={user.photo}
-							alt=''
-						/>
-						{showPopupMenu && (
-							<MenuPopup onLogout={logoutHandler} />
-						)}
-					</div>
+					<Popover user={user}></Popover>
 				</Fragment>
 			)}
 
