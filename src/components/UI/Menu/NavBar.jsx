@@ -3,11 +3,12 @@ import LogoIcon from '../../../assets/icons/linkedin-logo-icon.png';
 import { Link } from 'react-router-dom';
 import * as helper from '../../../helpers/config';
 import { LogoutAPI } from '../../../api/AuthAPI';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../../../store/user-slice';
 import MenuLinks from './MenuLinks';
 import Popover from '../Popover';
+import SubMenuLinks from './SubMenuLinks';
 
 const NavBar = () => {
 	const user = useSelector((state) => state.user);
@@ -20,19 +21,25 @@ const NavBar = () => {
 
 	return (
 		<nav className={classes.navigation}>
-			<div>
-				<Link to={helper.ROUTE_ROOT}>
-					<img
-						className={classes.logo}
-						src={LogoIcon}
-						alt=''
-					/>
-				</Link>
-			</div>
+			<Link to={helper.ROUTE_ROOT}>
+				<img
+					className={classes.logo}
+					src={LogoIcon}
+					alt=''
+				/>
+			</Link>
 			{user.email && (
 				<Fragment>
 					<MenuLinks />
-					<Popover user={user}></Popover>
+					<Popover
+						user={user}
+						placement='topRight'
+					>
+						<SubMenuLinks
+							onLogout={logoutHandler}
+							user={user}
+						/>
+					</Popover>
 				</Fragment>
 			)}
 
