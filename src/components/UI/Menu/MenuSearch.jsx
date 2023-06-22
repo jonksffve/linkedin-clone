@@ -9,6 +9,7 @@ const MenuSearch = ({ onClose }) => {
 	const [filteredUsers, setFilteredUsers] = useState([]);
 	const [searchInput, setSearchInput] = useState('');
 	const [isValid, setIsValid] = useState(false);
+	const [searching, setSearching] = useState(true);
 
 	useEffect(() => {
 		const delayDebounceFn = setTimeout(() => {
@@ -20,9 +21,13 @@ const MenuSearch = ({ onClose }) => {
 				);
 				setFilteredUsers(newData);
 			}
-		}, 1500);
+			setSearching(false);
+		}, 1000);
 
-		return () => clearTimeout(delayDebounceFn);
+		return () => {
+			setSearching(true);
+			clearTimeout(delayDebounceFn);
+		};
 	}, [searchInput, userList.length, userList]);
 
 	useEffect(() => {
@@ -55,25 +60,12 @@ const MenuSearch = ({ onClose }) => {
 				/>
 			</form>
 			{isValid && (
-				// <div className={classes['search-popmenu']}>
-				// 	{filteredUsers.map((user) => {
-				// 		return (
-				// 			<div key={user.id}>
-				// 				<img
-				// 					className={classes['profile-img']}
-				// 					src={user.photo}
-				// 					alt=''
-				// 				/>
-				// 				<h3>{user.name}</h3>
-				// 			</div>
-				// 		);
-				// 	})}
-				// </div>
 				<SearchPopover
 					onClose={setIsValid}
 					open={isValid}
 					title='Search results'
 					users={filteredUsers}
+					searching={searching}
 				/>
 			)}
 		</div>
