@@ -2,7 +2,7 @@ import { storage } from '../firebaseConfig';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { updateUserInformation } from './FirestoreAPI';
 
-export const uploadImage = (
+export const uploadUserImage = (
 	userID,
 	file,
 	type,
@@ -11,7 +11,7 @@ export const uploadImage = (
 	setCurrentImgs,
 	setFileInput
 ) => {
-	const storageRef = ref(storage, `images/${file.name}`);
+	const storageRef = ref(storage, `users/imgs/${file.name}`);
 	const uploadTask = uploadBytesResumable(storageRef, file);
 
 	uploadTask.on(
@@ -40,6 +40,34 @@ export const uploadImage = (
 					...userObj,
 				};
 			});
+		}
+	);
+};
+
+export const uploadPostImage = (file, setUploadProgress, setFileInput) => {
+	const storageRef = ref(storage, `posts/imgs/${file.name}`);
+	const uploadTask = uploadBytesResumable(storageRef, file);
+
+	uploadTask.on(
+		'state_changed',
+		(snapshot) => {
+			const progress = Math.round(
+				(snapshot.bytesTransferred / snapshot.totalBytes) * 100
+			);
+			setUploadProgress(progress);
+		},
+		(error) => {
+			console.error(error);
+		},
+		async () => {
+			const imgURL = await getDownloadURL(uploadTask.snapshot.ref);
+			const postObj = {
+				image: imgURL,
+			};
+			await updatePostInformation(postID, postObj);
+			setFileInput({});
+			setUploadProgress(0);
+			setIsModalOpen(false);
 		}
 	);
 };
