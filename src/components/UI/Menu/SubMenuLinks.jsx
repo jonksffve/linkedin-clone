@@ -7,7 +7,7 @@ const SubMenuLinks = ({ user, onLogout }) => {
 	return (
 		<div className={classes['submenu-container']}>
 			<Link
-				to={ROUTE_PROFILE}
+				to={`${ROUTE_PROFILE}/${user.id}`}
 				className={classes['submenu-item']}
 			>
 				<img
