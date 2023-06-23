@@ -59,6 +59,11 @@
 	bottom: 15px;
 }
 
+.form-icon {
+	display: flex;
+	align-items: center;
+}
+
 .form-icons svg {
 	cursor: pointer;
 	padding: 5px;
