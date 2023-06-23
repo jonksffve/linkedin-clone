@@ -10,7 +10,6 @@ const PostListComponent = ({ isLoading, posts }) => {
 			{isLoading && <Spinner />}
 			{!isLoading && (
 				<div>
-					<h2>List of posts</h2>
 					<div className={classes['list-container']}>
 						{posts.map((post) => (
 							<Card key={post.id}>
