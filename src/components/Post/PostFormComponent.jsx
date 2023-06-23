@@ -1,28 +1,42 @@
 import classes from '../modules/home.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from '../UI/Modal';
 import Card from '../UI/Card';
 import { useSelector } from 'react-redux';
-import { createPost } from '../../api/FirestoreAPI';
+import { createPost, updatePostContent } from '../../api/FirestoreAPI';
+import { AiOutlinePicture } from 'react-icons/ai';
+import { uploadPostImage } from '../../api/StorageAPI';
+import { Progress } from 'antd';
 
 const PostFormComponent = () => {
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [inputValue, setInputValue] = useState('');
-	const [isValid, setIsValid] = useState(false);
 	const user = useSelector((state) => state.user);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isValid, setIsValid] = useState(false);
+	const [uploadProgress, setUploadProgress] = useState(0);
+	const [postContent, setPostContent] = useState('');
+	const [postImageURL, setPostImageURL] = useState('');
 
 	const showModal = () => {
 		setIsModalOpen(true);
 	};
 
 	const handleOk = async () => {
-		await createPost({
+		if (postContent.trim() === '' && postImageURL.name === '') return;
+
+		const postID = await createPost({
 			userID: user.id,
-			content: inputValue.trimEnd(),
-			setInputValue,
-			setIsModalOpen,
-			setIsValid,
+			content: postContent.trimEnd(),
+			setPostContent,
 		});
+
+		uploadPostImage(
+			postID,
+			postImageURL,
+			setUploadProgress,
+			setPostImageURL,
+			setIsValid,
+			setIsModalOpen
+		);
 	};
 
 	const handleCancel = () => {
@@ -59,12 +73,39 @@ const PostFormComponent = () => {
 						name='content'
 						id='content'
 						placeholder='What do you want to talk about?'
-						value={inputValue}
+						value={postContent}
 						onChange={(event) => {
 							setIsValid(event.target.value.trim().length !== 0);
-							setInputValue(event.target.value.trimStart());
+							setPostContent(event.target.value.trimStart());
 						}}
 					/>
+					<div className={classes['form-icons']}>
+						<div className={classes['form-icon']}>
+							<label htmlFor='image'>
+								<AiOutlinePicture size={24} />
+							</label>
+							{uploadProgress !== 0 && (
+								<Progress
+									type='circle'
+									percent={uploadProgress}
+									size={30}
+									showInfo={false}
+								/>
+							)}
+							<input
+								onChange={(event) => {
+									setIsValid(
+										event.target.files[0].name !== ''
+									);
+									setPostImageURL(event.target.files[0]);
+								}}
+								type='file'
+								name='image'
+								id='image'
+								hidden
+							/>
+						</div>
+					</div>
 				</form>
 			</Modal>
 		</Card>

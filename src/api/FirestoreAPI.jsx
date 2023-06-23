@@ -18,6 +18,7 @@ import {
 } from 'firebase/firestore';
 import moment from 'moment/moment';
 import { DEFAULT_BANNER, DEFAULT_PHOTO } from '../helpers/config';
+import { uploadPostImage } from './StorageAPI';
 
 //? REFERENCES TO COLLECTIONS IN FIREBASE
 const dbPostsRef = collection(firestore, 'posts');
@@ -143,13 +144,7 @@ export const getConnections = async (userID, targetID, setIsConnected) => {
 };
 
 //* POST METHODS
-export const createPost = async ({
-	userID,
-	content,
-	setInputValue,
-	setIsModalOpen,
-	setIsValid,
-}) => {
+export const createPost = async ({ userID, content, setPostContent }) => {
 	const objectData = {
 		userID,
 		content,
@@ -157,11 +152,10 @@ export const createPost = async ({
 	};
 
 	try {
-		await addDoc(dbPostsRef, objectData);
-		setInputValue('');
-		setIsModalOpen(false);
-		setIsValid(false);
+		const postRef = await addDoc(dbPostsRef, objectData);
 		toast.success('Post created succesfully.', toastOptions);
+		setPostContent('');
+		return postRef.id;
 	} catch (error) {
 		console.log(error);
 		toast.error('Something happened, could not create post.', toastOptions);
@@ -237,6 +231,7 @@ export const updatePostContent = async (postID, objectContent) => {
 		await updateDoc(postRef, objectContent);
 		toast.success('Post content updated succesfully.', toastOptions);
 	} catch (error) {
+		console.log(error);
 		toast.error(
 			'Something happened, could not update post content.',
 			toastOptions

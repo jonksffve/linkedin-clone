@@ -1,6 +1,6 @@
 import { storage } from '../firebaseConfig';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
-import { updateUserInformation } from './FirestoreAPI';
+import { updatePostContent, updateUserInformation } from './FirestoreAPI';
 
 export const uploadUserImage = (
 	userID,
@@ -25,28 +25,42 @@ export const uploadUserImage = (
 		(error) => {
 			console.error(error);
 		},
-		async () => {
-			const imgURL = await getDownloadURL(uploadTask.snapshot.ref);
-			const userObj = {
-				[type]: imgURL,
-			};
-			await updateUserInformation(userID, userObj);
-			setFileInput({});
-			setUploadProgress(0);
-			setIsModalOpen(false);
-			setCurrentImgs((prevState) => {
-				return {
-					...prevState,
-					...userObj,
+		() => {
+			getDownloadURL(uploadTask.snapshot.ref).then(async (imgURL) => {
+				const userObj = {
+					[type]: imgURL,
 				};
+				await updateUserInformation(userID, userObj);
+				setFileInput({});
+				setUploadProgress(0);
+				setIsModalOpen(false);
+				setCurrentImgs((prevState) => {
+					return {
+						...prevState,
+						...userObj,
+					};
+				});
 			});
 		}
 	);
 };
 
-export const uploadPostImage = (file, setUploadProgress, setFileInput) => {
+export const uploadPostImage = (
+	postID,
+	file,
+	setUploadProgress,
+	setPostImage,
+	setIsValid,
+	setIsModalOpen
+) => {
 	const storageRef = ref(storage, `posts/imgs/${file.name}`);
 	const uploadTask = uploadBytesResumable(storageRef, file);
+
+	if (!file) {
+		setIsValid(false);
+		setIsModalOpen(false);
+		return;
+	}
 
 	uploadTask.on(
 		'state_changed',
@@ -59,15 +73,19 @@ export const uploadPostImage = (file, setUploadProgress, setFileInput) => {
 		(error) => {
 			console.error(error);
 		},
-		async () => {
-			const imgURL = await getDownloadURL(uploadTask.snapshot.ref);
-			const postObj = {
-				image: imgURL,
-			};
-			await updatePostInformation(postID, postObj);
-			setFileInput({});
-			setUploadProgress(0);
-			setIsModalOpen(false);
+		() => {
+			getDownloadURL(uploadTask.snapshot.ref).then(
+				async (downloadURL) => {
+					const postObj = {
+						image: downloadURL,
+					};
+					await updatePostContent(postID, postObj);
+					setPostImage('');
+					setUploadProgress(0);
+					setIsValid(false);
+					setIsModalOpen(false);
+				}
+			);
 		}
 	);
 };
