@@ -42,9 +42,10 @@ export const getAllUsers = async (setUsers) => {
 export const getPosts = async (setPosts, setIsLoading) => {
 	onSnapshot(query(dbPostsRef, orderBy('timeStamp', 'desc')), (response) => {
 		const arrayData = response.docs.map((doc) => {
-			const { userID, content, timeStamp } = doc.data();
+			const { userID, content, timeStamp, image } = doc.data();
 			return {
 				id: doc.id,
+				image,
 				userID,
 				content,
 				timeStamp: moment(timeStamp.toDate()).format('lll'),
