@@ -1,43 +1,56 @@
-import classes from '../modules/card.module.css';
 import { useState } from 'react';
 import Modal from '../UI/Modal';
+import { uploadPostImage } from '../../api/StorageAPI';
+import FormComponent from './FormComponent';
 import { updatePostContent } from '../../api/FirestoreAPI';
 
 const PostEditModal = ({ post, showModal, onShowModal }) => {
 	const [editValue, setEditValue] = useState(post.content);
 	const [formValid, setFormValid] = useState(true);
+	const [uploadProgress, setUploadProgress] = useState(0);
+	const [postImageURL, setPostImageURL] = useState('');
+
+	const resetState = () => {
+		onShowModal(false);
+		setEditValue(post.content);
+		setFormValid(true);
+		uploadProgress(0);
+		postImageURL('');
+	};
 
 	return (
 		<Modal
 			title={'Update post'}
 			open={showModal}
 			onCancel={() => {
-				onShowModal(false);
+				resetState();
 			}}
-			onOk={() => {
-				updatePostContent(post.id, {
+			onOk={async () => {
+				if (editValue.trim() === '' && postImageURL.name === '') return;
+
+				await updatePostContent(post.id, {
 					content: editValue.trimEnd(),
 				});
-				onShowModal(false);
+
+				uploadPostImage(
+					post.id,
+					postImageURL,
+					setUploadProgress,
+					setPostImageURL,
+					setFormValid,
+					onShowModal
+				);
 			}}
 			valid={formValid}
 			action={'Update'}
 		>
-			<form
-				className={classes.form}
-				onSubmit={(event) => {
-					event.preventDefault();
-				}}
-			>
-				<input
-					type='text'
-					value={editValue}
-					onChange={(event) => {
-						setEditValue(event.target.value.trimStart());
-						setFormValid(event.target.value.trim().length !== 0);
-					}}
-				/>
-			</form>
+			<FormComponent
+				uploadProgress={uploadProgress}
+				postContent={editValue}
+				setIsValid={setFormValid}
+				setPostContent={setEditValue}
+				setPostImageURL={setPostImageURL}
+			/>
 		</Modal>
 	);
 };
