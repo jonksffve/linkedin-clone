@@ -10,7 +10,10 @@ import PostEditModal from './PostEditModal';
 
 const PostComponent = ({ post }) => {
 	const user = useSelector((state) => state.user);
-	const [likeStatus, setLikeStatus] = useState({ likes: [], likesCount: 0 });
+	const [likeStatus, setLikeStatus] = useState({
+		isLikedByUser: false,
+		likesCount: 0,
+	});
 	const [commentStatus, setCommentStatus] = useState({
 		comments: [],
 		commentCount: 0,
