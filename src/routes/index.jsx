@@ -1,15 +1,14 @@
 import { createBrowserRouter } from 'react-router-dom';
 import MainLayout from './layouts/base';
 import AccountLayout from './layouts/account';
-
 import IndexView from '../pages/IndexView';
 import HomeView from '../pages/HomeView';
 import LoginView from '../pages/LoginView';
 import RegisterView from '../pages/RegisterView';
 import UserProfileView from '../pages/UserProfileView';
 import ProfileEditView from '../pages/ProfileEditView';
-import ProfileView from '../pages/ProfileView';
 import ConnectionsView from '../pages/ConnectionsView';
+import AccountView from '../pages/AccountView';
 
 export const router = createBrowserRouter([
 	{
@@ -24,18 +23,21 @@ export const router = createBrowserRouter([
 				path: 'feed',
 				element: <HomeView />,
 			},
-			{ path: 'connections', element: <ConnectionsView /> },
+			{
+				path: 'connections',
+				element: <ConnectionsView />,
+			},
 			{
 				path: 'account',
 				element: <AccountLayout />,
 				children: [
 					{
 						index: true,
-						element: <UserProfileView />,
+						element: <AccountView />,
 					},
 					{
 						path: ':id',
-						element: <ProfileView />,
+						element: <UserProfileView />,
 					},
 					{
 						path: 'edit',
