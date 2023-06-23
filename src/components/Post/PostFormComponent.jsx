@@ -1,12 +1,11 @@
 import classes from '../modules/home.module.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Modal from '../UI/Modal';
 import Card from '../UI/Card';
 import { useSelector } from 'react-redux';
-import { createPost, updatePostContent } from '../../api/FirestoreAPI';
-import { AiOutlinePicture } from 'react-icons/ai';
+import { createPost } from '../../api/FirestoreAPI';
 import { uploadPostImage } from '../../api/StorageAPI';
-import { Progress } from 'antd';
+import FormComponent from './FormComponent';
 
 const PostFormComponent = () => {
 	const user = useSelector((state) => state.user);
@@ -66,47 +65,13 @@ const PostFormComponent = () => {
 				valid={isValid}
 				action='Post'
 			>
-				<form autoComplete='off'>
-					<input
-						className={classes['form-input']}
-						type='text'
-						name='content'
-						id='content'
-						placeholder='What do you want to talk about?'
-						value={postContent}
-						onChange={(event) => {
-							setIsValid(event.target.value.trim().length !== 0);
-							setPostContent(event.target.value.trimStart());
-						}}
-					/>
-					<div className={classes['form-icons']}>
-						<div className={classes['form-icon']}>
-							<label htmlFor='image'>
-								<AiOutlinePicture size={24} />
-							</label>
-							{uploadProgress !== 0 && (
-								<Progress
-									type='circle'
-									percent={uploadProgress}
-									size={30}
-									showInfo={false}
-								/>
-							)}
-							<input
-								onChange={(event) => {
-									setIsValid(
-										event.target.files[0].name !== ''
-									);
-									setPostImageURL(event.target.files[0]);
-								}}
-								type='file'
-								name='image'
-								id='image'
-								hidden
-							/>
-						</div>
-					</div>
-				</form>
+				<FormComponent
+					uploadProgress={uploadProgress}
+					postContent={postContent}
+					setIsValid={setIsValid}
+					setPostContent={setPostContent}
+					setPostImageURL={setPostImageURL}
+				/>
 			</Modal>
 		</Card>
 	);
