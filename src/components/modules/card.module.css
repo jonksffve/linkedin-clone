@@ -16,6 +16,12 @@
 	width: 500px;
 }
 
+.post-img {
+	height: 450px;
+	width: 100%;
+	object-fit: contain;
+}
+
 .connections {
 	width: 80%;
 	display: flex;

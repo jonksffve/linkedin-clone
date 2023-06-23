@@ -31,7 +31,10 @@ const PostComponent = ({ post }) => {
 				postUser={postUser}
 				onShowModal={setShowModal}
 			/>
-			<PostContent content={post.content} />
+			<PostContent
+				content={post.content}
+				image={post.image}
+			/>
 			<PostFooter
 				likeStatus={likeStatus}
 				commentStatus={commentStatus}
