@@ -14,8 +14,7 @@ const PostFooter = ({ likeStatus, commentStatus, postID, userID }) => {
 	};
 
 	const submitHandler = async () => {
-		await createComment(postID, userID, comment.trimEnd());
-		setComment('');
+		await createComment(postID, userID, comment.trimEnd(), setComment);
 	};
 
 	const showCommentHandler = () => {

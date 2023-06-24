@@ -30,7 +30,8 @@ const ProfileHeader = ({ user, editable }) => {
 			setUploadProgress,
 			setIsModalOpen,
 			setCurrentImgs,
-			setFileInput
+			setFileInput,
+			setIsValid
 		);
 	};
 
