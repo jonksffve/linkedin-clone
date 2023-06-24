@@ -4,10 +4,18 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+/**
+ * Main configuration to our backend provided by firebase.
+ * Returns the different applications we are using in our project
+ *
+ *
+ * @see https://firebase.google.com/docs/web/setup#available-libraries
+ * @return {app} Main firebase APP that connects to the rest of services.
+ * @return {auth} Authentication services for our project
+ * @return {firestore} Database services for our project
+ * @return {storage} File upload service for our project
+ */
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
 	apiKey: 'AIzaSyD1T9QDlrKMLbuFOgcbzWiwjlqAmflxxZU',
 	authDomain: 'linkedin-clone-cb242.firebaseapp.com',
@@ -17,13 +25,9 @@ const firebaseConfig = {
 	appId: '1:740753669522:web:32c91dc92145e2c939554b',
 };
 
-//Initialize Firebase
 const app = initializeApp(firebaseConfig);
-//authentication helper
 const auth = getAuth(app);
-//database connection helper
 const firestore = getFirestore(app);
-//storage helper
 const storage = getStorage(app);
 
 export { app, auth, firestore, storage };
